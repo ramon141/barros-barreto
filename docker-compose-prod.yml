@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  web-prod:
+    image: hopital-barros-barreto-web:prod
+    container_name: hopital-barros-barreto-web-prod
+    build:
+      context: .
+      dockerfile: Dockerfile-prod
+    ports:
+      - '${PORT}:80'
+    env_file:
+      - .env

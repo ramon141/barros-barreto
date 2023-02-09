@@ -1,0 +1,27 @@
+.main-footer {
+  color: #000;
+  /*background-color: #B9BDBE;*/
+  background-color: #f5f5f5;
+  padding-top: 1em;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.main-footer .container .row .col h5 {
+  text-align: left;
+}
+
+.logo {
+  width: 50%;
+}
+
+@media only screen and (max-width: 600px) {
+  .logo {
+    width: 80%;
+  }
+}
+
+.bandeira {
+  width: 50%
+}

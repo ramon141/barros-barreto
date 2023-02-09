@@ -1,0 +1,66 @@
+.useredit-container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 30px;
+  margin: 32px auto;
+}
+
+.useredit-container h3 {
+  margin-top: 38px;
+}
+
+.useredit-container .register-user {
+  text-align: center;
+  margin-top: 30px;
+  display: grid;
+  /* grid-template-columns: repeat(2, 1fr); */
+  align-items: center;
+  justify-items: center;
+}
+
+.useredit-container .register-user Button {
+  background: #FFD700;
+  color: #41414d;
+  height: 45px;
+  margin-top: 17px;
+  margin: 10px;
+  transition: filter 0.2;
+}
+
+
+
+.useredit-container .register-user button:hover{
+  filter: brightness(90%);
+}
+
+.useredit-container .form-register {
+  width: '100%';
+  max-width: 600px;
+  margin-bottom: 60px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.useredit-container .list-table a:hover{
+  filter: brightness(80%);
+}
+
+.useredit-container a {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+  color: #009155;
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: opacity 0.2;
+}
+
+.useredit-container a svg {
+  margin-right: 8px;
+}
+
+.useredit-container a:hover {
+  opacity: 0.8;
+}
