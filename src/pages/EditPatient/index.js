@@ -29,16 +29,57 @@ const INITIAL_VALUE_NOTIFY = {
   title: "",
 };
 
+const INITIAL_VALUES_FORMIK = {
+  cpf: "",
+  name: "",
+  rg: "",
+  birthdate: moment(),
+  weight: "",
+  height: "",
+  doctorResponsible: null,
+  hospitalRecord: "",
+  diagnostic: "",
+  mensureInterval: "",
+  entranceDate: moment(),
+  raspberry: null,
+};
+
 export default function EditPatient() {
   const history = useHistory();
   const [notify, setNotify] = useState(INITIAL_VALUE_NOTIFY);
 
   const { patientId } = useParams();
 
+  const [valuesFormik, setValuesFormik] = useState(INITIAL_VALUES_FORMIK);
   const [doctors, setDoctors] = useState([]);
   const [raspberries, setRaspberries] = useState([]);
 
   useEffect(() => {
+    const filter = {
+      include: ["doctor", "raspberry"],
+    };
+
+    api
+      .get(`patients/${patientId}?filter=${JSON.stringify(filter)}`)
+      .then((response) => {
+        const data = response.data;
+
+        setValuesFormik({
+          cpf: data.cpf,
+          name: data.name,
+          rg: data.rg,
+          birthdate: moment(data.birthdate),
+          weight: data.weightInKg,
+          height: data.heightInCm,
+          doctorResponsible: data.doctor,
+          hospitalRecord: data.hospitalRegister,
+          diagnostic: data.diagnostic,
+          mensureInterval: data.mensureInterval,
+          entranceDate: moment(data.entranceDate),
+          raspberry: data.raspberry,
+        });
+      });
+
     api.get("doctors").then((response) => {
       setDoctors(response.data);
     });
@@ -48,7 +89,7 @@ export default function EditPatient() {
     });
   }, []);
 
-  const post = (values) => {
+  const patch = (values) => {
     //Remove de "values" atributos que não possuem o mesmo nome na
     //api, ou que precisam ser tratados antes de serem enviados
     const {
@@ -75,7 +116,7 @@ export default function EditPatient() {
     data.weightInKg = parseFloat(weight);
 
     api
-      .post("patients", data)
+      .patch(`patients/${patientId}`, data)
       .then((response) => {
         setNotify({
           isOpen: true,
@@ -101,23 +142,10 @@ export default function EditPatient() {
   };
 
   const formik = useFormik({
-    initialValues: {
-      cpf: "",
-      name: "",
-      rg: "",
-      birthdate: moment(),
-      weight: "",
-      height: "",
-      doctorResponsible: null,
-      hospitalRecord: "",
-      diagnostic: "",
-      mensureInterval: "",
-      entranceDate: moment(),
-      mensureInterval: "",
-      raspberry: null,
-    },
+    initialValues: valuesFormik,
     validationSchema: validationSchema,
-    onSubmit: post,
+    enableReinitialize: true,
+    onSubmit: patch,
   });
 
   const {
@@ -259,7 +287,7 @@ export default function EditPatient() {
                   style={classes.btnSubmit}
                   type="submit"
                 >
-                  Cadastrar
+                  Salvar
                 </Button>
               </Grid>
             </Grid>
