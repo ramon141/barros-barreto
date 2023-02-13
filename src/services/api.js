@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
 import { getToken } from "./auth";
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_BASE_API_URL,
+  baseURL: "https://5634-45-165-166-211.sa.ngrok.io/",
 });
 
 /* Aqui foi utilizado o interceptors do Axios, 
@@ -11,7 +11,7 @@ const api = axios.create({
    ele adiciona o Header de Authorization na request. 
    
    Útil para não alterar todas as requisições realizadas no código.*/
-api.interceptors.request.use(async config => {
+api.interceptors.request.use(async (config) => {
   const token = getToken();
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -20,5 +20,3 @@ api.interceptors.request.use(async config => {
 });
 
 export default api;
-
-
