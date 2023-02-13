@@ -55,6 +55,16 @@ export default function EditPatient() {
   const [raspberries, setRaspberries] = useState([]);
 
   useEffect(() => {
+    api.get("doctors").then((response) => {
+      setDoctors(response.data);
+    })
+    
+    api.get("raspberries").then((response) => {
+      setRaspberries(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
     const filter = {
       include: ["doctor", "raspberry"],
     };
@@ -79,15 +89,8 @@ export default function EditPatient() {
           raspberry: data.raspberry,
         });
       });
-
-    api.get("doctors").then((response) => {
-      setDoctors(response.data);
-    });
-
-    api.get("raspberries").then((response) => {
-      setRaspberries(response.data);
-    });
-  }, []);
+      
+  }, [patientId, raspberries, doctors]);
 
   const patch = (values) => {
     //Remove de "values" atributos que não possuem o mesmo nome na
@@ -122,7 +125,7 @@ export default function EditPatient() {
           isOpen: true,
           message: "",
           type: "success",
-          title: "Paciente cadastrado com sucesso!",
+          title: "Informações atualizadas com sucesso!",
         });
 
         setTimeout(() => history.push("/choice-patient-monitoring"), 700);
@@ -135,7 +138,7 @@ export default function EditPatient() {
             isOpen: true,
             message: message,
             type: "error",
-            title: "Falha no cadastro!",
+            title: "Falha ao realizar edições!",
           });
         }
       });
