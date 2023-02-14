@@ -57,10 +57,12 @@ export default function EditPatient() {
   useEffect(() => {
     api.get("doctors").then((response) => {
       setDoctors(response.data);
-    })
-    
+      console.log("carregou os doutores");
+    });
+
     api.get("raspberries").then((response) => {
       setRaspberries(response.data);
+      console.log("carregou os raspberries");
     });
   }, []);
 
@@ -73,6 +75,9 @@ export default function EditPatient() {
       .get(`patients/${patientId}?filter=${JSON.stringify(filter)}`)
       .then((response) => {
         const data = response.data;
+
+        console.log("chamou carregamento dos values");
+        console.log(data);
 
         setValuesFormik({
           cpf: data.cpf,
@@ -89,7 +94,6 @@ export default function EditPatient() {
           raspberry: data.raspberry,
         });
       });
-      
   }, [patientId, raspberries, doctors]);
 
   const patch = (values) => {
