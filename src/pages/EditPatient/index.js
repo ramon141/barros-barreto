@@ -42,6 +42,8 @@ const INITIAL_VALUES_FORMIK = {
   mensureInterval: "",
   entranceDate: moment(),
   raspberry: null,
+  maxVolumeInMg: 60,
+  minVolumeInMg: 30,
 };
 
 export default function EditPatient() {
@@ -68,13 +70,16 @@ export default function EditPatient() {
 
   useEffect(() => {
     const filter = {
+      where: {
+        id: patientId
+      },
       include: ["doctor", "raspberry"],
     };
 
     api
-      .get(`patients/${patientId}?filter=${JSON.stringify(filter)}`)
+      .get(`patients?filter=${JSON.stringify(filter)}`)
       .then((response) => {
-        const data = response.data;
+        const data = response.data[0];
 
         console.log("chamou carregamento dos values");
         console.log(data);
@@ -92,6 +97,8 @@ export default function EditPatient() {
           mensureInterval: data.mensureInterval,
           entranceDate: moment(data.entranceDate),
           raspberry: data.raspberry,
+          maxVolumeInMg: data.maxVolumeInMg,
+          minVolumeInMg: data.minVolumeInMg,
         });
       });
   }, [patientId, raspberries, doctors]);
@@ -264,6 +271,22 @@ export default function EditPatient() {
                   option.model
                     ? `${option.model} - ${option.propertyIdentification}`
                     : "Selecione um Raspberry",
+              })}
+            </Grid>
+
+            <Grid item xs={12} sm={4} md={4} lg={4}>
+              {textFieldFormik({
+                id: "minVolumeInMg",
+                label: "Volume Mínimo de Urina (Mg)",
+                type: "number",
+              })}
+            </Grid>
+
+            <Grid item xs={12} sm={4} md={4} lg={4}>
+              {textFieldFormik({
+                id: "maxVolumeInMg",
+                label: "Volume Máximo de Urina (Mg)",
+                type: "number",
               })}
             </Grid>
 
