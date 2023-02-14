@@ -84,7 +84,7 @@ export default function SignIn() {
         localStorage.setItem("IdUser", res.data.id);
         localStorage.setItem("Permission", res.data.permission);
 
-        if (roleUser === "Admin") history.push("/choice-patient-edit");
+        if (roleUser === "Admin") history.push("/registerpatient");
       } else {
         // Caso o usuário não pertença a nenhuma das roles especificadas a página sofre um refresh.
         alert("Houve um problema com o login, verifique suas credenciais!");
