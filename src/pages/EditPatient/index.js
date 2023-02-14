@@ -55,7 +55,6 @@ export default function EditPatient() {
   const [valuesFormik, setValuesFormik] = useState(INITIAL_VALUES_FORMIK);
   const [doctors, setDoctors] = useState([]);
   const [raspberries, setRaspberries] = useState([]);
-
   useEffect(() => {
     api.get("doctors").then((response) => {
       setDoctors(response.data);
@@ -70,14 +69,11 @@ export default function EditPatient() {
 
   useEffect(() => {
     const filter = {
-      where: {
-        id: patientId,
-      },
       include: ["doctor", "raspberry"],
     };
 
-    api.get(`patients?filter=${JSON.stringify(filter)}`).then((response) => {
-      const data = response.data[0];
+    api.get(`patients/${patientId}?filter=${JSON.stringify(filter)}`).then((response) => {
+      const { data } = response
 
       setValuesFormik({
         cpf: data.cpf,
@@ -92,8 +88,8 @@ export default function EditPatient() {
         mensureInterval: data.mensureInterval,
         entranceDate: moment(data.entranceDate),
         raspberry: data.raspberry,
-        maxVolumeInMg: data.maxVolumeInMg,
-        minVolumeInMg: data.minVolumeInMg,
+        maxVolumeInMl: data.maxVolumeInMl,
+        minVolumeInMl: data.minVolumeInMl,
       });
     });
   }, [patientId, raspberries, doctors]);
@@ -138,7 +134,7 @@ export default function EditPatient() {
       })
       .catch((err) => {
         const message = err.response?.data?.error?.message;
-
+        console.log(message, err.response)
         if (message) {
           setNotify({
             isOpen: true,
@@ -271,16 +267,16 @@ export default function EditPatient() {
 
             <Grid item xs={12} sm={6} md={6} lg={6}>
               {textFieldFormik({
-                id: "minVolumeInMg",
-                label: "Volume Mínimo de Urina (Mg)",
+                id: "minVolumeInMl",
+                label: "Volume Mínimo de Urina (Ml)",
                 type: "number",
               })}
             </Grid>
 
             <Grid item xs={12} sm={6} md={6} lg={6}>
               {textFieldFormik({
-                id: "maxVolumeInMg",
-                label: "Volume Máximo de Urina (Mg)",
+                id: "maxVolumeInMl",
+                label: "Volume Máximo de Urina (Ml)",
                 type: "number",
               })}
             </Grid>

@@ -32,7 +32,7 @@ const INITIAL_VALUE_NOTIFY = {
 export default function RegisterPatient() {
   const history = useHistory();
   const [notify, setNotify] = useState(INITIAL_VALUE_NOTIFY);
-
+  const [choiceDefaultValueForVolume, setChoiceDefaultValueForVolume] = useState(true)
   const [doctors, setDoctors] = useState([]);
   const [raspberries, setRaspberries] = useState([]);
 
@@ -66,7 +66,11 @@ export default function RegisterPatient() {
     data.raspberryId = raspberry.id;
 
     data.rg = String(rg);
-
+    if(choiceDefaultValueForVolume){
+      let d = parseFloat(data.minVolumeInMl)
+      data.minVolumeInMl = d - (d * 0.3)
+      data.maxVolumeInMl = d + (d * 0.3)
+    }
     //Converte metros para centímetros
     data.heightInCm = parseFloat(height) * 100;
 
@@ -111,8 +115,8 @@ export default function RegisterPatient() {
       diagnostic: "",
       mensureInterval: "",
       entranceDate: moment(),
-      maxVolumeInMg: 60,
-      minVolumeInMg: 30,
+      maxVolumeInMl: 60,
+      minVolumeInMl: 30,
       raspberry: null,
     },
     validationSchema: validationSchema,
@@ -126,6 +130,7 @@ export default function RegisterPatient() {
     dateTimePickerFormik,
     autocompleteFormik,
     selectFormik,
+    checkBoxForDefaulVolume
   } = components(formik);
 
   return (
@@ -230,22 +235,44 @@ export default function RegisterPatient() {
                     : "Selecione um Raspberry",
               })}
             </Grid>
-
-            <Grid item xs={12} sm={6} md={6} lg={6}>
-              {textFieldFormik({
-                id: "minVolumeInMg",
-                label: "Volume Mínimo de Urina (Mg)",
-                type: "number",
-              })}
+            <Grid item xs={12}>
+              {checkBoxForDefaulVolume({
+                  id: "choiceDefaultValueForVolume",
+                  checked: choiceDefaultValueForVolume,
+                  label:'Determinar os limites de urina de forma automática?' ,
+                  onChange:(e => {
+                    setChoiceDefaultValueForVolume(state => !state)
+                  })
+                })
+              }
             </Grid>
 
-            <Grid item xs={12} sm={6} md={6} lg={6}>
+            {choiceDefaultValueForVolume ?
+              <Grid item xs={12} sm={6} md={6} lg={12}>
               {textFieldFormik({
-                id: "maxVolumeInMg",
-                label: "Volume Máximo de Urina (Mg)",
-                type: "number",
+                id: "minVolumeInMl",
+                label: "Volume Base de Urina (Ml)",
+                type: "number"
               })}
             </Grid>
+            :
+              <>
+                <Grid item xs={12} sm={6} md={6} lg={6}>
+                  {textFieldFormik({
+                    id: "minVolumeInMl",
+                    label: "Volume Mínimo de Urina (Ml)",
+                    type: "number",
+                  })}
+                </Grid>
+
+                <Grid item xs={12} sm={6} md={6} lg={6}>
+                  {textFieldFormik({
+                    id: "maxVolumeInMl",
+                    label: "Volume Máximo de Urina (Ml)",
+                    type: "number",
+                  })}
+                </Grid>
+              </>}
 
             <Grid item xs={12} sm={12} md={12} lg={12}>
               {textFieldFormik({
@@ -283,6 +310,6 @@ export default function RegisterPatient() {
       </CardContent>
 
       <Notification notify={notify} setNotify={setNotify} />
-    </Card>
+    </Card >
   );
 }

@@ -1,4 +1,4 @@
-import { TextField, FormControl, InputLabel, Select, MenuItem, Autocomplete } from '@mui/material';
+import { TextField, FormControl, InputLabel, Select, MenuItem, Autocomplete, Checkbox, FormControlLabel } from '@mui/material';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import MaskInput from '../../components/MaskInput';
@@ -111,13 +111,16 @@ export const components = (formik) => {
             </Select>
         </FormControl>
     );
-
+    const checkBoxForDefaulVolume = ({ id, defaultChecked, onChange, checked, label, ...props }) => (
+        <FormControlLabel id={id} control={<Checkbox defaultChecked={defaultChecked} onChange={onChange} checked={checked} />} label={label} />
+    )
     return {
         textFieldFormik,
         inputMaskFormik,
         datePickerFormik,
         dateTimePickerFormik,
         autocompleteFormik,
-        selectFormik
+        selectFormik,
+        checkBoxForDefaulVolume
     };
 }
