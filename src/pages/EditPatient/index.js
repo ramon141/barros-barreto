@@ -71,36 +71,31 @@ export default function EditPatient() {
   useEffect(() => {
     const filter = {
       where: {
-        id: patientId
+        id: patientId,
       },
       include: ["doctor", "raspberry"],
     };
 
-    api
-      .get(`patients?filter=${JSON.stringify(filter)}`)
-      .then((response) => {
-        const data = response.data[0];
+    api.get(`patients?filter=${JSON.stringify(filter)}`).then((response) => {
+      const data = response.data[0];
 
-        console.log("chamou carregamento dos values");
-        console.log(data);
-
-        setValuesFormik({
-          cpf: data.cpf,
-          name: data.name,
-          rg: data.rg,
-          birthdate: moment(data.birthdate),
-          weight: data.weightInKg,
-          height: data.heightInCm,
-          doctorResponsible: data.doctor,
-          hospitalRecord: data.hospitalRegister,
-          diagnostic: data.diagnostic,
-          mensureInterval: data.mensureInterval,
-          entranceDate: moment(data.entranceDate),
-          raspberry: data.raspberry,
-          maxVolumeInMg: data.maxVolumeInMg,
-          minVolumeInMg: data.minVolumeInMg,
-        });
+      setValuesFormik({
+        cpf: data.cpf,
+        name: data.name,
+        rg: data.rg,
+        birthdate: moment(data.birthdate),
+        weight: data.weightInKg,
+        height: data.heightInCm,
+        doctorResponsible: data.doctor,
+        hospitalRecord: data.hospitalRegister,
+        diagnostic: data.diagnostic,
+        mensureInterval: data.mensureInterval,
+        entranceDate: moment(data.entranceDate),
+        raspberry: data.raspberry,
+        maxVolumeInMg: data.maxVolumeInMg,
+        minVolumeInMg: data.minVolumeInMg,
       });
+    });
   }, [patientId, raspberries, doctors]);
 
   const patch = (values) => {
@@ -274,7 +269,7 @@ export default function EditPatient() {
               })}
             </Grid>
 
-            <Grid item xs={12} sm={4} md={4} lg={4}>
+            <Grid item xs={12} sm={6} md={6} lg={6}>
               {textFieldFormik({
                 id: "minVolumeInMg",
                 label: "Volume Mínimo de Urina (Mg)",
@@ -282,7 +277,7 @@ export default function EditPatient() {
               })}
             </Grid>
 
-            <Grid item xs={12} sm={4} md={4} lg={4}>
+            <Grid item xs={12} sm={6} md={6} lg={6}>
               {textFieldFormik({
                 id: "maxVolumeInMg",
                 label: "Volume Máximo de Urina (Mg)",

@@ -231,7 +231,7 @@ export default function RegisterPatient() {
               })}
             </Grid>
 
-            <Grid item xs={12} sm={4} md={4} lg={4}>
+            <Grid item xs={12} sm={6} md={6} lg={6}>
               {textFieldFormik({
                 id: "minVolumeInMg",
                 label: "Volume Mínimo de Urina (Mg)",
@@ -239,7 +239,7 @@ export default function RegisterPatient() {
               })}
             </Grid>
 
-            <Grid item xs={12} sm={4} md={4} lg={4}>
+            <Grid item xs={12} sm={6} md={6} lg={6}>
               {textFieldFormik({
                 id: "maxVolumeInMg",
                 label: "Volume Máximo de Urina (Mg)",
