@@ -22,7 +22,7 @@ Para definir a URL da API é necessário criar um arquivo com o nome `.env` na r
 
 Dentro arquivo `.env` deverá conter a(s) seguinte(s) variável(is), abaixo de cada variável estará listada os possíveis valores e em quais casos os valores são utilizados.
 
-+ REACT_APP_BASE_API_URL: Link da API de dados do Canaã Educação
++ VITE_API_BASE_URL: Link da API de dados do Canaã Educação
 + + Ambiente de produção - https://ceapi.unifesspa.edu.br/
 + + Obs: Ainda não há nenhuma API de desenvolvimento, utiliza a API de produção com cuidado, ou preferencialmente, execute a API localmente.
 

@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken } from "./auth";
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_BASE_API_URL,
+  baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
 /* Aqui foi utilizado o interceptors do Axios, 

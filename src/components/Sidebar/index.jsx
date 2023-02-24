@@ -20,7 +20,7 @@ import useWindowDimensions from './WindowDimensions';
 
 import logoBarrosBarreto from '../../assets/hospital-logo.png';
 import { AreaLogo, Area } from "./styles";
-import Header from '../../components/Header';
+import Header from '../Header';
 const drawerWidth = 280;
 
 const useStyles = makeStyles((theme, lagura) => ({
