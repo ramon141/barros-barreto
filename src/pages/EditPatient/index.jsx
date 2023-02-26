@@ -42,13 +42,16 @@ const INITIAL_VALUES_FORMIK = {
   mensureInterval: "",
   entranceDate: moment(),
   raspberry: null,
-  maxVolumeInMg: 60,
-  minVolumeInMg: 30,
+  maxVolumeInMg: "",
+  minVolumeInMg: "",
+  normalVolumeInMl: "",
 };
 
 export default function EditPatient() {
   const history = useHistory();
   const [notify, setNotify] = useState(INITIAL_VALUE_NOTIFY);
+  const [choiceDefaultValueForVolume, setChoiceDefaultValueForVolume] =
+    useState(true);
 
   const { patientId } = useParams();
 
@@ -58,12 +61,10 @@ export default function EditPatient() {
   useEffect(() => {
     api.get("doctors").then((response) => {
       setDoctors(response.data);
-      console.log("carregou os doutores");
     });
 
     api.get("raspberries").then((response) => {
       setRaspberries(response.data);
-      console.log("carregou os raspberries");
     });
   }, []);
 
@@ -72,27 +73,39 @@ export default function EditPatient() {
       include: ["doctor", "raspberry"],
     };
 
-    api.get(`patients/${patientId}?filter=${JSON.stringify(filter)}`).then((response) => {
-      const { data } = response
+    api
+      .get(`patients/${patientId}?filter=${JSON.stringify(filter)}`)
+      .then((response) => {
+        const { data } = response;
 
-      setValuesFormik({
-        cpf: data.cpf,
-        name: data.name,
-        rg: data.rg,
-        birthdate: moment(data.birthdate),
-        weight: data.weightInKg,
-        height: data.heightInCm,
-        doctorResponsible: data.doctor,
-        hospitalRecord: data.hospitalRegister,
-        diagnostic: data.diagnostic,
-        mensureInterval: data.mensureInterval,
-        entranceDate: moment(data.entranceDate),
-        raspberry: data.raspberry,
-        maxVolumeInMl: data.maxVolumeInMl,
-        minVolumeInMl: data.minVolumeInMl,
+        setValuesFormik({
+          cpf: data.cpf,
+          name: data.name,
+          rg: data.rg || "",
+          birthdate: moment(data.birthdate),
+          weight: data.weightInKg || "",
+          height: data.heightInCm || "",
+          doctorResponsible: data.doctor || null,
+          hospitalRecord: data.hospitalRegister,
+          diagnostic: data.diagnostic || "",
+          mensureInterval: data.mensureInterval || null,
+          entranceDate: moment(data.entranceDate),
+          raspberry: data.raspberry || null,
+          maxVolumeInMl: data.maxVolumeInMl || "",
+          minVolumeInMl: data.minVolumeInMl || "",
+          normalVolumeInMl: data.maxVolumeInMl / 1.3,
+        });
       });
-    });
   }, [patientId, raspberries, doctors]);
+
+  const removeOptionalValues = (optionalValues, data) => {
+    const newValue = { ...data };
+    optionalValues.forEach((value) => {
+      newValue[value] = newValue[value] || undefined;
+    });
+
+    return newValue;
+  };
 
   const patch = (values) => {
     //Remove de "values" atributos que não possuem o mesmo nome na
@@ -104,14 +117,15 @@ export default function EditPatient() {
       rg,
       hospitalRecord,
       raspberry,
+      normalVolumeInMl,
       ...data
     } = values;
 
     data.hospitalRegister = hospitalRecord;
 
-    data.doctorId = doctorResponsible.id;
+    data.doctorId = doctorResponsible?.id;
 
-    data.raspberryId = raspberry.id;
+    data.raspberryId = raspberry?.id;
 
     data.rg = String(rg);
 
@@ -120,8 +134,21 @@ export default function EditPatient() {
 
     data.weightInKg = parseFloat(weight);
 
+    const newData = removeOptionalValues(
+      [
+        "mensureInterval",
+        "heightInCm",
+        "weightInKg",
+        "rg",
+        "maxVolumeInMl",
+        "minVolumeInMl",
+        "diagnostic",
+      ],
+      data
+    );
+
     api
-      .patch(`patients/${patientId}`, data)
+      .patch(`patients/${patientId}`, newData)
       .then((response) => {
         setNotify({
           isOpen: true,
@@ -134,7 +161,6 @@ export default function EditPatient() {
       })
       .catch((err) => {
         const message = err.response?.data?.error?.message;
-        console.log(message, err.response)
         if (message) {
           setNotify({
             isOpen: true,
@@ -160,7 +186,17 @@ export default function EditPatient() {
     dateTimePickerFormik,
     autocompleteFormik,
     selectFormik,
+    checkBoxForDefaulVolume,
   } = components(formik);
+
+  const calcLimits = (event) => {
+    const newWeight = parseFloat(event.target.value) || 0;
+    const normalVolume = newWeight / 2;
+
+    formik.setFieldValue("normalVolumeInMl", normalVolume || "");
+    formik.setFieldValue("minVolumeInMl", normalVolume * 0.7 || "");
+    formik.setFieldValue("maxVolumeInMl", normalVolume * 1.3 || "");
+  };
 
   return (
     <Card style={{ margin: 20 }}>
@@ -197,6 +233,7 @@ export default function EditPatient() {
                 id: "weight",
                 label: "Peso (Kg)",
                 type: "number",
+                handleChange: calcLimits,
               })}
             </Grid>
 
@@ -265,21 +302,44 @@ export default function EditPatient() {
               })}
             </Grid>
 
-            <Grid item xs={12} sm={6} md={6} lg={6}>
-              {textFieldFormik({
-                id: "minVolumeInMl",
-                label: "Volume Mínimo de Urina (Ml)",
-                type: "number",
+            <Grid item xs={12}>
+              {checkBoxForDefaulVolume({
+                id: "choiceDefaultValueForVolume",
+                checked: choiceDefaultValueForVolume,
+                label: "Determinar os limites de urina de forma automática?",
+                onChange: () => {
+                  setChoiceDefaultValueForVolume((state) => !state);
+                },
               })}
             </Grid>
 
-            <Grid item xs={12} sm={6} md={6} lg={6}>
-              {textFieldFormik({
-                id: "maxVolumeInMl",
-                label: "Volume Máximo de Urina (Ml)",
-                type: "number",
-              })}
-            </Grid>
+            {choiceDefaultValueForVolume ? (
+              <Grid item xs={12} sm={12} md={12} lg={12}>
+                {textFieldFormik({
+                  id: "normalVolumeInMl",
+                  label: "Volume Base de Urina (Ml)",
+                  type: "number",
+                })}
+              </Grid>
+            ) : (
+              <>
+                <Grid item xs={12} sm={6} md={6} lg={6}>
+                  {textFieldFormik({
+                    id: "minVolumeInMl",
+                    label: "Volume Mínimo de Urina (Ml)",
+                    type: "number",
+                  })}
+                </Grid>
+
+                <Grid item xs={12} sm={6} md={6} lg={6}>
+                  {textFieldFormik({
+                    id: "maxVolumeInMl",
+                    label: "Volume Máximo de Urina (Ml)",
+                    type: "number",
+                  })}
+                </Grid>
+              </>
+            )}
 
             <Grid item xs={12} sm={12} md={12} lg={12}>
               {textFieldFormik({

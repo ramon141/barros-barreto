@@ -2,7 +2,8 @@ import axios from "axios";
 import { getToken } from "./auth";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: "https://bf98-45-165-166-211.sa.ngrok.io/",
+  // baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
 /* Aqui foi utilizado o interceptors do Axios, 
