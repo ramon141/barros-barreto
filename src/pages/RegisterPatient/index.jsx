@@ -32,7 +32,8 @@ const INITIAL_VALUE_NOTIFY = {
 export default function RegisterPatient() {
   const history = useHistory();
   const [notify, setNotify] = useState(INITIAL_VALUE_NOTIFY);
-  const [choiceDefaultValueForVolume, setChoiceDefaultValueForVolume] = useState(true)
+  const [choiceDefaultValueForVolume, setChoiceDefaultValueForVolume] =
+    useState(true);
   const [doctors, setDoctors] = useState([]);
   const [raspberries, setRaspberries] = useState([]);
 
@@ -46,6 +47,15 @@ export default function RegisterPatient() {
     });
   }, []);
 
+  const removeOptionalValues = (optionalValues, data) => {
+    const newValue = { ...data };
+    optionalValues.forEach((value) => {
+      newValue[value] = newValue[value] || undefined;
+    });
+
+    return newValue;
+  };
+
   const post = (values) => {
     //Remove de "values" atributos que não possuem o mesmo nome na
     //api, ou que precisam ser tratados antes de serem enviados
@@ -56,28 +66,38 @@ export default function RegisterPatient() {
       rg,
       hospitalRecord,
       raspberry,
+      normalVolumeInMl,
       ...data
     } = values;
 
     data.hospitalRegister = hospitalRecord;
 
-    data.doctorId = doctorResponsible.id;
+    data.doctorId = doctorResponsible?.id;
 
-    data.raspberryId = raspberry.id;
+    data.raspberryId = raspberry?.id;
 
     data.rg = String(rg);
-    if(choiceDefaultValueForVolume){
-      let d = parseFloat(data.minVolumeInMl)
-      data.minVolumeInMl = d - (d * 0.3)
-      data.maxVolumeInMl = d + (d * 0.3)
-    }
+
     //Converte metros para centímetros
     data.heightInCm = parseFloat(height) * 100;
 
     data.weightInKg = parseFloat(weight);
 
+    const newData = removeOptionalValues(
+      [
+        "mensureInterval",
+        "heightInCm",
+        "weightInKg",
+        "rg",
+        "maxVolumeInMl",
+        "minVolumeInMl",
+        "diagnostic",
+      ],
+      data
+    );
+
     api
-      .post("patients", data)
+      .post("patients", newData)
       .then((response) => {
         setNotify({
           isOpen: true,
@@ -115,8 +135,9 @@ export default function RegisterPatient() {
       diagnostic: "",
       mensureInterval: "",
       entranceDate: moment(),
-      maxVolumeInMl: 60,
-      minVolumeInMl: 30,
+      maxVolumeInMl: "",
+      minVolumeInMl: "",
+      normalVolumeInMl: "",
       raspberry: null,
     },
     validationSchema: validationSchema,
@@ -130,8 +151,17 @@ export default function RegisterPatient() {
     dateTimePickerFormik,
     autocompleteFormik,
     selectFormik,
-    checkBoxForDefaulVolume
+    checkBoxForDefaulVolume,
   } = components(formik);
+
+  const calcLimits = (event) => {
+    const newWeight = parseFloat(event.target.value) || 0;
+    const normalVolume = newWeight / 2;
+
+    formik.setFieldValue("normalVolumeInMl", normalVolume || "");
+    formik.setFieldValue("minVolumeInMl", normalVolume * 0.7 || "");
+    formik.setFieldValue("maxVolumeInMl", normalVolume * 1.3 || "");
+  };
 
   return (
     <Card style={{ margin: 20 }}>
@@ -152,11 +182,12 @@ export default function RegisterPatient() {
                 label: "CPF",
                 mask: "999.999.999-99",
                 useOnlyNumbers: true,
+                required: true,
               })}
             </Grid>
 
             <Grid item xs={12} sm={6} md={6} lg={6}>
-              {textFieldFormik({ id: "name", label: "Nome" })}
+              {textFieldFormik({ id: "name", label: "Nome", required: true })}
             </Grid>
 
             <Grid item xs={12} sm={4} md={4} lg={4}>
@@ -168,6 +199,7 @@ export default function RegisterPatient() {
                 id: "weight",
                 label: "Peso (Kg)",
                 type: "number",
+                handleChange: calcLimits,
               })}
             </Grid>
 
@@ -202,6 +234,7 @@ export default function RegisterPatient() {
               {textFieldFormik({
                 id: "hospitalRecord",
                 label: "Registro Hospitalar",
+                required: true,
               })}
             </Grid>
 
@@ -237,25 +270,24 @@ export default function RegisterPatient() {
             </Grid>
             <Grid item xs={12}>
               {checkBoxForDefaulVolume({
-                  id: "choiceDefaultValueForVolume",
-                  checked: choiceDefaultValueForVolume,
-                  label:'Determinar os limites de urina de forma automática?' ,
-                  onChange:(e => {
-                    setChoiceDefaultValueForVolume(state => !state)
-                  })
-                })
-              }
-            </Grid>
-
-            {choiceDefaultValueForVolume ?
-              <Grid item xs={12} sm={6} md={6} lg={12}>
-              {textFieldFormik({
-                id: "minVolumeInMl",
-                label: "Volume Base de Urina (Ml)",
-                type: "number"
+                id: "choiceDefaultValueForVolume",
+                checked: choiceDefaultValueForVolume,
+                label: "Determinar os limites de urina de forma automática?",
+                onChange: () => {
+                  setChoiceDefaultValueForVolume((state) => !state);
+                },
               })}
             </Grid>
-            :
+
+            {choiceDefaultValueForVolume ? (
+              <Grid item xs={12} sm={12} md={12} lg={12}>
+                {textFieldFormik({
+                  id: "normalVolumeInMl",
+                  label: "Volume Base de Urina (Ml)",
+                  type: "number",
+                })}
+              </Grid>
+            ) : (
               <>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                   {textFieldFormik({
@@ -272,7 +304,8 @@ export default function RegisterPatient() {
                     type: "number",
                   })}
                 </Grid>
-              </>}
+              </>
+            )}
 
             <Grid item xs={12} sm={12} md={12} lg={12}>
               {textFieldFormik({
@@ -310,6 +343,6 @@ export default function RegisterPatient() {
       </CardContent>
 
       <Notification notify={notify} setNotify={setNotify} />
-    </Card >
+    </Card>
   );
 }
