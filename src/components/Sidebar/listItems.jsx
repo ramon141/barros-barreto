@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { Collapse, List, ListItemText, ListItem } from "@mui/material";
+import { useHistory } from "react-router-dom";
 
 const classes = {
   nested: {
@@ -13,10 +14,17 @@ const classes = {
 };
 
 export default function ListItems() {
+  const history = useHistory();
   const [isOpenPatient, setIsOpenPatient] = useState(false);
 
-  function ListItemLink(props) {
-    return <ListItem button component="a" {...props} />;
+  function ListItemLink({ href, ...props }) {
+    return (
+      <ListItem
+        onClick={() => history.push(href)}
+        component="button"
+        {...props}
+      />
+    );
   }
 
   const handleClickPatient = () => setIsOpenPatient((prev) => !prev);
@@ -24,7 +32,7 @@ export default function ListItems() {
   return (
     <div>
       <ListItemLink button href="/registerdoctor" style={classes.cor}>
-        <ListItemText primary="Cadastro de Médico" />
+        <ListItemText primary="Cadastro de Médicos" />
       </ListItemLink>
 
       <>
