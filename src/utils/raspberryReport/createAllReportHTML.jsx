@@ -4,8 +4,8 @@ import { formatCpf } from '../formatFields';
 import ApexChart from 'apexcharts';
 import moment from 'moment';
 
-export function createRaspberryHTML(raspberry, title) {
-    const htmlNotifications = tableReportPatients(raspberry);
+export function createRaspberryHTML(raspberries, title) {
+    const htmlNotifications = tableReportPatients(raspberries);
 
     return `
             <html>
@@ -29,7 +29,8 @@ export function createRaspberryHTML(raspberry, title) {
             </html>
         `;
 }
- function tableReportPatients(raspberry) {
+
+function tableReportPatients(raspberries) {
 
     const classes = {
         root: {
@@ -74,6 +75,8 @@ export function createRaspberryHTML(raspberry, title) {
     }
 
     return (
+
+
         <>
             <div>
                 <div style={classes.root}>
@@ -84,60 +87,67 @@ export function createRaspberryHTML(raspberry, title) {
                 </div>
             </div>
 
-            <div style={classes.subtitle}>
-                <p>Relatório de pacientes do Raspberry {`${raspberry.propertyIdentification}`}</p>
-            </div>
+            {raspberries.map(raspberry => (
+                <>
+                    <div style={classes.subtitle}>
+                        <p>Relatório de pacientes do Raspberry {`${raspberry.propertyIdentification}`}</p>
+                        <p>Total de pacientes atendidos: {(raspberry.measuredPatients && Array.isArray(raspberry.measuredPatients) && raspberry.measuredPatients.length) || '0'}</p>
+                    </div>
 
-            <hr style={classes.line} />
+                    <hr style={classes.line} />
 
-            <div key={raspberry.id} style={{ marginTop: '40px', pageBreakAfter: 'always' }}>
-                
-                <table style={classes.tableRoot}>
-                    <thead>
-                        <tr style={classes.theadLine}>
-                            <th style={{ width: '40%', fontSize: '13px' }}>
-                                Nome
-                            </th>
-                            <th style={{ width: '15%', fontSize: '13px' }}>
-                                Registro Hospitalar
-                            </th>
-                            <th style={{ width: '15%', fontSize: '13px' }}>
-                                CPF
-                            </th>
-                            <th style={{ width: '15%', fontSize: '13px' }}>
-                                Data de entrada
-                            </th>
-                            <th style={{ width: '15%', fontSize: '13px' }}>
-                                Data de alta
-                            </th>
-                        </tr>
-                    </thead >
+                    <div key={raspberry.id} style={{ marginTop: '40px', pageBreakAfter: 'always', marginBottom: '40px' }}>
 
-                    <tbody>
-                        {raspberry.measuredPatients && raspberry.measuredPatients.map(item => (
-                            <tr key={item.id}>
-                                <td style={classes.tableLine}>
-                                    &nbsp;&nbsp; {item.name}
-                                </td>
+                        <table style={classes.tableRoot}>
+                            <thead>
+                                <tr style={classes.theadLine}>
+                                    <th style={{ width: '40%', fontSize: '13px' }}>
+                                        Nome
+                                    </th>
+                                    <th style={{ width: '15%', fontSize: '13px' }}>
+                                        Registro Hospitalar
+                                    </th>
+                                    <th style={{ width: '15%', fontSize: '13px' }}>
+                                        CPF
+                                    </th>
+                                    <th style={{ width: '15%', fontSize: '13px' }}>
+                                        Data de entrada
+                                    </th>
+                                    <th style={{ width: '15%', fontSize: '13px' }}>
+                                        Data de alta
+                                    </th>
+                                </tr>
+                            </thead >
 
-                                <td style={classes.tableLine}>
-                                    &nbsp;&nbsp; {item.hospitalRegister}
-                                </td>
-                                <td style={classes.tableLine}>
-                                    &nbsp;&nbsp; {item.cpf}
-                                </td>
-                                <td style={classes.tableLine}>
-                                    &nbsp;&nbsp; {new Date(item.entranceDate).toLocaleDateString()}
-                                </td>
-                                <td style={classes.tableLine}>
-                                    &nbsp;&nbsp; {item.dischargedFromHospital ? new Date(item.dischargedFromHospital).toLocaleDateString() : "Hospitalizado"}
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table >
-            </div >
+                            <tbody>
+                                {raspberry.measuredPatients && Array.isArray(raspberry.measuredPatients) &&
+                                    raspberry.measuredPatients.map(item => (
+                                        <tr key={item.id}>
+                                            <td style={classes.tableLine}>
+                                                &nbsp;&nbsp; {item.name}
+                                            </td>
+
+                                            <td style={classes.tableLine}>
+                                                &nbsp;&nbsp; {item.hospitalRegister}
+                                            </td>
+                                            <td style={classes.tableLine}>
+                                                &nbsp;&nbsp; {formatCpf(item.cpf)}
+                                            </td>
+                                            <td style={classes.tableLine}>
+                                                &nbsp;&nbsp; {new Date(item.entranceDate).toLocaleDateString()}
+                                            </td>
+                                            <td style={classes.tableLine}>
+                                                &nbsp;&nbsp; {item.dischargedFromHospital ? new Date(item.dischargedFromHospital).toLocaleDateString() : "Hospitalizado"}
+                                            </td>
+                                        </tr>
+                                    ))}
+                            </tbody>
+                        </table >
+                    </div >
+                </>
+            ))}
         </>
+
     );
 }
 
