@@ -15,6 +15,7 @@ import { isAuthenticated } from "./services/auth";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import ListPatient from "./pages/ListPatient";
+import ChoiceRaspberryReport from "./pages/RaspberryReport/Choice";
 
 /* Função destinada para possibilitar acesso somente as rotas com autenticação */
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
@@ -56,6 +57,11 @@ export default function Routes() {
             path="/choice-patient-edit"
             component={ChoicePatientEdit}
           />
+          <PrivateRoute
+            path="/choice-raspberry-reports"
+            component={ChoiceRaspberryReport} 
+            />
+
           <PrivateRoute
             path="/editpatient/:patientId"
             component={EditPatient}
