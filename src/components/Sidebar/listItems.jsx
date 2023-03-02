@@ -13,7 +13,7 @@ const classes = {
   },
 };
 
-export default function ListItems({ handleDrawerClose }) {
+export default function ListItems({ handleDrawerClose, isMobile }) {
   const history = useHistory();
   const [isOpenPatient, setIsOpenPatient] = useState(false);
 
@@ -22,7 +22,7 @@ export default function ListItems({ handleDrawerClose }) {
       <ListItem
         onClick={() => {
           history.push(href);
-          handleDrawerClose();
+          isMobile && handleDrawerClose();
         }}
         component="button"
         {...props}

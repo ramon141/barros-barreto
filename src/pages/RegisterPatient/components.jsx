@@ -11,12 +11,21 @@ import {
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import MaskInput from "../../components/MaskInput";
+import moment from "moment";
+
+const classes = {
+  asterixRed: {
+    "& .MuiFormLabel-asterisk": {
+      color: "red",
+    },
+  },
+};
 
 export const components = (formik) => {
   const textFieldFormik = ({ id, ...props }) => {
     const onChange = (e) => {
       formik.handleChange(e);
-      props.handleChange(e);
+      props.handleChange && props.handleChange(e);
     };
 
     return (
@@ -30,6 +39,7 @@ export const components = (formik) => {
         onChange={onChange}
         error={formik.touched[id] && Boolean(formik.errors[id])}
         helperText={formik.touched[id] && formik.errors[id]}
+        sx={classes.asterixRed}
         {...props}
       />
     );
@@ -49,6 +59,7 @@ export const components = (formik) => {
       onChange={formik.handleChange}
       error={formik.touched[id] && Boolean(formik.errors[id])}
       helperText={formik.touched[id] && formik.errors[id]}
+      sx={classes.asterixRed}
       {...props}
     />
   );
@@ -58,7 +69,7 @@ export const components = (formik) => {
       label={props.label}
       id={id}
       name={id}
-      inputFormat={props.inputFormat || "MM/DD/YYYY"}
+      inputFormat={props.inputFormat || "DD/MM/YYYY"}
       error={formik.touched[id] && Boolean(formik.errors[id])}
       helperText={formik.touched[id] && formik.errors[id]}
       value={formik.values[id]}
@@ -73,7 +84,7 @@ export const components = (formik) => {
       label={props.label}
       id={id}
       name={id}
-      value={formik.values[id]}
+      value={moment(formik.values[id]).format("DD/MM/YYYY")}
       error={formik.touched[id] && Boolean(formik.errors[id])}
       helperText={formik.touched[id] && formik.errors[id]}
       onChange={(value) => formik.setFieldValue(id, value)}
@@ -98,6 +109,8 @@ export const components = (formik) => {
           error={formik.touched[id] && Boolean(formik.errors[id])}
           helperText={formik.touched[id] && formik.errors[id]}
           label={props.label}
+          required={props.required}
+          sx={classes.asterixRed}
           {...params}
         />
       )}
@@ -106,12 +119,18 @@ export const components = (formik) => {
   );
 
   const selectFormik = ({ id, options, ...props }) => (
-    <FormControl fullWidth size="small">
+    <FormControl
+      fullWidth
+      size="small"
+      required={props.required}
+      sx={classes.asterixRed}
+    >
       <InputLabel>{props.label}</InputLabel>
       <Select
         label={props.label}
         onChange={(e) => formik.setFieldValue(id, e.target.value)}
         value={formik.values[id]}
+        required={props.required}
       >
         {options.map((option) => (
           <MenuItem key={option.value} value={option.value}>

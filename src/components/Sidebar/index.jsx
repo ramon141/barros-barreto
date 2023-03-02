@@ -237,7 +237,10 @@ export default function Sidebar({ children }) {
 
           <Divider />
           <List>
-            <ListItems handleDrawerClose={handleDrawerClose} />
+            <ListItems
+              handleDrawerClose={handleDrawerClose}
+              isMobile={windowWidth <= 750}
+            />
           </List>
         </Drawer>
         <main

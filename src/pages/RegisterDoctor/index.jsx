@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { useState } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import MaskInput from "../../components/MaskInput";
 import Notification from "../../components/Notification/Notification";
 import api from "../../services/api";
@@ -38,6 +39,7 @@ const INITIAL_VALUE_NOTIFY = {
 };
 
 export default function RegisterDoctor() {
+  const history = useHistory();
   const [notify, setNotify] = useState(INITIAL_VALUE_NOTIFY);
 
   const post = (values) => {
@@ -175,7 +177,11 @@ export default function RegisterDoctor() {
               justifyContent="center"
             >
               <Grid item>
-                <Button variant="outlined" style={classes.btnCancel}>
+                <Button
+                  variant="outlined"
+                  style={classes.btnCancel}
+                  onClick={() => history.push("/choice-patient-monitoring")}
+                >
                   Voltar
                 </Button>
               </Grid>
