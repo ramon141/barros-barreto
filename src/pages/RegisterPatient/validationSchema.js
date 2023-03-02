@@ -44,5 +44,19 @@ export const validationSchema = yup.object().shape({
     .string()
     .matches(/^[0-9]+$/, "O campo RG deve conter somente números"),
 
+  weight: yup.string().required("Por favor, informe o seu peso"),
+
+  height: yup.string(),
+
+  doctorResponsible: yup.object().nullable(),
+
   hospitalRecord: yup.string().required("O campo é necessário"),
+
+  diagnostic: yup.string(),
+
+  mensureInterval: yup
+    .string()
+    .required("Informe um tempo de mensuração do volume de urina"),
+
+  raspberry: yup.object().required("Por favor informe o raspberry").nullable(),
 });

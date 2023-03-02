@@ -127,7 +127,7 @@ export default function RegisterPatient() {
       cpf: "",
       name: "",
       rg: "",
-      birthdate: moment(),
+      birthdate: null,
       weight: "",
       height: "",
       doctorResponsible: null,
@@ -176,6 +176,17 @@ export default function RegisterPatient() {
 
         <form onSubmit={formik.handleSubmit}>
           <Grid container spacing={2}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={12}
+              lg={12}
+              style={{ textAlign: "right", color: "#EE2222" }}
+            >
+              <span>Os campos com * são obrigatórios</span>
+            </Grid>
+
             <Grid item xs={12} sm={6} md={6} lg={6}>
               {inputMaskFormik({
                 id: "cpf",
@@ -199,6 +210,7 @@ export default function RegisterPatient() {
                 id: "weight",
                 label: "Peso (Kg)",
                 type: "number",
+                required: true,
                 handleChange: calcLimits,
               })}
             </Grid>
@@ -242,6 +254,7 @@ export default function RegisterPatient() {
               {selectFormik({
                 id: "mensureInterval",
                 label: "Intervalo de Mensuração",
+                required: true,
                 options: [
                   { value: 10, description: "10 minutos" },
                   { value: 30, description: "30 minutos" },
@@ -262,6 +275,7 @@ export default function RegisterPatient() {
                 id: "raspberry",
                 label: "Raspberry",
                 options: raspberries,
+                required: true,
                 getOptionLabel: (option) =>
                   option.model
                     ? `${option.model} - ${option.propertyIdentification}`
@@ -323,7 +337,11 @@ export default function RegisterPatient() {
               justifyContent="center"
             >
               <Grid item>
-                <Button variant="outlined" style={classes.btnCancel}>
+                <Button
+                  variant="outlined"
+                  style={classes.btnCancel}
+                  onClick={() => history.push("/choice-patient-monitoring")}
+                >
                   Voltar
                 </Button>
               </Grid>

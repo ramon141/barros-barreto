@@ -217,6 +217,7 @@ export default function EditPatient() {
                 label: "CPF",
                 mask: "999.999.999-99",
                 useOnlyNumbers: true,
+                required: true,
               })}
             </Grid>
 
@@ -357,7 +358,11 @@ export default function EditPatient() {
               justifyContent="center"
             >
               <Grid item>
-                <Button variant="outlined" style={classes.btnCancel}>
+                <Button
+                  variant="outlined"
+                  style={classes.btnCancel}
+                  onClick={() => history.push("/choice-patient-monitoring")}
+                >
                   Voltar
                 </Button>
               </Grid>
