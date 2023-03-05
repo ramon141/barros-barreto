@@ -4,7 +4,8 @@ import {
   Grid,
   TextField,
   Button,
-  Typography
+  Typography,
+  CircularProgress
 } from "@mui/material";
 
 import {
@@ -21,7 +22,7 @@ const classes = {
   }
 };
 
-export default function ChoiceRaspberry({ onChoosing, useFilter = true, title, printAll, loadRaspberry, raspberry }) {
+export default function ChoiceRaspberry({ onChoosing, useFilter = true, title, printAll, loadRaspberry, raspberry, searching }) {
 
   const [searchValue, setSearchValue] = useState('');
 
@@ -47,13 +48,17 @@ export default function ChoiceRaspberry({ onChoosing, useFilter = true, title, p
         <Button
           variant='outlined'
           fullWidth
+          disabled={searching}
           size='small'
           style={{ backgroundColor: '#1B98E0', color: 'white', height: 40 }}
           onClick={() => loadRaspberry(searchValue)}
         >
-          <Search />
+          {searching ?
+            <CircularProgress size={24} color={'secondary'} /> :
+            <Search />
+          }
         </Button>
-        {raspberry && Array.isArray (raspberry) && raspberry.length > 0 &&
+        {raspberry && Array.isArray(raspberry) && raspberry.length > 0 &&
           <Button
             variant='outlined'
             fullWidth

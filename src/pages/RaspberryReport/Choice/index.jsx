@@ -11,6 +11,7 @@ export default function Choice() {
     const [selected, setSelected] = useState(null)
     const [choiceAll, setChoiceAll] = useState(false)
     const [raspberry, setRaspberry] = useState([])
+    const [searching, setSearching] = useState(false)
     function loadRaspberry(searchValue) {
         if (!searchValue) {
             api.get(`/raspberries-report`).then((response) => {
@@ -32,10 +33,10 @@ export default function Choice() {
                 { propertyIdentification: { like: `.*${searchValue}.*` } }
             ]
         };
-
+        setSearching(true)
         api.get(`/raspberries-report?filter=${JSON.stringify(filter)}`).then((response) => {
             setRaspberry(response.data);
-        })
+        }).finally(() => setSearching(false))
     }
     const onChoosing = (value) => {
         console.log(value)
@@ -84,7 +85,7 @@ export default function Choice() {
         if (format == 'pdf') {
             exportRaspberryPDF(selected, "Relatório do Raspberry " + selected.propertyIdentification)
         }
-        if(format == 'html'){
+        if (format == 'html') {
             exportRaspberryHTML(selected, "Relatório do Raspberry " + selected.propertyIdentification)
         }
         setSelected(null)
@@ -99,6 +100,7 @@ export default function Choice() {
                 printAll={() => printAll()}
                 loadRaspberry={loadRaspberry}
                 raspberry={raspberry}
+                searching={searching}
             />
         </>
     );
