@@ -37,6 +37,9 @@ export default function ListItems({ handleDrawerClose, isMobile }) {
       <ListItemLink button href="/registerdoctor" style={classes.cor}>
         <ListItemText primary="Cadastro de Médicos" />
       </ListItemLink>
+      <ListItemLink button href="/choice-raspberry-reports" style={classes.cor}>
+        <ListItemText primary="Relatório de raspberries" />
+      </ListItemLink>
 
       <>
         <ListItem button onClick={handleClickPatient}>
