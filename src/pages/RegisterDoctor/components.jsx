@@ -3,7 +3,7 @@ import {
 } from "@mui/material";
 import MaskInput from "../../components/MaskInput";
 
-export const components = () => {
+export const components = (formik) => {
 
   const textFieldFormik = ({ id, ...props }) => (
     <TextField
