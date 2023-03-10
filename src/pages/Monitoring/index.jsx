@@ -38,33 +38,6 @@ const classes = {
   },
 };
 
-const fakeNotifications = [
-  {
-    reason: "Urinou muito",
-    date: new Date(2023, 0, 6),
-    hour: "10:30",
-    volume: 200,
-  },
-  {
-    reason: "Urinou pouco",
-    date: new Date(2023, 0, 6),
-    hour: "11:30",
-    volume: 20,
-  },
-  {
-    reason: "Urinou muito",
-    date: new Date(2023, 0, 6),
-    hour: "12:30",
-    volume: 300,
-  },
-  {
-    reason: "Urinou pouco",
-    date: new Date(2023, 0, 6),
-    hour: "13:30",
-    volume: 30,
-  },
-];
-
 export default function Monitoring() {
   const history = useHistory();
 
@@ -82,7 +55,7 @@ export default function Monitoring() {
       .then((response) => {
         const data = {
           ...response.data,
-          notifications: fakeNotifications,
+          notifications: extractNotifications(response.data),
         };
 
         data.measures = !!data.measures
@@ -102,6 +75,24 @@ export default function Monitoring() {
         alert("O sistema apresentou um erro ao carregar o paciente");
       });
   }, [patientId]);
+
+
+  const extractNotifications = (data) => {
+    const measures = data.measures;
+    
+    if(!measures) return [];
+
+    let notifications = [];
+
+    measures.forEach((measure) => {
+      const {notification, volumeInMl, time} = measure;
+      
+      !!notification && notifications.push({...notification, volumeInMl, time: moment(time), date: moment(time).format("DD/MM/YYYY")});
+    })
+
+    return notifications;
+  }
+
 
   const getHospitalizedTime = () => {
     const init = moment(patient.entranceDate);
@@ -153,7 +144,7 @@ export default function Monitoring() {
 
     if (patient.measures) {
       patient.measures.forEach((measure) => {
-        const volume = measure.volumeInMg;
+        const volume = measure.volumeInMl;
         sum += volume;
       });
     }

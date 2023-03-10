@@ -12,6 +12,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import MaskInput from "../../components/MaskInput";
 import Notification from "../../components/Notification/Notification";
 import api from "../../services/api";
+import { components } from "./components";
 import { validationSchema } from "./validationSchema";
 
 const classes = {
@@ -38,82 +39,63 @@ const INITIAL_VALUE_NOTIFY = {
   title: "",
 };
 
+const INITIAL_VALUE_FORMIK = {
+  email: "",
+  name: "",
+  CRM: "",
+  phone: "",
+  password: "",
+  confirmPassword: "",
+};
+
 export default function RegisterDoctor() {
   const history = useHistory();
   const [notify, setNotify] = useState(INITIAL_VALUE_NOTIFY);
 
   const post = (values) => {
-    const { confirmPassword, ...newValues } = values;
+    const { confirmPassword, ...data } = values;
     api
-      .post("doctors", newValues)
-      .then(() => {
-        setNotify({
-          isOpen: true,
-          message: "Médico cadastrado com sucesso!",
-          type: "success",
-          title: "Médico cadastrado!",
-        });
-      })
-      .catch((err) => {
-        const message = err.response?.data?.error?.message;
-
-        if (message) {
-          setNotify({
-            isOpen: true,
-            message: message,
-            type: "error",
-            title: "Falha no cadastro!",
-          });
-        }
-      });
+      .post("doctors", data)
+      .then(onSubmitSuccessfully)
+      .catch(onSubmitFailed);
   };
 
+
+  const onSubmitSuccessfully = () => {
+    setNotify({
+      isOpen: true,
+      message: "Médico cadastrado com sucesso!",
+      type: "success",
+      title: "Médico cadastrado!",
+    });
+
+    formik.resetForm()
+  }
+
+  const onSubmitFailed = (err) => {
+    const message = err.response?.data?.error?.message;
+
+    if (message) {
+      setNotify({
+        isOpen: true,
+        message: message,
+        type: "error",
+        title: "Falha no cadastro!",
+      });
+    }
+  }
+
   const formik = useFormik({
-    initialValues: {
-      email: "",
-      name: "",
-      CRM: "",
-      phone: "",
-      password: "",
-      confirmPassword: "",
-    },
+    initialValues: INITIAL_VALUE_FORMIK,
     validationSchema: validationSchema,
     onSubmit: post,
+    enableReinitialize: true,
   });
 
-  const textFieldFormik = ({ id, ...props }) => (
-    <TextField
-      size="small"
-      fullWidth
-      id={id}
-      name={id}
-      label={props.label || id}
-      value={formik.values[id]}
-      onChange={formik.handleChange}
-      error={formik.touched[id] && Boolean(formik.errors[id])}
-      helperText={formik.touched[id] && formik.errors[id]}
-      required={true}
-      {...props}
-    />
-  );
-
-  const inputMaskFormik = ({ id, mask, useRawValue, ...props }) => (
-    <MaskInput
-      size="small"
-      mask={mask}
-      useRawValue={useRawValue}
-      fullWidth
-      id={id}
-      name={id}
-      label={props.label || id}
-      value={formik.values[id]}
-      onChange={formik.handleChange}
-      error={formik.touched[id] && Boolean(formik.errors[id])}
-      helperText={formik.touched[id] && formik.errors[id]}
-      required={true}
-      {...props}
-    />
-  );
+  const {
+    textFieldFormik,
+    inputMaskFormik
+  } = components();
 
   return (
     <Card style={classes.cardRoot}>

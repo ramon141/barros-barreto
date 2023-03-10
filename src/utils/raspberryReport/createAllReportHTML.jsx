@@ -186,7 +186,7 @@ const separeInfoFromMeasures = (measures) => {
     if (measures) {
         measures.forEach((measure) => {
             const time = moment(measure.time);
-            const volume = measure.volumeInMg;
+            const volume = measure.volumeInMl;
 
             categories.push(time.format('HH:mm[h]'));
             data.push(volume);

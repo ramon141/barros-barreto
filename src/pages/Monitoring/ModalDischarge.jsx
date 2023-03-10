@@ -36,7 +36,7 @@ export default function ModalDischarge({ open, setOpen, onChoice }) {
         >
             <Box sx={style}>
                 <Typography id="modal-discharge" variant="h6" component="h2">
-                    Você gostaria de exportar o relatório em qual formato?
+                    Informe o horário de alta do paciente.
                 </Typography>
 
                 <Grid
@@ -49,7 +49,7 @@ export default function ModalDischarge({ open, setOpen, onChoice }) {
                     <Grid item xs={12} md={12}>
                         <DateTimePicker
                             label={'Data e Hora da Saída'}
-                            value={dateTime}
+                            value={moment(dateTime).format("DD/MM/YYYY")}
                             onChange={setDateTime}
                             renderInput={(params) => <TextField {...params} fullWidth size='small' />}
                         />

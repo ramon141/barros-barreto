@@ -9,6 +9,8 @@ export const makeReports = ({ patient, format, fileName }) => {
         notifications: organizeNotifications(patient.notifications, 'date')
     };
 
+    console.log(newPatient.notifications)
+
     switch (format.toLowerCase()) {
         case 'pdf':
             exportPDF(newPatient, fileName);

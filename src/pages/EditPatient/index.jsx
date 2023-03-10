@@ -42,8 +42,8 @@ const INITIAL_VALUES_FORMIK = {
   mensureInterval: "",
   entranceDate: moment(),
   raspberry: null,
-  maxVolumeInMg: "",
-  minVolumeInMg: "",
+  maxVolumeInMl: "",
+  minVolumeInMl: "",
   normalVolumeInMl: "",
 };
 

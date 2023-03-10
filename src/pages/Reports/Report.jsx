@@ -98,7 +98,7 @@ export default function Monitoring() {
 
     if (patient.measures) {
       patient.measures.forEach((measure) => {
-        const volume = measure.volumeInMg;
+        const volume = measure.volumeInMl;
         sum += volume;
       })
     }

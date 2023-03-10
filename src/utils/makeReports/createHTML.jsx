@@ -19,6 +19,11 @@ export async function createHTML(patient, title) {
                         print-color-adjust: exact;
                         -webkit-print-color-adjust: exact;
                     }
+                    @media print {
+                        img {
+                            width: 100%;
+                        }
+                    }
                 </style>
                 <title>${title}</title>
             </head>
@@ -71,6 +76,9 @@ async function tableNotifications(patient) {
             borderBottom: '1px solid rgb(224, 224, 224)',
             fontSize: '13px',
             padding: '7px 0px'
+        },
+        centerImg: {
+            textAlign: 'center'
         }
     }
 
@@ -104,7 +112,7 @@ async function tableNotifications(patient) {
                                 <th style={{ width: '25%', fontSize: '13px' }}>
                                     Hora da notificação
                                 </th>
-                                <th style={{ width: '5  0%', fontSize: '13px' }}>
+                                <th style={{ width: '50%', fontSize: '13px' }}>
                                     Motivo
                                 </th>
                                 <th style={{ width: '25%', fontSize: '13px' }}>
@@ -116,26 +124,27 @@ async function tableNotifications(patient) {
                             {organizedNotifications[valueAttribute].map((item, key) => (
                                 <tr key={key}>
                                     <td style={classes.tableLine}>
-                                        &nbsp;&nbsp; {item.hour}
+                                        &nbsp;&nbsp; {moment(item.time).format("HH:ss")}h
                                     </td>
 
                                     <td style={classes.tableLine}>
-                                        &nbsp;&nbsp; {item.reason}
+                                        &nbsp;&nbsp; {item.message}
                                     </td>
 
                                     <td style={classes.tableLine}>
-                                        &nbsp;&nbsp; {item.volume}
+                                        &nbsp;&nbsp; {item.volumeInMl}Ml
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table >
 
+<div style={classes.centerImg}>
                     <img
-                        width='100%'
                         alt={`Gráfico do dia ${moment(valueAttribute).format('DD/MM/YYYY')}`}
-                        src={graphs[moment(valueAttribute).format('DD/MM/YYYY')]}
+                        src={graphs[valueAttribute]}
                     />
+                    </div>
                 </div >
             ))}
         </>
@@ -177,7 +186,7 @@ const separeInfoFromMeasures = (measures) => {
     if (measures) {
         measures.forEach((measure) => {
             const time = moment(measure.time);
-            const volume = measure.volumeInMg;
+            const volume = measure.volumeInMl;
 
             categories.push(time.format('HH:mm[h]'));
             data.push(volume);
