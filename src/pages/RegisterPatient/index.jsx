@@ -47,6 +47,7 @@ export default function RegisterPatient() {
     });
   }, []);
 
+  //Valores que sejam reconhecidos como falso no JS, serão ignorados no envio de dados
   const removeOptionalValues = (optionalValues, data) => {
     const newValue = { ...data };
     optionalValues.forEach((value) => {
@@ -92,6 +93,8 @@ export default function RegisterPatient() {
         "maxVolumeInMl",
         "minVolumeInMl",
         "diagnostic",
+        "birthdate",
+        "entranceDate"
       ],
       data
     );
@@ -134,7 +137,7 @@ export default function RegisterPatient() {
       hospitalRecord: "",
       diagnostic: "",
       mensureInterval: "",
-      entranceDate: moment(),
+      entranceDate: null,
       maxVolumeInMl: "",
       minVolumeInMl: "",
       normalVolumeInMl: "",
@@ -235,6 +238,7 @@ export default function RegisterPatient() {
                 id: "doctorResponsible",
                 label: "Médico Responsável",
                 options: doctors,
+                required: true,
                 getOptionLabel: (option) =>
                   option.name
                     ? `${option.CRM} - ${option.name}`

@@ -48,7 +48,7 @@ export const validationSchema = yup.object().shape({
 
   height: yup.string(),
 
-  doctorResponsible: yup.object().nullable(),
+  doctorResponsible: yup.object().required("Por favor informe o médico responsável").nullable(),
 
   hospitalRecord: yup.string().required("O campo é necessário"),
 
