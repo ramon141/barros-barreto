@@ -84,7 +84,7 @@ export const components = (formik) => {
       label={props.label}
       id={id}
       name={id}
-      value={moment(formik.values[id]).format("DD/MM/YYYY")}
+      value={formik.values[id]}
       error={formik.touched[id] && Boolean(formik.errors[id])}
       helperText={formik.touched[id] && formik.errors[id]}
       onChange={(value) => formik.setFieldValue(id, value)}

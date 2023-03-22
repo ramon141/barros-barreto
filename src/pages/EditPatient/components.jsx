@@ -79,23 +79,18 @@ export const components = (formik) => {
     />
   );
 
-  const dateTimePickerFormik = ({ id, ...props }) => {
-    const datetime = moment(formik.values[id]);
-    const value = !!formik.values[id]? datetime.format("DD/MM/YYYY") : null;
-
-    return (
+  const dateTimePickerFormik = ({ id, ...props }) => (
     <DateTimePicker
       label={props.label}
       id={id}
       name={id}
-      value={value}
+      value={formik.values[id]}
       error={formik.touched[id] && Boolean(formik.errors[id])}
       helperText={formik.touched[id] && formik.errors[id]}
       onChange={(value) => formik.setFieldValue(id, value)}
       renderInput={(params) => <TextField {...params} fullWidth size="small" />}
       {...props}
     />)
-    };
 
   const autocompleteFormik = ({ id, getOptionLabel, options, ...props }) => (
     <Autocomplete
