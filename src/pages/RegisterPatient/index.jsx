@@ -137,7 +137,7 @@ export default function RegisterPatient() {
       hospitalRecord: "",
       diagnostic: "",
       mensureInterval: "",
-      entranceDate: null,
+      entranceDate: moment(),
       maxVolumeInMl: "",
       minVolumeInMl: "",
       normalVolumeInMl: "",
