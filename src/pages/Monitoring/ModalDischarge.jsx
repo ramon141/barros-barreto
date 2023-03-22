@@ -49,7 +49,8 @@ export default function ModalDischarge({ open, setOpen, onChoice }) {
                     <Grid item xs={12} md={12}>
                         <DateTimePicker
                             label={'Data e Hora da Saída'}
-                            value={moment(dateTime).format("DD/MM/YYYY")}
+                            value={dateTime}
+                            inputFormat={"DD/MM/YYYY HH:MM"}
                             onChange={setDateTime}
                             renderInput={(params) => <TextField {...params} fullWidth size='small' />}
                         />

@@ -85,6 +85,7 @@ export const components = (formik) => {
       id={id}
       name={id}
       value={formik.values[id]}
+      inputFormat={"DD/MM/YYYY HH:MM"}
       error={formik.touched[id] && Boolean(formik.errors[id])}
       helperText={formik.touched[id] && formik.errors[id]}
       onChange={(value) => formik.setFieldValue(id, value)}
