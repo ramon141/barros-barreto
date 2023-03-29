@@ -19,7 +19,7 @@ import api from "../../services/api";
 import moment from "moment";
 import GraphMonitoring from "../../components/GraphMonitoring";
 import { makeReports } from "../../utils/makeReports";
-import ModalChoiceReportFormat from "../../components/ModalChoiceReportFormat";
+import ModalChoiceReportFormat from "./ModalChoiceReportFormat";
 import ModalDischarge from "./ModalDischarge";
 
 const classes = {

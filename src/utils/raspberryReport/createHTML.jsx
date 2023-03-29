@@ -85,7 +85,7 @@ export function createRaspberryHTML(raspberry, title) {
             </div>
 
             <div style={classes.subtitle}>
-                <p>Relatório de pacientes do Raspberry {`${raspberry.propertyIdentification}`}</p>
+                <p>Relatório de pacientes do Módulo {`${raspberry.propertyIdentification}`}</p>
             </div>
 
             <hr style={classes.line} />

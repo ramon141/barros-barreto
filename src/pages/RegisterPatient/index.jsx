@@ -277,13 +277,13 @@ export default function RegisterPatient() {
             <Grid item xs={12} sm={4} md={4} lg={4}>
               {autocompleteFormik({
                 id: "raspberry",
-                label: "Raspberry",
+                label: "Módulo",
                 options: raspberries,
                 required: true,
                 getOptionLabel: (option) =>
                   option.model
                     ? `${option.model} - ${option.propertyIdentification}`
-                    : "Selecione um Raspberry",
+                    : "Selecione um Módulo",
               })}
             </Grid>
             <Grid item xs={12}>

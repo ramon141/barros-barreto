@@ -58,5 +58,5 @@ export const validationSchema = yup.object().shape({
     .string()
     .required("Informe um tempo de mensuração do volume de urina"),
 
-  raspberry: yup.object().required("Por favor informe o raspberry").nullable(),
+  raspberry: yup.object().required("Por favor informe o módulo").nullable(),
 });

@@ -1,7 +1,7 @@
 # Conecta Canaã Educação - Front End
 O projeto Canaã dos Carajás é baseado em microsserviços, e cada um destes possui uma funcionalidade bem definida:
 
-O Canaã Educação é um sistema para o gerenciamento de embarque e desembarque de estudantes da cidade de Canaã dos Carajás. A aplicação busca permitir que estudantes portando seu QR Code, com a informação de matrícula do estudante, tenham acesso a embarcar em um ônibus e automaticamente crie um registro, que poderá ser utilizado pelo administrador para elaborar relatórios periódicos. O estudante, caso universitário, terá a opção de realizar o reconhecimento facial que executará nos ônibus utilizando um Raspberry pi.
+O Canaã Educação é um sistema para o gerenciamento de embarque e desembarque de estudantes da cidade de Canaã dos Carajás. A aplicação busca permitir que estudantes portando seu QR Code, com a informação de matrícula do estudante, tenham acesso a embarcar em um ônibus e automaticamente crie um registro, que poderá ser utilizado pelo administrador para elaborar relatórios periódicos. O estudante, caso universitário, terá a opção de realizar o reconhecimento facial que executará nos ônibus utilizando um Esp32.
 
 Todos os sistemas se conversam por meio de APIs intermediárias, em educação existem duas:
 - canaa-educacao-dados-api [Ver mais](https://repositorio.lprad.ufpa.br/yure_sa19/canaa-educacao-dados-api)

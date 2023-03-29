@@ -90,7 +90,7 @@ function tableReportPatients(raspberries) {
             {raspberries.map(raspberry => (
                 <>
                     <div style={classes.subtitle}>
-                        <p>Relatório de pacientes do Raspberry {`${raspberry.propertyIdentification}`}</p>
+                        <p>Relatório de pacientes do Módulo {`${raspberry.propertyIdentification}`}</p>
                         <p>Total de pacientes atendidos: {(raspberry.measuredPatients && Array.isArray(raspberry.measuredPatients) && raspberry.measuredPatients.length) || '0'}</p>
                     </div>
 

@@ -38,7 +38,7 @@ export default function ListItems({ handleDrawerClose, isMobile }) {
         <ListItemText primary="Cadastro de Médicos" />
       </ListItemLink>
       <ListItemLink button href="/choice-raspberry-reports" style={classes.cor}>
-        <ListItemText primary="Relatório de raspberries" />
+        <ListItemText primary="Relatório de Módulos" />
       </ListItemLink>
 
       <>

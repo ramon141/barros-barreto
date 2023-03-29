@@ -37,7 +37,7 @@ export default function TableRaspberry({ raspberry, handleClickRow }) {
             {
                 raspberry && Array.isArray(raspberry) && raspberry.length === 0 ?
                     <Typography align='center' variant='h6'>
-                        Não há raspberries que atendam os filtros aplicados
+                        Não há módulos que atendam os filtros aplicados
                     </Typography> :
                     <Box sx={{ height: 300, width: '100%' }}>
                         <DataGrid

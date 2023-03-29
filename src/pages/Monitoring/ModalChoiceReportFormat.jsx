@@ -32,7 +32,7 @@ export default function ModalChoiceReportFormat({ open, setOpen, onChoice }) {
         >
             <Box sx={style}>
                 <Typography id="modal-choice-format-title" variant="h6" component="h2">
-                    Você gostaria de exportar o relatório em qual formato?
+                    Você gostaria de obter quais informações?
                 </Typography>
 
                 <Grid
@@ -43,7 +43,7 @@ export default function ModalChoiceReportFormat({ open, setOpen, onChoice }) {
                     spacing={2}
                 >
 
-<Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={12}>
                         <Typography style={{fontWeight: 'bold', textAlign: 'center'}}>
                             Relatório das notificações
                         </Typography>

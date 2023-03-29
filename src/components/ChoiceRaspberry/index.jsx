@@ -36,7 +36,7 @@ export default function ChoiceRaspberry({ onChoosing, useFilter = true, title, p
       <Grid item xs={12} sm={10} md={10} lg={10}>
         <TextField
           size='small'
-          label='Raspberry'
+          label='Módulo'
           required
           fullWidth
           value={searchValue}
