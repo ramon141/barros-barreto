@@ -32,7 +32,7 @@ export default function ModalChoiceReportFormat({ open, setOpen, onChoice }) {
         >
             <Box sx={style}>
                 <Typography id="modal-choice-format-title" variant="h6" component="h2">
-                    Você gostaria de exportar o relatório em qual formato?
+                    Você gostaria de obter quais informações?
                 </Typography>
 
                 <Grid
@@ -42,6 +42,13 @@ export default function ModalChoiceReportFormat({ open, setOpen, onChoice }) {
                     justifyContent='center'
                     spacing={2}
                 >
+
+                    <Grid item xs={12} md={12}>
+                        <Typography style={{fontWeight: 'bold', textAlign: 'center'}}>
+                            Relatório das notificações
+                        </Typography>
+                    </Grid>
+
                     <Grid item>
                         <Button
                             color="primary"
@@ -62,6 +69,12 @@ export default function ModalChoiceReportFormat({ open, setOpen, onChoice }) {
                         </Button>
                     </Grid>
 
+                    <Grid item xs={12} md={12}>
+                        <Typography style={{fontWeight: 'bold', textAlign: 'center'}}>
+                            Relatório das mensurações
+                        </Typography>
+                    </Grid>
+
                     <Grid item>
                         <Button
                             color="primary"
@@ -71,6 +84,7 @@ export default function ModalChoiceReportFormat({ open, setOpen, onChoice }) {
                             CSV
                         </Button>
                     </Grid>
+
                 </Grid>
             </Box>
         </Modal>

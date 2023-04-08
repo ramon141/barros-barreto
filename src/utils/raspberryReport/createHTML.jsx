@@ -4,8 +4,8 @@ import { formatCpf } from '../formatFields';
 import ApexChart from 'apexcharts';
 import moment from 'moment';
 
-export async function createHTML(patient, title) {
-    const htmlNotifications = await tableNotifications(patient);
+export function createRaspberryHTML(raspberry, title) {
+    const htmlNotifications = tableReportPatients(raspberry);
 
     return `
             <html>
@@ -29,8 +29,7 @@ export async function createHTML(patient, title) {
             </html>
         `;
 }
-
-async function tableNotifications(patient) {
+ function tableReportPatients(raspberry) {
 
     const classes = {
         root: {
@@ -74,9 +73,6 @@ async function tableNotifications(patient) {
         }
     }
 
-    const organizedNotifications = patient.notifications;
-    const graphs = await createDailyCharts(patient);
-
     return (
         <>
             <div>
@@ -89,55 +85,58 @@ async function tableNotifications(patient) {
             </div>
 
             <div style={classes.subtitle}>
-                <p>Relatório de Notificações</p>
-                <p>Paciente: {`${patient.name} - ${formatCpf(patient.cpf)}`}</p>
+                <p>Relatório de pacientes do Módulo {`${raspberry.propertyIdentification}`}</p>
             </div>
 
             <hr style={classes.line} />
 
-            {Object.keys(organizedNotifications).map((valueAttribute) => (
-                <div key={valueAttribute} style={{ marginTop: '40px', pageBreakAfter: 'always' }}>
-                    <span>Data: {moment(valueAttribute).format('DD/MM/YYYY')}</span>
-                    <table style={classes.tableRoot}>
-                        <thead>
-                            <tr style={classes.theadLine}>
-                                <th style={{ width: '25%', fontSize: '13px' }}>
-                                    Hora da notificação
-                                </th>
-                                <th style={{ width: '5  0%', fontSize: '13px' }}>
-                                    Motivo
-                                </th>
-                                <th style={{ width: '25%', fontSize: '13px' }}>
-                                    Volume de urina na hora correspondente
-                                </th>
+            <div key={raspberry.id} style={{ marginTop: '40px', pageBreakAfter: 'always' }}>
+                
+                <table style={classes.tableRoot}>
+                    <thead>
+                        <tr style={classes.theadLine}>
+                            <th style={{ width: '40%', fontSize: '13px' }}>
+                                Nome
+                            </th>
+                            <th style={{ width: '15%', fontSize: '13px' }}>
+                                Registro Hospitalar
+                            </th>
+                            <th style={{ width: '15%', fontSize: '13px' }}>
+                                CPF
+                            </th>
+                            <th style={{ width: '15%', fontSize: '13px' }}>
+                                Data de entrada
+                            </th>
+                            <th style={{ width: '15%', fontSize: '13px' }}>
+                                Data de alta
+                            </th>
+                        </tr>
+                    </thead >
+
+                    <tbody>
+                        {raspberry.measuredPatients && raspberry.measuredPatients.map(item => (
+                            <tr key={item.id}>
+                                <td style={classes.tableLine}>
+                                    &nbsp;&nbsp; {item.name}
+                                </td>
+
+                                <td style={classes.tableLine}>
+                                    &nbsp;&nbsp; {item.hospitalRegister}
+                                </td>
+                                <td style={classes.tableLine}>
+                                    &nbsp;&nbsp; {item.cpf}
+                                </td>
+                                <td style={classes.tableLine}>
+                                    &nbsp;&nbsp; {new Date(item.entranceDate).toLocaleDateString()}
+                                </td>
+                                <td style={classes.tableLine}>
+                                    &nbsp;&nbsp; {item.dischargedFromHospital ? new Date(item.dischargedFromHospital).toLocaleDateString() : "Hospitalizado"}
+                                </td>
                             </tr>
-                        </thead >
-                        <tbody>
-                            {organizedNotifications[valueAttribute].map((item, key) => (
-                                <tr key={key}>
-                                    <td style={classes.tableLine}>
-                                        &nbsp;&nbsp; {item.hour}
-                                    </td>
-
-                                    <td style={classes.tableLine}>
-                                        &nbsp;&nbsp; {item.reason}
-                                    </td>
-
-                                    <td style={classes.tableLine}>
-                                        &nbsp;&nbsp; {item.volume}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table >
-
-                    <img
-                        width='100%'
-                        alt={`Gráfico do dia ${moment(valueAttribute).format('DD/MM/YYYY')}`}
-                        src={graphs[moment(valueAttribute).format('DD/MM/YYYY')]}
-                    />
-                </div >
-            ))}
+                        ))}
+                    </tbody>
+                </table >
+            </div >
         </>
     );
 }
@@ -177,7 +176,7 @@ const separeInfoFromMeasures = (measures) => {
     if (measures) {
         measures.forEach((measure) => {
             const time = moment(measure.time);
-            const volume = measure.volumeInMg;
+            const volume = measure.volumeInMl;
 
             categories.push(time.format('HH:mm[h]'));
             data.push(volume);

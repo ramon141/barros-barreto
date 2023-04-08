@@ -1,7 +1,7 @@
 # Conecta Canaã Educação - Front End
 O projeto Canaã dos Carajás é baseado em microsserviços, e cada um destes possui uma funcionalidade bem definida:
 
-O Canaã Educação é um sistema para o gerenciamento de embarque e desembarque de estudantes da cidade de Canaã dos Carajás. A aplicação busca permitir que estudantes portando seu QR Code, com a informação de matrícula do estudante, tenham acesso a embarcar em um ônibus e automaticamente crie um registro, que poderá ser utilizado pelo administrador para elaborar relatórios periódicos. O estudante, caso universitário, terá a opção de realizar o reconhecimento facial que executará nos ônibus utilizando um Raspberry pi.
+O Canaã Educação é um sistema para o gerenciamento de embarque e desembarque de estudantes da cidade de Canaã dos Carajás. A aplicação busca permitir que estudantes portando seu QR Code, com a informação de matrícula do estudante, tenham acesso a embarcar em um ônibus e automaticamente crie um registro, que poderá ser utilizado pelo administrador para elaborar relatórios periódicos. O estudante, caso universitário, terá a opção de realizar o reconhecimento facial que executará nos ônibus utilizando um Esp32.
 
 Todos os sistemas se conversam por meio de APIs intermediárias, em educação existem duas:
 - canaa-educacao-dados-api [Ver mais](https://repositorio.lprad.ufpa.br/yure_sa19/canaa-educacao-dados-api)
@@ -22,7 +22,7 @@ Para definir a URL da API é necessário criar um arquivo com o nome `.env` na r
 
 Dentro arquivo `.env` deverá conter a(s) seguinte(s) variável(is), abaixo de cada variável estará listada os possíveis valores e em quais casos os valores são utilizados.
 
-+ REACT_APP_BASE_API_URL: Link da API de dados do Canaã Educação
++ VITE_API_BASE_URL: Link da API de dados do Canaã Educação
 + + Ambiente de produção - https://ceapi.unifesspa.edu.br/
 + + Obs: Ainda não há nenhuma API de desenvolvimento, utiliza a API de produção com cuidado, ou preferencialmente, execute a API localmente.
 

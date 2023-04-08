@@ -7,7 +7,7 @@ export default function GraphMonitoring({ measures, date, idGraph }) {
   //   ...
   //   {
   //     "time": "2022-12-22T20:59:38.125Z",
-  //     "volumeInMg": 1
+  //     "volumeInMl": 1
   //   }
   //   ...
   // ]
@@ -28,7 +28,7 @@ export default function GraphMonitoring({ measures, date, idGraph }) {
 
       measures.forEach((measure) => {
         const time = moment(measure.time);
-        const volume = measure.volumeInMg;
+        const volume = measure.volumeInMl;
 
         if (!includeDate && !lastDate.isSame(time, 'day')) {
           includeDate = true;

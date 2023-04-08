@@ -33,7 +33,7 @@ const listMeasures = (patient) => {
 
     if (measures) {
         measures.forEach((measure) => {
-            text += `${measure.volumeInMg},${moment(measure.time).format('DD/MM/YYYY')},${moment(measure.time).format('HH:mm')}\n`;
+            text += `${measure.volumeInMl},${moment(measure.time).format('DD/MM/YYYY')},${moment(measure.time).format('HH:mm')}\n`;
         })
     }
 

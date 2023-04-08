@@ -32,7 +32,8 @@ const INITIAL_VALUE_NOTIFY = {
 export default function RegisterPatient() {
   const history = useHistory();
   const [notify, setNotify] = useState(INITIAL_VALUE_NOTIFY);
-
+  const [choiceDefaultValueForVolume, setChoiceDefaultValueForVolume] =
+    useState(true);
   const [doctors, setDoctors] = useState([]);
   const [raspberries, setRaspberries] = useState([]);
 
@@ -46,6 +47,16 @@ export default function RegisterPatient() {
     });
   }, []);
 
+  //Valores que sejam reconhecidos como falso no JS, serão ignorados no envio de dados
+  const removeOptionalValues = (optionalValues, data) => {
+    const newValue = { ...data };
+    optionalValues.forEach((value) => {
+      newValue[value] = newValue[value] || undefined;
+    });
+
+    return newValue;
+  };
+
   const post = (values) => {
     //Remove de "values" atributos que não possuem o mesmo nome na
     //api, ou que precisam ser tratados antes de serem enviados
@@ -56,14 +67,15 @@ export default function RegisterPatient() {
       rg,
       hospitalRecord,
       raspberry,
+      normalVolumeInMl,
       ...data
     } = values;
 
     data.hospitalRegister = hospitalRecord;
 
-    data.doctorId = doctorResponsible.id;
+    data.doctorId = doctorResponsible?.id;
 
-    data.raspberryId = raspberry.id;
+    data.raspberryId = raspberry?.id;
 
     data.rg = String(rg);
 
@@ -72,8 +84,23 @@ export default function RegisterPatient() {
 
     data.weightInKg = parseFloat(weight);
 
+    const newData = removeOptionalValues(
+      [
+        "mensureInterval",
+        "heightInCm",
+        "weightInKg",
+        "rg",
+        "maxVolumeInMl",
+        "minVolumeInMl",
+        "diagnostic",
+        "birthdate",
+        "entranceDate"
+      ],
+      data
+    );
+
     api
-      .post("patients", data)
+      .post("patients", newData)
       .then((response) => {
         setNotify({
           isOpen: true,
@@ -103,7 +130,7 @@ export default function RegisterPatient() {
       cpf: "",
       name: "",
       rg: "",
-      birthdate: moment(),
+      birthdate: null,
       weight: "",
       height: "",
       doctorResponsible: null,
@@ -111,8 +138,9 @@ export default function RegisterPatient() {
       diagnostic: "",
       mensureInterval: "",
       entranceDate: moment(),
-      maxVolumeInMg: 60,
-      minVolumeInMg: 30,
+      maxVolumeInMl: "",
+      minVolumeInMl: "",
+      normalVolumeInMl: "",
       raspberry: null,
     },
     validationSchema: validationSchema,
@@ -126,7 +154,17 @@ export default function RegisterPatient() {
     dateTimePickerFormik,
     autocompleteFormik,
     selectFormik,
+    checkBoxForDefaulVolume,
   } = components(formik);
+
+  const calcLimits = (event) => {
+    const newWeight = parseFloat(event.target.value) || 0;
+    const normalVolume = newWeight / 2;
+
+    formik.setFieldValue("normalVolumeInMl", normalVolume || "");
+    formik.setFieldValue("minVolumeInMl", normalVolume * 0.7 || "");
+    formik.setFieldValue("maxVolumeInMl", normalVolume * 1.3 || "");
+  };
 
   return (
     <Card style={{ margin: 20 }}>
@@ -141,17 +179,29 @@ export default function RegisterPatient() {
 
         <form onSubmit={formik.handleSubmit}>
           <Grid container spacing={2}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={12}
+              lg={12}
+              style={{ textAlign: "right", color: "#EE2222" }}
+            >
+              <span>Os campos com * são obrigatórios</span>
+            </Grid>
+
             <Grid item xs={12} sm={6} md={6} lg={6}>
               {inputMaskFormik({
                 id: "cpf",
                 label: "CPF",
                 mask: "999.999.999-99",
                 useOnlyNumbers: true,
+                required: true,
               })}
             </Grid>
 
             <Grid item xs={12} sm={6} md={6} lg={6}>
-              {textFieldFormik({ id: "name", label: "Nome" })}
+              {textFieldFormik({ id: "name", label: "Nome", required: true })}
             </Grid>
 
             <Grid item xs={12} sm={4} md={4} lg={4}>
@@ -163,6 +213,8 @@ export default function RegisterPatient() {
                 id: "weight",
                 label: "Peso (Kg)",
                 type: "number",
+                required: true,
+                handleChange: calcLimits,
               })}
             </Grid>
 
@@ -186,6 +238,7 @@ export default function RegisterPatient() {
                 id: "doctorResponsible",
                 label: "Médico Responsável",
                 options: doctors,
+                required: true,
                 getOptionLabel: (option) =>
                   option.name
                     ? `${option.CRM} - ${option.name}`
@@ -197,6 +250,7 @@ export default function RegisterPatient() {
               {textFieldFormik({
                 id: "hospitalRecord",
                 label: "Registro Hospitalar",
+                required: true,
               })}
             </Grid>
 
@@ -204,6 +258,7 @@ export default function RegisterPatient() {
               {selectFormik({
                 id: "mensureInterval",
                 label: "Intervalo de Mensuração",
+                required: true,
                 options: [
                   { value: 10, description: "10 minutos" },
                   { value: 30, description: "30 minutos" },
@@ -222,30 +277,53 @@ export default function RegisterPatient() {
             <Grid item xs={12} sm={4} md={4} lg={4}>
               {autocompleteFormik({
                 id: "raspberry",
-                label: "Raspberry",
+                label: "Módulo",
                 options: raspberries,
+                required: true,
                 getOptionLabel: (option) =>
                   option.model
                     ? `${option.model} - ${option.propertyIdentification}`
-                    : "Selecione um Raspberry",
+                    : "Selecione um Módulo",
+              })}
+            </Grid>
+            <Grid item xs={12}>
+              {checkBoxForDefaulVolume({
+                id: "choiceDefaultValueForVolume",
+                checked: choiceDefaultValueForVolume,
+                label: "Determinar os limites de urina de forma automática?",
+                onChange: () => {
+                  setChoiceDefaultValueForVolume((state) => !state);
+                },
               })}
             </Grid>
 
-            <Grid item xs={12} sm={6} md={6} lg={6}>
-              {textFieldFormik({
-                id: "minVolumeInMg",
-                label: "Volume Mínimo de Urina (Mg)",
-                type: "number",
-              })}
-            </Grid>
+            {choiceDefaultValueForVolume ? (
+              <Grid item xs={12} sm={12} md={12} lg={12}>
+                {textFieldFormik({
+                  id: "normalVolumeInMl",
+                  label: "Volume Base de Urina (Ml)",
+                  type: "number",
+                })}
+              </Grid>
+            ) : (
+              <>
+                <Grid item xs={12} sm={6} md={6} lg={6}>
+                  {textFieldFormik({
+                    id: "minVolumeInMl",
+                    label: "Volume Mínimo de Urina (Ml)",
+                    type: "number",
+                  })}
+                </Grid>
 
-            <Grid item xs={12} sm={6} md={6} lg={6}>
-              {textFieldFormik({
-                id: "maxVolumeInMg",
-                label: "Volume Máximo de Urina (Mg)",
-                type: "number",
-              })}
-            </Grid>
+                <Grid item xs={12} sm={6} md={6} lg={6}>
+                  {textFieldFormik({
+                    id: "maxVolumeInMl",
+                    label: "Volume Máximo de Urina (Ml)",
+                    type: "number",
+                  })}
+                </Grid>
+              </>
+            )}
 
             <Grid item xs={12} sm={12} md={12} lg={12}>
               {textFieldFormik({
@@ -263,7 +341,11 @@ export default function RegisterPatient() {
               justifyContent="center"
             >
               <Grid item>
-                <Button variant="outlined" style={classes.btnCancel}>
+                <Button
+                  variant="outlined"
+                  style={classes.btnCancel}
+                  onClick={() => history.push("/choice-patient-monitoring")}
+                >
                   Voltar
                 </Button>
               </Grid>
