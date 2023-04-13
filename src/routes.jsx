@@ -18,6 +18,8 @@ import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import ListPatient from "./pages/ListPatient";
 import RegisterRaspberry from "./pages/RegisterRaspberry";
+import ChoiceRaspberryMonitoring from "./pages/ListRaspberry";
+import RaspberryMonitoring from "./pages/MonitoringRaspberry";
 import ChoiceRaspberryReport from "./pages/RaspberryReport/Choice";
 
 /* Função destinada para possibilitar acesso somente as rotas com autenticação */
@@ -66,6 +68,8 @@ export default function Routes() {
             component={ChoicePatientEdit}
           />
           <PrivateRoute path="/registermodule" component={RegisterRaspberry} />
+          <PrivateRoute path="/choice-module-monitoring" component={ChoiceRaspberryMonitoring} />
+          <PrivateRoute path="/monitoring-module/:moduleId" component={RaspberryMonitoring} />
           <PrivateRoute
             path="/choice-raspberry-reports"
             component={ChoiceRaspberryReport} 
