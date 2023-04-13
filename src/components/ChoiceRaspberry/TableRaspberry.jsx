@@ -21,7 +21,7 @@ export default function TableRaspberry({ raspberry, handleClickRow }) {
         },
         {
             field: 'measuredPatients',
-            headerName: 'Numero de pacientes atendidos',
+            headerName: 'Número de pacientes atendidos',
             width: 350,
             valueFormatter: (row) => {
                 if(row.value && Array.isArray(row.value) ){

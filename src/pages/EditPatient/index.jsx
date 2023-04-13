@@ -206,7 +206,7 @@ export default function EditPatient() {
           align="center"
           style={{ fontWeight: "bold", marginBottom: 30 }}
         >
-          Cadastro de Paciente
+          Edição de Paciente
         </Typography>
 
         <form onSubmit={formik.handleSubmit}>
