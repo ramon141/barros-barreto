@@ -11,10 +11,13 @@ import Monitoring from "./pages/Monitoring";
 import ChoicePatientOnReports from "./pages/Reports/Choice";
 import Report from "./pages/Reports/Report";
 import RegisterDoctor from "./pages/RegisterDoctor";
+// import EditDoctor from "./pages/EditDoctor";
+import ChoiceDoctorEdit from "./pages/EditDoctor/choiceDoctor";
 import { isAuthenticated } from "./services/auth";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import ListPatient from "./pages/ListPatient";
+import RegisterRaspberry from "./pages/RegisterRaspberry";
 import ChoiceRaspberryReport from "./pages/RaspberryReport/Choice";
 
 /* Função destinada para possibilitar acesso somente as rotas com autenticação */
@@ -44,6 +47,11 @@ export default function Routes() {
           <PrivateRoute path="/login" component={Login} />
           <PrivateRoute path="/about" component={About} />
           <PrivateRoute path="/registerdoctor" component={RegisterDoctor} />
+          <PrivateRoute path="/choice-doctor-edit" component={ChoiceDoctorEdit} />
+          {/*<PrivateRoute*/}
+          {/*    path="/editdoctor/:doctorId"*/}
+          {/*    component={EditDoctor}*/}
+          {/*/>*/}
           <PrivateRoute path="/registerpatient" component={RegisterPatient} />
           <PrivateRoute
             path="/choice-patient-monitoring"
@@ -57,6 +65,7 @@ export default function Routes() {
             path="/choice-patient-edit"
             component={ChoicePatientEdit}
           />
+          <PrivateRoute path="/registermodule" component={RegisterRaspberry} />
           <PrivateRoute
             path="/choice-raspberry-reports"
             component={ChoiceRaspberryReport} 

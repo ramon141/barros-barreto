@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core";
 import { Box } from "@mui/material";
-import { DataGrid, GridToolbarExport} from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 
 const classes = {
     dataGrid: {
@@ -11,43 +11,36 @@ const classes = {
     }
 }
 
-export default function TableRaspberry({ raspberry, handleClickRow }) {
+export default function TableDoctors({ doctors, handleClickRow }) {
 
     const columns = [
         {
-            field: 'propertyIdentification',
-            headerName: 'Número de Identificação',
+            field: 'CRM',
+            headerName: 'CRM',
             width: 180
         },
         {
-            field: 'measuredPatients',
-            headerName: 'Número de pacientes atendidos',
-            width: 350,
-            valueFormatter: (row) => {
-                if(row.value && Array.isArray(row.value) ){
-                    return row.value.length
-                }
-                return 0
-            }
+            field: 'name',
+            headerName: 'Nome',
+            width: 350
         },
     ];
 
     return (
         <>
             {
-                raspberry && Array.isArray(raspberry) && raspberry.length === 0 ?
+                doctors.length === 0 ?
                     <Typography align='center' variant='h6'>
-                        Não há módulos que atendam os filtros aplicados
+                        Não há médicos que atendam os filtros aplicados
                     </Typography> :
                     <Box sx={{ height: 300, width: '100%' }}>
                         <DataGrid
                             onRowClick={handleClickRow}
                             columns={columns}
                             getRowId={(row) => row.id}
-                            rows={raspberry}
+                            rows={doctors}
                             sx={classes.dataGrid}
                             pageSize={5}
-                            
                             rowsPerPageOptions={[5]}
                         />
                     </Box>
