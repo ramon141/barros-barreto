@@ -249,7 +249,7 @@ export default function Monitoring() {
               fullWidth
               size="small"
               required
-              label="Iníco"
+              label="Início"
               disabled
               style={classes.disabled}
               value={moment(patient.date).format("DD/MM/YYYY")}
