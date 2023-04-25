@@ -63,24 +63,14 @@ export default function EditDoctor() {
                 const { data } = response;
 
                 setValuesFormik({
-                    cpf: data.cpf,
                     name: data.name,
-                    rg: data.rg || "",
-                    birthdate: moment(data.birthdate),
-                    weight: data.weightInKg || "",
-                    height: data.heightInCm || "",
-                    doctorResponsible: data.doctor || null,
-                    hospitalRecord: data.hospitalRegister,
-                    diagnostic: data.diagnostic || "",
-                    mensureInterval: data.mensureInterval || null,
-                    entranceDate: moment(data.entranceDate),
-                    raspberry: data.raspberry || null,
-                    maxVolumeInMl: data.maxVolumeInMl || "",
-                    minVolumeInMl: data.minVolumeInMl || "",
-                    normalVolumeInMl: data.maxVolumeInMl / 1.3,
+                    email: data.email,
+                    CRM: data.CRM,
+                    phone: data.phone,
+                    password: data.password
                 });
             });
-    }, [patientId, raspberries, doctors]);
+    });
 
     const removeOptionalValues = (optionalValues, data) => {
         const newValue = { ...data };
@@ -105,34 +95,14 @@ export default function EditDoctor() {
             ...data
         } = values;
 
-        data.hospitalRegister = hospitalRecord;
-
-        data.doctorId = doctorResponsible?.id;
-
-        data.raspberryId = raspberry?.id;
-
-        data.rg = String(rg);
-
-        //Converte metros para centímetros
-        data.heightInCm = parseFloat(height) * 100;
-
-        data.weightInKg = parseFloat(weight);
-
         const newData = removeOptionalValues(
             [
-                "mensureInterval",
-                "heightInCm",
-                "weightInKg",
-                "rg",
-                "maxVolumeInMl",
-                "minVolumeInMl",
-                "diagnostic",
             ],
             data
         );
 
         api
-            .patch(`patients/${patientId}`, newData)
+            .patch(`doctors/${doctorId}`, newData)
             .then((response) => {
                 setNotify({
                     isOpen: true,
@@ -141,7 +111,7 @@ export default function EditDoctor() {
                     title: "Informações atualizadas com sucesso!",
                 });
 
-                setTimeout(() => history.push("/choice-patient-monitoring"), 700);
+                setTimeout(() => history.push("/choice-doctor-edit"), 700);
             })
             .catch((err) => {
                 const message = err.response?.data?.error?.message;
