@@ -140,7 +140,7 @@ export default function RaspberryMonitoring() {
                             label="Status"
                             disabled
                             style={classes.disabled}
-                            value={module.status}
+                            value= {module.status === "operante" ? "Em utilização" : "Não utilizado"}
                         />
                     </Grid>
 

@@ -34,6 +34,11 @@ export default function TableRaspberry({ raspberry, handleClickRow }) {
             field: 'status',
             headerName: 'Status de operação',
             width: 200,
+            valueFormatter: (row) => {
+               if (row.value === "operante")
+                   return "Em utilização"
+               return "Não utilizado"
+            }
         },
     ];
 
