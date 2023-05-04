@@ -161,9 +161,16 @@ export default function Monitoring() {
   };
 
   const onDischarge = (dischargedFromHospital) => {
+    const raspId = patient.raspberryId;
+
     const data = {
       dischargedFromHospital,
     };
+
+    const modifyRaspStatus = {
+      status: "inoperante",
+    };
+
 
     api
       .patch(`patients/${patientId}`, data)
@@ -177,6 +184,12 @@ export default function Monitoring() {
       .catch((err) => {
         alert("Erro ao dar alta para o paciente");
       });
+
+    api
+        .patch(`raspberries/${raspId}`, modifyRaspStatus)
+        .catch((err) => {
+      alert("Erro ao modificar o status do módulo");
+    });
   };
 
   const Buttons = () => (
