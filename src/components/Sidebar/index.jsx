@@ -151,107 +151,107 @@ export default function Sidebar({ children }) {
   };
 
   return (
-    <>
-      <div className={classes.root}>
-        <CssBaseline />
-        <AppBar
-          position="absolute"
-          className={clsx(classes.appBar, open && classes.appBarShift)}
-        >
-          <Toolbar className={classes.toolbar}>
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              className={clsx(
-                classes.menuButton,
-                open && classes.menuButtonHidden
-              )}
-              style={{ opacity: windowWidth > 750 ? 0.0 : 1 }}
-              disabled={windowWidth > 750}
-            >
-              <MenuIcon />
-            </IconButton>
-
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              className={classes.title}
-            >
-              <Area style={{ display: windowWidth < 750 ? "none" : "block" }}>
-                <AreaLogo>
-                  <div>
-                    <a
-                      href="https://www.gov.br/ebserh/pt-br/hospitais-universitarios/regiao-norte/chu-ufpa"
-                      rel="noreferrer"
-                      target="_blank"
-                    >
-                      <img
-                        src={logoBarrosBarreto}
-                        className="bandeira"
-                        alt="Logo Barros Barreto"
-                      />
-                    </a>
-                  </div>
-                </AreaLogo>
-              </Area>
-            </Typography>
-            <Header />
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          variant={menu}
-          classes={{
-            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-          }}
-          open={open}
-          style={{ opacity: open === false ? 0.0 : 1 }}
-        >
-          <div className={classes.toolbarIcon}>
-            <div style={{ padding: 8, width: 60 }}>
-              <a
-                href="https://www.gov.br/ebserh/pt-br/hospitais-universitarios/regiao-norte/chu-ufpa"
-                rel="noreferrer"
-                target="_blank"
+      <>
+        <div className={classes.root}>
+          <CssBaseline />
+          <AppBar
+              position="absolute"
+              className={clsx(classes.appBar, open && classes.appBarShift)}
+          >
+            <Toolbar className={classes.toolbar}>
+              <IconButton
+                  edge="start"
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={handleDrawerOpen}
+                  className={clsx(
+                      classes.menuButton,
+                      open && classes.menuButtonHidden
+                  )}
+                  style={{ opacity: windowWidth > 750 ? 0.0 : 1 }}
+                  disabled={windowWidth > 750}
               >
-                <img
-                  src={logoBarrosBarreto}
-                  style={{ width: 50 }}
-                  className="bandeira"
-                  alt="Logo UFPA"
-                />
-              </a>
+                <MenuIcon />
+              </IconButton>
+
+              <Typography
+                  component="h1"
+                  variant="h6"
+                  color="inherit"
+                  noWrap
+                  className={classes.title}
+              >
+                <Area style={{ display: windowWidth < 750 ? "none" : "block" }}>
+                  <AreaLogo>
+                    <div>
+                      <a
+                          href="https://www.gov.br/ebserh/pt-br/hospitais-universitarios/regiao-norte/chu-ufpa"
+                          rel="noreferrer"
+                          target="_blank"
+                      >
+                        <img
+                            src={logoBarrosBarreto}
+                            className="bandeira"
+                            alt="Logo Barros Barreto"
+                        />
+                      </a>
+                    </div>
+                  </AreaLogo>
+                </Area>
+              </Typography>
+              <Header />
+            </Toolbar>
+          </AppBar>
+          <Drawer
+              variant={menu}
+              classes={{
+                paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+              }}
+              open={open}
+              style={{ opacity: open === false ? 0.0 : 1 }}
+          >
+            <div className={classes.toolbarIcon}>
+              <div style={{ padding: 8, width: 60 }}>
+                <a
+                    href="https://www.gov.br/ebserh/pt-br/hospitais-universitarios/regiao-norte/chu-ufpa"
+                    rel="noreferrer"
+                    target="_blank"
+                >
+                  <img
+                      src={logoBarrosBarreto}
+                      style={{ width: 50 }}
+                      className="bandeira"
+                      alt="Logo UFPA"
+                  />
+                </a>
+              </div>
+
+              <IconButton
+                  onClick={handleDrawerClose}
+                  disabled={windowWidth > 750}
+                  style={{ opacity: windowWidth > 750 ? 0.0 : 1 }}
+              >
+                <ChevronLeftIcon />
+              </IconButton>
             </div>
 
-            <IconButton
-              onClick={handleDrawerClose}
-              disabled={windowWidth > 750}
-              style={{ opacity: windowWidth > 750 ? 0.0 : 1 }}
-            >
-              <ChevronLeftIcon />
-            </IconButton>
-          </div>
-
-          <Divider />
-          <List>
-            <ListItems
-              handleDrawerClose={handleDrawerClose}
-              isMobile={windowWidth <= 750}
-            />
-          </List>
-        </Drawer>
-        <main
-          className={classes.content}
-          style={{ paddingTop: windowWidth > 750 ? 0 : 30 }}
-        >
-          <div className={classes.appBarSpacer} />
-          {children}
-        </main>{" "}
-        :
-      </div>
-    </>
+            <Divider />
+            <List>
+              <ListItems
+                  handleDrawerClose={handleDrawerClose}
+                  isMobile={windowWidth <= 750}
+              />
+            </List>
+          </Drawer>
+          <main
+              className={classes.content}
+              style={{ paddingTop: windowWidth > 750 ? 0 : 30 }}
+          >
+            <div className={classes.appBarSpacer} />
+            {children}
+          </main>{" "}
+          :
+        </div>
+      </>
   );
 }

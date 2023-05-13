@@ -40,22 +40,23 @@ const INITIAL_VALUE_NOTIFY = {
 };
 
 const INITIAL_VALUE_FORMIK = {
-  email: "",
   name: "",
-  CRM: "",
-  phone: "",
-  password: "",
-  confirmPassword: "",
+  // CNES: "",
+  ctiPhone: "",
+  onDutyPhone: "",
+  // city: "",
+  // state: "",
 };
 
-export default function RegisterDoctor() {
+export default function RegisterHospital() {
   const history = useHistory();
   const [notify, setNotify] = useState(INITIAL_VALUE_NOTIFY);
 
   const post = (values) => {
-    const { confirmPassword, ...data } = values;
+    const {...data } = values;
+
     api
-      .post("doctors", data)
+      .post("hospitals", data)
       .then(onSubmitSuccessfully)
       .catch(onSubmitFailed);
   };
@@ -64,9 +65,9 @@ export default function RegisterDoctor() {
   const onSubmitSuccessfully = () => {
     setNotify({
       isOpen: true,
-      message: "Médico cadastrado com sucesso!",
+      message: "Hospital cadastrado com sucesso!",
       type: "success",
-      title: "Médico cadastrado!",
+      title: "Hospital cadastrado!",
     });
 
     formik.resetForm()
@@ -134,7 +135,7 @@ export default function RegisterDoctor() {
           align="center"
           style={{ fontWeight: "bold", marginBottom: 30 }}
         >
-          Cadastro de Médico
+          Cadastro de Hospital
         </Typography>
 
         <form onSubmit={formik.handleSubmit}>
@@ -142,42 +143,37 @@ export default function RegisterDoctor() {
             <Grid item xs={12} sm={6} md={3} lg={3}>
               {textFieldFormik({ id: "name", label: "Nome" })}
             </Grid>
+            {/*<Grid item xs={12} sm={6} md={3} lg={3}>*/}
+            {/*   {textFieldFormik({ id: "cityname", label: "Município" })}*/}
+            {/*</Grid>*/}
+            {/*<Grid item xs={12} sm={6} md={3} lg={3}>*/}
+            {/*  {textFieldFormik({ id: "statename", label: "Estado" })}*/}
+            {/*</Grid>*/}
 
-            <Grid item xs={12} sm={6} md={3} lg={3}>
-              {textFieldFormik({ id: "email", label: "E-mail" })}
-            </Grid>
+            {/*<Grid item xs={12} sm={6} md={3} lg={3}>*/}
+            {/*  {inputMaskFormik({*/}
+            {/*    id: "CNES",*/}
+            {/*    label: "CNES",*/}
+            {/*    mask: "9999999",*/}
+            {/*    useRawValue: true,*/}
+            {/*  })}*/}
+            {/*</Grid>*/}
 
             <Grid item xs={12} sm={6} md={3} lg={3}>
               {inputMaskFormik({
-                id: "CRM",
-                label: "CRM",
-                mask: "999999-aa",
-                useRawValue: true,
-              })}
-            </Grid>
-
-            <Grid item xs={12} sm={6} md={3} lg={3}>
-              {inputMaskFormik({
-                id: "phone",
-                label: "Telefone",
+                id: "ctiPhone",
+                label: "Telefone do CTI",
                 mask: "(99) 99999-9999",
                 useRawValue: true,
               })}
             </Grid>
 
             <Grid item xs={12} sm={6} md={6} lg={6}>
-              {textFieldFormik({
-                id: "password",
-                label: "Senha",
-                type: "password",
-              })}
-            </Grid>
-
-            <Grid item xs={12} sm={6} md={6} lg={6}>
-              {textFieldFormik({
-                id: "confirmPassword",
-                label: "Confirmar senha",
-                type: "password",
+              {inputMaskFormik({
+                id: "onDutyPhone",
+                label: "Telefone do Plantão",
+                mask: "(99) 99999-9999",
+                useRawValue: true,
               })}
             </Grid>
 
@@ -187,15 +183,6 @@ export default function RegisterDoctor() {
               style={{ marginTop: 10 }}
               justifyContent="center"
             >
-              <Grid item>
-                <Button
-                  variant="outlined"
-                  style={classes.btnCancel}
-                  onClick={() => history.push("/choice-patient-monitoring")} // TODO: Modificar
-                >
-                  Voltar
-                </Button>
-              </Grid>
 
               <Grid item>
                 <Button

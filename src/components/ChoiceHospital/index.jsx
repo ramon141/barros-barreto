@@ -21,7 +21,7 @@ const classes = {
     }
 };
 
-export default function ChoiceHospital({ onChoosing, useFilter = true, title, onlyDischargedHospital, onlyActiveHospitals }) {
+export default function ChoiceHospital({ onChoosing, useFilter = true, title }) {
 
     const [searchValue, setSearchValue] = useState('');
     const [hospitals, setHospitals] = useState([]);
@@ -32,22 +32,16 @@ export default function ChoiceHospital({ onChoosing, useFilter = true, title, on
             where: {}
         };
 
-        if (onlyDischargedHospital) {
-            filter.where = {
-                dischargedFromHospital: { neq: null }
-            };
-        }
-
-        api.get(`/hospital?filter=${JSON.stringify(filter)}`).then((response) => {
+        api.get(`/hospitals?filter=${JSON.stringify(filter)}`).then((response) => {
             setHospitals(response.data);
         })
-    }, [onlyDischargedHospital]);
+    }, []);
 
     const getOnlyNumbers = (value) => {
         return value.replace(/[^\d,]/g, '');
     }
 
-    function loadHospital() {
+    function loadHospitals() {
         let filter = {
             order: 'name',
             where: {}
@@ -55,19 +49,12 @@ export default function ChoiceHospital({ onChoosing, useFilter = true, title, on
 
         const searchValueOnlyNumbers = getOnlyNumbers(searchValue);
 
-        if (onlyDischargedHospital) {
-            filter.where = {
-                dischargedFromHospital: { neq: null }
-            };
-        }
-
-        //Se for um CNES
         if (searchValueOnlyNumbers) {
             filter.where = {
                 ...filter.where,
                 or: [
                     { name: { like: `.*${searchValue}.*`, options: 'i' } },
-                    { CNES: { like: `.*${searchValueOnlyNumbers}.*` } }
+                    // { CNES: { like: `.*${searchValueOnlyNumbers}.*` } }
                 ]
             };
 
@@ -132,7 +119,7 @@ export default function ChoiceHospital({ onChoosing, useFilter = true, title, on
 
                 {useFilter ? filter() : false}
 
-                <TableDoctors handleClickRow={onChoosing} hospitals={hospitals} />
+                <TableHospitals handleClickRow={onChoosing} hospitals={hospitals} />
 
             </CardContent>
         </Card >

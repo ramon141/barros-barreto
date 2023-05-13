@@ -14,11 +14,11 @@ const classes = {
 export default function TableHospitals({ hospitals, handleClickRow }) {
 
     const columns = [
-        {
-            field: 'CNES',
-            headerName: 'CNES',
-            width: 180
-        },
+        // {
+        //     field: 'CNES',
+        //     headerName: 'CNES',
+        //     width: 180
+        // },
         {
             field: 'name',
             headerName: 'Nome',
@@ -38,7 +38,7 @@ export default function TableHospitals({ hospitals, handleClickRow }) {
                             onRowClick={handleClickRow}
                             columns={columns}
                             getRowId={(row) => row.id}
-                            rows={doctors}
+                            rows={hospitals}
                             sx={classes.dataGrid}
                             pageSize={5}
                             rowsPerPageOptions={[5]}
