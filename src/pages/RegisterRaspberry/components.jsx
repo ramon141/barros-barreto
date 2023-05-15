@@ -3,7 +3,7 @@ import {
     FormControl, InputLabel, MenuItem, Select,
     TextField
 } from "@mui/material";
-import MaskInput from "../../../../../Desktop/barros-barreto-develop-master/src/components/MaskInput";
+import MaskInput from "../../../src/components/MaskInput";
 
 export const components = (formik) => {
 

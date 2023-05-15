@@ -2,11 +2,11 @@ import { Grid, Typography, Card, CardContent, Button } from "@mui/material";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useEffect } from "react";
-import api from "../../../../../Desktop/barros-barreto-develop-master/src/services/api";
+import api from "../../src/services/api";
 import moment from "moment";
 import { validationSchema } from "./validationSchema";
 import { components } from "./components";
-import Notification from "../../../../../Desktop/barros-barreto-develop-master/src/components/Notification/Notification";
+import Notification from "../../../src/components/Notification/Notification";
 import { useHistory, useParams } from "react-router-dom";
 
 const classes = {

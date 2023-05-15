@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import MaskInput from "../../../../../Desktop/barros-barreto-develop-master/src/components/MaskInput";
+import MaskInput from "../../../src/components/MaskInput";
 import moment from "moment";
 
 const classes = {

@@ -15,7 +15,7 @@ import {
 import { useEffect, useState } from "react";
 import { CheckCircle } from "@material-ui/icons";
 import { useHistory, useParams } from "react-router-dom";
-import api from "../../../../../Desktop/barros-barreto-develop-master/src/services/api";
+import api from "../../../src/services/api";
 
 
 const classes = {
