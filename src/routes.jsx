@@ -99,8 +99,8 @@ export default function Routes() {
                         component={EditHospital}
 
                     />
-                    <PrivateRoute path="/monitoring/:doctorId" component={Monitoring} />
-                    <PrivateRoute path="/report/:doctorId" component={Report} />
+                    <PrivateRoute path="/monitoring/:patientId" component={Monitoring} />
+                    <PrivateRoute path="/report/:patientId" component={Report} />
                     <PrivateRoute path="/userregister" component={UserRegister} />
                     <PrivateRoute path="/useredit/:id" component={UserEdit} />
                     <Footer />
