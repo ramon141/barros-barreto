@@ -132,7 +132,6 @@ export default function Monitoring() {
         onChange={(e) => setMensureInterval(e.target.value)}
         value={mensureInterval}
       >
-        <MenuItem value={10}>10 minutos</MenuItem>
         <MenuItem value={30}>30 minutos</MenuItem>
         <MenuItem value={60}>60 minutos</MenuItem>
       </Select>
