@@ -6,7 +6,7 @@ import api from "../../services/api";
 import moment from "moment";
 import { validationSchema } from "./validationSchema";
 import { components } from "./components";
-import Notification from "../../../components/Notification/Notification";
+import Notification from "../../components/Notification/Notification";
 import { useHistory } from "react-router-dom";
 
 const classes = {
