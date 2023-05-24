@@ -2,11 +2,11 @@ import { Grid, Typography, Card, CardContent, Button } from "@mui/material";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useEffect } from "react";
-import api from "../../src/services/api";
+import api from "../../services/api";
 import moment from "moment";
 import { validationSchema } from "./validationSchema";
 import { components } from "./components";
-import Notification from "../../../src/components/Notification/Notification";
+import Notification from "../../components/Notification/Notification";
 import { useHistory, useParams } from "react-router-dom";
 
 const classes = {
@@ -47,18 +47,18 @@ export default function EditDoctor() {
     const [valuesFormik, setValuesFormik] = useState(INITIAL_VALUES_FORMIK);
     const [doctors, setDoctors] = useState([]);
     useEffect(() => {
-        api.get("doctors").then((response) => {
+        let filter = {
+            "where": {"role": "Doutor"},
+        };
+
+        api.get(`doctors?filter=${JSON.stringify(filter)}`).then((response) => {
             setDoctors(response.data);
         });
     }, []);
 
     useEffect(() => {
-        const filter = {
-            include: ["doctor", "raspberry"],
-        };
-
         api
-            .get(`doctors/${doctorId}?filter=${JSON.stringify(filter)}`)
+            .get(`doctors/${doctorId}`)
             .then((response) => {
                 const { data } = response;
 
@@ -70,7 +70,7 @@ export default function EditDoctor() {
                     password: data.password
                 });
             });
-    });
+    }, []);
 
     const removeOptionalValues = (optionalValues, data) => {
         const newValue = { ...data };
@@ -85,13 +85,6 @@ export default function EditDoctor() {
         //Remove de "values" atributos que não possuem o mesmo nome na
         //api, ou que precisam ser tratados antes de serem enviados
         const {
-            height,
-            weight,
-            doctorResponsible,
-            rg,
-            hospitalRecord,
-            raspberry,
-            normalVolumeInMl,
             ...data
         } = values;
 
@@ -135,12 +128,7 @@ export default function EditDoctor() {
 
     const {
         textFieldFormik,
-        inputMaskFormik,
-        datePickerFormik,
-        dateTimePickerFormik,
-        autocompleteFormik,
-        selectFormik,
-        checkBoxForDefaulVolume,
+        inputMaskFormik
     } = components(formik);
 
 
@@ -167,10 +155,9 @@ export default function EditDoctor() {
                      </Grid>
 
                         <Grid item xs={12} sm={6} md={3} lg={3}>
-                            {inputMaskFormik({
+                            {textFieldFormik({
                                id: "CRM",
                                label: "CRM",
-                               mask: "999999-aa",
                                useRawValue: true,
                              })}
                      </Grid>
@@ -180,42 +167,15 @@ export default function EditDoctor() {
                              id: "phone",
                              label: "Telefone",
                              mask: "(99) 99999-9999",
-                          useRawValue: true,
+                             useRawValue: true,
                         })}
                       </Grid>
-
-                         <Grid item xs={12} sm={6} md={6} lg={6}>
-                           {textFieldFormik({
-                             id: "password",
-                             label: "Senha",
-                             type: "password",
-                           })}
-                      </Grid>  
-
-                        <Grid item xs={12} sm={6} md={6} lg={6}>
-                          {textFieldFormik({
-                            id: "confirmPassword",
-                            label: "Confirmar senha",
-                            type: "password",
-                          })}
-                         </Grid>
-
                          <Grid
                             container
                             spacing={2}
                             style={{ marginTop: 10 }}
                             justifyContent="center"
                         >
-                            <Grid item>
-                                <Button
-                                    variant="outlined"
-                                    style={classes.btnCancel}
-                                    onClick={() => history.push("/choice-patient-monitoring")}
-                                >
-                                    Voltar
-                                </Button>
-                            </Grid>
-
                             <Grid item>
                                 <Button
                                     variant="outlined"

@@ -21,7 +21,7 @@ const classes = {
     }
 };
 
-export default function ChoiceDoctor({ onChoosing, useFilter = true, title, onlyDischargedDoctor, onlyActiveDoctors }) {
+export default function ChoiceDoctor({ onChoosing, useFilter = true, title }) {
 
     const [searchValue, setSearchValue] = useState('');
     const [doctors, setDoctors] = useState([]);
@@ -29,19 +29,13 @@ export default function ChoiceDoctor({ onChoosing, useFilter = true, title, only
     useEffect(() => {
         let filter = {
             order: 'name',
-            where: {}
+            where: {role: "Doutor"},
         };
-
-        if (onlyDischargedDoctor) {
-            filter.where = {
-                dischargedFromHospital: { neq: null }
-            };
-        }
 
         api.get(`/doctors?filter=${JSON.stringify(filter)}`).then((response) => {
             setDoctors(response.data);
         })
-    }, [onlyDischargedDoctor]);
+    }, []);
 
     const getOnlyNumbers = (value) => {
         return value.replace(/[^\d,]/g, '');
