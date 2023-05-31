@@ -117,11 +117,9 @@ export default function EditInfoUser({ userPermission }) {
       setPassword('');
       setRole(response.data.role);
       setAreasSelect(() => {
-        if (role === "Executor") {
+        if (role === "Médico") {
           return response.data.executor.map(item => ({ value: item.id, label: item.name }));
-        } else if (role === "Controlador") {
-          return response.data.manager.map(item => ({ value: item.id, label: item.name }));
-        } else if (role === "Cidadão") {
+        } else if (role === "Técnico") {
           return "";
         }
       });
@@ -148,7 +146,7 @@ export default function EditInfoUser({ userPermission }) {
 
     /* Muda o objeto caso seja selecionado que o usuário é Controlador ou Executor */
     switch (role) {
-      case "Controlador":
+      case "Técnico":
         data = {
           id,
           name,
@@ -164,7 +162,7 @@ export default function EditInfoUser({ userPermission }) {
         }
         break;
 
-      case "Executor":
+      case "Médico":
         data = {
           name,
           id,

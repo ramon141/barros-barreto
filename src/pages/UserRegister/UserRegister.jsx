@@ -57,10 +57,10 @@ export default function UserRegister() {
 		case 'Admin':
 			userPermission = 'admin';
 			break;
-		case 'Controlador':
+		case 'Técnico':
 			userPermission = 'manager';
 			break;
-		case 'Executor':
+		case 'Médico':
 			userPermission = 'executor';
 			break;
 		default:
@@ -93,8 +93,8 @@ export default function UserRegister() {
 
 	// Tipos de usuários
 	const typeUser = [
-		{ value: "1", label: "Executor" },
-		{ value: "2", label: "Controlador" },
+		{ value: "1", label: "Médico" },
+		{ value: "2", label: "Técnico" },
 		{ value: "3", label: "Administrador" }
 	];
 	/* ************************************************************************ */
@@ -124,7 +124,7 @@ export default function UserRegister() {
 		let user = '';
 
 		switch (role) {
-			case "Controlador":
+			case "Técnico":
 				data = {
 					name,
 					email,
@@ -139,7 +139,7 @@ export default function UserRegister() {
 				}
 				break;
 
-			case "Executor":
+			case "Médico":
 				data = {
 					name,
 					email,
