@@ -19,6 +19,7 @@ export default function ListItems({ handleDrawerClose, isMobile }) {
   const [isOpenHospital, setIsOpenHospital] = useState(false);
   const [isOpenDoctor, setIsOpenDoctor] = useState(false);
   const [isOpenModule, setIsOpenModule] = useState(false);
+  const [isOpenUser, setIsOpenUser] = useState(false);
 
   function ListItemLink({ href, ...props }) {
     return (
@@ -37,6 +38,7 @@ export default function ListItems({ handleDrawerClose, isMobile }) {
   const handleClickHospital = () => setIsOpenHospital((prev) => !prev);
   const handleClickModule = () => setIsOpenModule((prev) => !prev);
   const handleClickDoctor = () => setIsOpenDoctor((prev) => !prev);
+  const handleClickUser = () => setIsOpenUser((prev) => !prev);
 
   return (
       <div>
@@ -166,6 +168,23 @@ export default function ListItems({ handleDrawerClose, isMobile }) {
               >
                 <ListItemText primary="Relatório" />
               </ListItemLink>
+            </List>
+          </Collapse>
+        </>
+
+
+
+        <><ListItem button onClick={handleClickUser}>
+            <ListItemText primary="Usuários" style={classes.cor} />
+            {isOpenUser ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+
+          <Collapse in={isOpenUser} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemLink button href="/userRegister" style={classes.nested}>
+                <ListItemText primary="Gerenciamento" />
+              </ListItemLink>
+
             </List>
           </Collapse>
         </>

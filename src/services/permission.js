@@ -11,11 +11,13 @@ export function userHasAccessPermission({ pathname, typeUser }) {
         },
         "Técnico": {
             restrict: undefined,
-            access: ['/school-register', '/student-edit/', '/manager-student', '/student-register']
+            access: ['/choice-patient-edit','/registerpatient','/choice-patient-monitoring','/choice-patient-reports',
+                    '/choice-raspberry-edit','/registermodule','/choice-module-monitoring','/choice-raspberry-reports',
+                    '/choice-doctor-edit','/registerdoctor']
         },
-        "Monitor": {
+        "Médico": {
             restrict: undefined,
-            access: ['/travel', '/confirm-boarding', '/choice-type-travel', '/unboarding']
+            access: ['/choice-patient-edit','/registerpatient','/choice-patient-monitoring','/choice-patient-reports','/choice-raspberry-edit','/registermodule','/choice-module-monitoring','/choice-raspberry-reports']
         }
     };
 

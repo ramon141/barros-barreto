@@ -55,6 +55,7 @@ export default function Routes() {
                     <PrivateRoute path="/registerhospital" component={RegisterHospital} />
                     <PrivateRoute path="/registerdoctor" component={RegisterDoctor} />
                     <PrivateRoute path="/registerpatient" component={RegisterPatient} />
+                    <PrivateRoute path="/userregister" component={UserRegister} />
                     <PrivateRoute
                         path="/choice-patient-monitoring"
                         component={ListPatient}
@@ -95,14 +96,19 @@ export default function Routes() {
                     />
 
                     <PrivateRoute
+                        path="/useredit/:userId"
+                        component={UserEdit}
+
+                    />
+
+                    <PrivateRoute
                         path="/edithospital/:hospitalId"
                         component={EditHospital}
 
                     />
                     <PrivateRoute path="/monitoring/:patientId" component={Monitoring} />
                     <PrivateRoute path="/report/:patientId" component={Report} />
-                    <PrivateRoute path="/userregister" component={UserRegister} />
-                    <PrivateRoute path="/useredit/:id" component={UserEdit} />
+                    
                     <Footer />
                 </Sidebar>
             </>
