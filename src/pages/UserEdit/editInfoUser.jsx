@@ -309,13 +309,7 @@ export default function EditInfoUser({ userPermission }) {
             />}
           </InputMask>
 
-          <Select isMulti
-            options={areasAtuacao}
-            placeholder="Selecione uma ou mais categorias vinculadas ao usuário"
-            styles={styleMultiSelect}
-            value={areasSelect}
-            onChange={e => setAreasSelect(e)}
-          />
+
 
           {/*<Select options={typeUser} 
             onChange={e => setRole(e.label)} 
