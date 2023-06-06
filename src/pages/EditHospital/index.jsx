@@ -3,7 +3,6 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { useEffect } from "react";
 import api from "../../services/api";
-import moment from "moment";
 import { components } from "./components";
 import { validationSchema } from "./validationSchema";
 import Notification from "../../components/Notification/Notification";

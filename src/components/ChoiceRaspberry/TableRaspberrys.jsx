@@ -11,7 +11,7 @@ const classes = {
     }
 }
 
-export default function TableRaspberry({ raspberry, handleClickRow }) {
+export default function TableRaspberrys({ raspberry, handleClickRow }) {
 
     const columns = [
         {

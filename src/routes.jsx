@@ -20,6 +20,8 @@ import { isAuthenticated } from "./services/auth";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import ListPatient from "./pages/ListPatient";
+import EditRaspberry from "./pages/EditRaspberry";
+import ChoiceRaspberryEdit from "./pages/EditRaspberry/choiceRaspberry";
 import RegisterRaspberry from "./pages/RegisterRaspberry";
 import ChoiceRaspberryMonitoring from "./pages/ListRaspberry";
 import RaspberryMonitoring from "./pages/MonitoringRaspberry";
@@ -80,6 +82,10 @@ export default function Routes() {
                         component={ChoiceHospitalEdit}
                     />
                     <PrivateRoute
+                        path="/choice-raspberry-edit"
+                        component={ChoiceRaspberryEdit}
+                    />
+                    <PrivateRoute
                         path="/choice-raspberry-reports"
                         component={ChoiceRaspberryReport}
                     />
@@ -87,6 +93,12 @@ export default function Routes() {
                     <PrivateRoute
                         path="/editpatient/:patientId"
                         component={EditPatient}
+                    />
+
+                    <PrivateRoute
+                        path="/editraspberry/:raspberryId"
+                        component={EditRaspberry}
+
                     />
 
                     <PrivateRoute

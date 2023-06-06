@@ -155,12 +155,13 @@ export default function EditDoctor() {
                      </Grid>
 
                         <Grid item xs={12} sm={6} md={3} lg={3}>
-                            {textFieldFormik({
-                               id: "CRM",
-                               label: "CRM",
-                               useRawValue: true,
-                             })}
-                     </Grid>
+                            {inputMaskFormik({
+                                id: "CRM",
+                                label: "CRM",
+                                mask: "999999-aa",
+                                useRawValue: true,
+                            })}
+                        </Grid>
 
                         <Grid item xs={12} sm={6} md={3} lg={3}>
                            {inputMaskFormik({

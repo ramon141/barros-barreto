@@ -89,6 +89,7 @@ export default function EditInfoUser({ userPermission }) {
 
   const [editName, setEditName] = useState(true);
   const [editTelefone, setEditTelefone] = useState(true);
+  const [editEmail, setEditEmail] = useState(true);
 
   //alerta
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '', title: '' })
@@ -247,31 +248,26 @@ export default function EditInfoUser({ userPermission }) {
             onChange={e => setName(e.target.value)}
           />
 
-          {/* <TextField placeholder="Digite o email do Usuário"
-            className={classes.textField}
-            variant="outlined"
-            margin="normal"
-            required
-            error={email !== "" ? (!validationEmail.test(email)) : false}
-            label="E-mail"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                <AlternateEmailIcon />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                <IconButton onClick={() => setEditEmail(editEmail === true ? false : true)}>
-                  <EditIcon />
-                </IconButton>
-                </InputAdornment>
-              ),
-              disabled: editEmail,
-            }}
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          /> */}
+            <TextField placeholder="Digite o e-mail do usuário"
+                       disabled={false}
+                       className={classes.textField}
+                       variant="outlined"
+                       margin="normal"
+                       required
+                       label="Email"
+                       InputProps={{
+                         endAdornment: (
+                             <InputAdornment position="end">
+                               <IconButton onClick={() => setEditEmail(editEmail === true ? false : true)}>
+                                 <EditIcon />
+                               </IconButton>
+                             </InputAdornment>
+                         ),
+                         disabled: editEmail,
+                       }}
+                       value={email}
+                       onChange={e => setEmail(e.target.value)}
+            />
 
           <InputMask
             mask="(99) 9 9999-9999"
