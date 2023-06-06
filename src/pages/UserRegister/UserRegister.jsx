@@ -27,8 +27,10 @@ import './styles.css';
 
 const useStyles = makeStyles((theme) => ({
 	textField: {
+		position: 'relative',
 		width: '100%',
 		backgroundColor: '#fff',
+		zIndex: 0,
 	},
 	buttonSubmit: {
 		marginRight: 30,
@@ -45,6 +47,7 @@ const styleMultiSelect = {
 		width: '100%',
 		minWidth: 35,
 		marginTop: 15,
+		zIndex: 2,
 	})
 };
 
@@ -61,7 +64,7 @@ export default function UserRegister() {
 			userPermission = 'manager';
 			break;
 		case 'Médico':
-			userPermission = 'executor';
+			userPermission = 'doctor';
 			break;
 		default:
 			break;
