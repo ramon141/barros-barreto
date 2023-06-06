@@ -93,9 +93,8 @@ export default function UserRegister() {
 
 	// Tipos de usuários
 	const typeUser = [
-		{ value: "1", label: "Médico" },
-		{ value: "2", label: "Técnico" },
-		{ value: "3", label: "Administrador" }
+		{ value: "1", label: "Técnico" },
+		{ value: "2", label: "Administrador" }
 	];
 	/* ************************************************************************ */
 
@@ -132,21 +131,6 @@ export default function UserRegister() {
 					telefone,
 					role,
 					manager: areasSelect.map(item => ({
-						id: item.value,
-						name: item.label
-					})
-					)
-				}
-				break;
-
-			case "Médico":
-				data = {
-					name,
-					email,
-					password,
-					telefone,
-					role,
-					executor: areasSelect.map(item => ({
 						id: item.value,
 						name: item.label
 					})
@@ -257,6 +241,14 @@ export default function UserRegister() {
 
 	return (
 		<>
+			<div className="two-fields">
+				<Select options={typeUser}
+						onChange={e => e.label === 'Administrador' ? setRole('Admin') : setRole(e.label)}
+						styles={styleMultiSelect}
+						placeholder="Selecione o tipo de usuário"
+						/>
+			</div>
+
 			<div className={classes.root}>
 				<form onSubmit={confirms} className="form-register">
 					<div className="two-fields">
@@ -356,23 +348,6 @@ export default function UserRegister() {
 							value={confirmPassword}
 							onChange={e => setConfirmPassword(e.target.value)}
 						/>
-					</div>
-
-					<div className="two-fields">
-						<Select options={typeUser}
-							onChange={e => e.label === 'Administrador' ? setRole('Admin') : setRole(e.label)}
-							styles={styleMultiSelect}
-							placeholder="Selecione o tipo de usuário"
-						/>
-
-						{role !== 'Admin' ?
-							<Select isMulti
-								options={areasAtuacao}
-								placeholder="Selecione um ou mais tipos vinculados ao usuário"
-								styles={styleMultiSelect}
-								value={areasSelect}
-								onChange={e => setAreasSelect(e)}
-							/> : false}
 					</div>
 
 					<Notification

@@ -1,6 +1,6 @@
 .useredit-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 600px;
   padding: 0 30px;
   margin: 32px auto;
 }
@@ -19,8 +19,8 @@
 }
 
 .useredit-container .register-user Button {
-  background: #FFD700;
-  color: #41414d;
+  background: #086494;
+  color: #FFFFFF;
   height: 45px;
   margin-top: 17px;
   margin: 10px;
@@ -50,7 +50,7 @@
   display: flex;
   align-items: center;
   margin-top: 40px;
-  color: #009155;
+  color: #000000;
   font-size: 16px;
   text-decoration: none;
   font-weight: bold;
