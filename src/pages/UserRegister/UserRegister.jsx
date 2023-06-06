@@ -258,13 +258,6 @@ export default function UserRegister() {
 							margin="normal"
 							required
 							label="Nome completo"
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position="start">
-										<AccountCircle />
-									</InputAdornment>
-								),
-							}}
 							value={name}
 							onChange={e => setName(e.target.value)}
 						/>
@@ -276,13 +269,6 @@ export default function UserRegister() {
 							required
 							error={email !== "" ? (!validationEmail.test(email)) : false}
 							label="E-mail"
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position="start">
-										<AlternateEmailIcon />
-									</InputAdornment>
-								),
-							}}
 							value={email}
 							onChange={e => setEmail(e.target.value)}
 						/>
@@ -302,13 +288,7 @@ export default function UserRegister() {
 								margin="normal"
 								fullWidth
 								label="Telefone"
-								InputProps={{
-									startAdornment: (
-										<InputAdornment position="start">
-											<LocalPhoneIcon />
-										</InputAdornment>
-									),
-								}} />}
+								 />}
 						</InputMask>
 
 						<TextField placeholder="Digite a senha do usuário"
@@ -318,13 +298,6 @@ export default function UserRegister() {
 							required
 							type="password"
 							label="Senha"
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position="start">
-										<LockIcon />
-									</InputAdornment>
-								),
-							}}
 							value={password}
 							onChange={e => setPassword(e.target.value)}
 						/>
@@ -338,13 +311,6 @@ export default function UserRegister() {
 							/*helperText={password !== confirmPassword ? "Senhas não coincidem" : ""}*/
 							type="password"
 							label="Senha"
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position="start">
-										<LockIcon />
-									</InputAdornment>
-								),
-							}}
 							value={confirmPassword}
 							onChange={e => setConfirmPassword(e.target.value)}
 						/>
@@ -363,7 +329,6 @@ export default function UserRegister() {
 						<Button
 							className="Button"
 							variant="outlined"
-							startIcon={<SaveIcon style={{ 'color': '#41414d' }} />}
 							type='submit'
 						>
 							Cadastrar Usuário
@@ -372,7 +337,6 @@ export default function UserRegister() {
 						<Button
 							className="Button-clear"
 							variant="outlined"
-							startIcon={<ClearIcon style={{ 'color': '#41414d' }} />}
 							type='button'
 							onClick={() => clearForm()}
 						>

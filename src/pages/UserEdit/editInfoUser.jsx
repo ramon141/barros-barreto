@@ -234,11 +234,6 @@ export default function EditInfoUser({ userPermission }) {
             required
             label="Nome completo"
             InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <AccountCircle />
-                </InputAdornment>
-              ),
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton onClick={() => setEditName(editName === true ? false : true)}>
@@ -292,11 +287,6 @@ export default function EditInfoUser({ userPermission }) {
               fullWidth
               label="Telefone"
               InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <LocalPhoneIcon />
-                  </InputAdornment>
-                ),
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton onClick={() => setEditTelefone(editTelefone === true ? false : true)}>
@@ -324,7 +314,6 @@ export default function EditInfoUser({ userPermission }) {
           <div className="register-user">
             <Button
               variant="outlined"
-              startIcon={<UpdateIcon style={{ 'color': '#41414d' }} />}
               type='submit'
             >
               Atualizar Usuário

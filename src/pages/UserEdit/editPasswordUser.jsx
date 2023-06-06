@@ -217,11 +217,6 @@ export default function EditInfoUser({userPermission}) {
             type="password"
             label="Senha"
             InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                <LockIcon />
-                </InputAdornment>
-              ),
               endAdornment: (
                 <InputAdornment position="end">
                 <IconButton onClick={() => setEditPassWord(editPassword === true ? false : true)}>
@@ -246,11 +241,6 @@ export default function EditInfoUser({userPermission}) {
             type="password"
             label="Senha"
             InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                <LockIcon />
-                </InputAdornment>
-              ),
               endAdornment: (
                 <InputAdornment position="end">
                 <IconButton onClick={() => setEditConfirmPassWord(editConfirmPassword === true ? false : true)}>
@@ -272,7 +262,6 @@ export default function EditInfoUser({userPermission}) {
           <div className="register-user">
             <Button
 							variant="outlined"
-							startIcon={<UpdateIcon style={{'color':'#41414d'}} />}
 							type='submit'
 						>
 							Atualizar Senha

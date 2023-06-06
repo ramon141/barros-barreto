@@ -79,7 +79,7 @@ export default function UserList() {
   // useEffect
   useEffect(() => {
     if(refresh === true){
-      api.get(`${userPermission}/users?filter={"where":{"or":[{"role":"Admin"}, {"role":"Controlador"}, {"role":"Executor"}]}}`).then(response => {
+      api.get(`${userPermission}/users?filter={"where":{"or":[{"role":"Técnico"}, {"role":"Doutor"}]}}`).then(response => {
         setUsers(response.data);
       })
     }
@@ -101,7 +101,7 @@ export default function UserList() {
     },
     {
       Header: 'Telefone',
-      accessor: 'telefone',
+      accessor: 'phone',
     },
     {
       Header: 'Perfil',
