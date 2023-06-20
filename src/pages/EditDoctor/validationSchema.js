@@ -21,15 +21,5 @@ export const validationSchema = yup.object().shape({
         .matches(/^[0-9]+$/, 'Digite somente números')
         .min(9, 'O número de celular deve possuir mais de 10 dígitos')
         .max(11, 'O número de celular deve possuir menos de 11 dígitos')
-        .required('Digite o telefone do médico'),
-    password: yup
-        .string()
-        .min(8, 'A senha deve ter pelo menos 8 caracteres')
-        .minUppercase(1, 'A senha deve possuir ao menos 1 caracter maiúsculo')
-        .minSymbols(1, 'A senha deve possuir ao menos 1 caracter especial ($@%&)')
-        .required('Por favor, digite uma senha'),
-    confirmPassword: yup
-        .string()
-        .oneOf([yup.ref('password'), null], 'As senhas não coincidem')
-        .required('Confirme a senha'),
+        .required('Digite o telefone do médico')
 });

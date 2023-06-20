@@ -3,7 +3,6 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { useEffect } from "react";
 import api from "../../services/api";
-import moment from "moment";
 import { validationSchema } from "./validationSchema";
 import { components } from "./components";
 import Notification from "../../components/Notification/Notification";
@@ -45,31 +44,21 @@ export default function EditDoctor() {
     const { doctorId } = useParams();
 
     const [valuesFormik, setValuesFormik] = useState(INITIAL_VALUES_FORMIK);
-    const [doctors, setDoctors] = useState([]);
+    const [doctor, setDoctor] = useState([]);
     useEffect(() => {
-        let filter = {
-            "where": {"role": "Doutor"},
-        };
+        api.get(`/doctors/${doctorId}`).then((response) => {
+            setDoctor(response.data);
 
-        api.get(`doctors?filter=${JSON.stringify(filter)}`).then((response) => {
-            setDoctors(response.data);
-        });
-    }, []);
+            const { data } = response;
 
-    useEffect(() => {
-        api
-            .get(`doctors/${doctorId}`)
-            .then((response) => {
-                const { data } = response;
-
-                setValuesFormik({
-                    name: data.name,
-                    email: data.email,
-                    CRM: data.CRM,
-                    phone: data.phone,
-                    password: data.password
-                });
+            setValuesFormik({
+                name: data.name,
+                email: data.email,
+                CRM: data.CRM,
+                phone: data.phone,
+                password: data.password
             });
+        });
     }, []);
 
     const removeOptionalValues = (optionalValues, data) => {
@@ -85,17 +74,25 @@ export default function EditDoctor() {
         //Remove de "values" atributos que não possuem o mesmo nome na
         //api, ou que precisam ser tratados antes de serem enviados
         const {
+            name,
+            email,
+            CRM,
+            phone,
             ...data
         } = values;
 
-        const newData = removeOptionalValues(
-            [
-            ],
-            data
-        );
+        data.name = name;
+
+        data.email = email;
+
+        data.CRM = CRM;
+
+        data.phone = phone;
+
+        console.log(data);
 
         api
-            .patch(`doctors/${doctorId}`, newData)
+            .patch(`/doctors/${doctorId}`, data)
             .then((response) => {
                 setNotify({
                     isOpen: true,
@@ -104,7 +101,7 @@ export default function EditDoctor() {
                     title: "Informações atualizadas com sucesso!",
                 });
 
-                setTimeout(() => history.push("/choice-doctor-edit"), 700);
+                // setTimeout(() => history.push("/choice-doctor-edit"), 700);
             })
             .catch((err) => {
                 const message = err.response?.data?.error?.message;
@@ -128,7 +125,7 @@ export default function EditDoctor() {
 
     const {
         textFieldFormik,
-        inputMaskFormik
+        inputMaskFormik,
     } = components(formik);
 
 
@@ -145,14 +142,21 @@ export default function EditDoctor() {
 
                 <form onSubmit={formik.handleSubmit}>
                     <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6} md={3} lg={3}>
+                            {textFieldFormik({
+                                id: "name",
+                                label: "Nome",
+                                required: true,
+                            })}
+                        </Grid>
 
                         <Grid item xs={12} sm={6} md={3} lg={3}>
-                            {textFieldFormik({ id: "name", label: "Nome" })}
-                     </Grid>
-
-                        <Grid item xs={12} sm={6} md={3} lg={3}>
-                            {textFieldFormik({ id: "email", label: "E-mail" })}
-                     </Grid>
+                            {textFieldFormik({
+                                id: "email",
+                                label: "E-mail",
+                                required: true,
+                            })}
+                        </Grid>
 
                         <Grid item xs={12} sm={6} md={3} lg={3}>
                             {inputMaskFormik({
@@ -164,33 +168,25 @@ export default function EditDoctor() {
                         </Grid>
 
                         <Grid item xs={12} sm={6} md={3} lg={3}>
-                           {inputMaskFormik({
-                             id: "phone",
-                             label: "Telefone",
-                             mask: "(99) 99999-9999",
-                             useRawValue: true,
-                        })}
-                      </Grid>
-                         <Grid
-                            container
-                            spacing={2}
-                            style={{ marginTop: 10 }}
-                            justifyContent="center"
-                        >
-                            <Grid item>
-                                <Button
-                                    variant="outlined"
-                                    style={classes.btnSubmit}
-                                    type="submit"
-                                >
-                                    Salvar
-                                </Button>
-                            </Grid>
+                            {inputMaskFormik({
+                                id: "phone",
+                                label: "Telefone",
+                                mask: "(99) 99999-9999",
+                                useRawValue: true,
+                            })}
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                variant="outlined"
+                                style={classes.btnSubmit}
+                                type="submit"
+                            >
+                                Salvar
+                            </Button>
                         </Grid>
                     </Grid>
                 </form>
             </CardContent>
-
             <Notification notify={notify} setNotify={setNotify} />
         </Card>
     );

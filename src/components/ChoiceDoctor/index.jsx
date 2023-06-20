@@ -44,16 +44,8 @@ export default function ChoiceDoctor({ onChoosing, useFilter = true, title }) {
     function loadDoctors() {
         let filter = {
             order: 'name',
-            where: {}
+            where: {role: "Doutor"}
         };
-
-        const searchValueOnlyNumbers = getOnlyNumbers(searchValue);
-
-        if (onlyDischargedDoctor) {
-            filter.where = {
-                dischargedFromHospital: { neq: null }
-            };
-        }
 
         //Se for um cpf ou cns
         if (searchValueOnlyNumbers) {

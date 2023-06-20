@@ -63,54 +63,8 @@ export const components = (formik) => {
             {...props}
         />
     );
-
-    // const autocompleteFormik = ({ id, getOptionLabel, options, ...props }) => (
-    //     <Autocomplete
-    //         disablePortal
-    //         fullWidth
-    //         size="small"
-    //         value={formik.values[id] || null}
-    //         onChange={(event, newValue) => {
-    //             formik.setFieldValue(id, newValue);
-    //         }}
-    //         getOptionLabel={getOptionLabel}
-    //         options={options}
-    //         renderInput={(params) => (
-    //             <TextField
-    //                 error={formik.touched[id] && Boolean(formik.errors[id])}
-    //                 helperText={formik.touched[id] && formik.errors[id]}
-    //                 label={props.label}
-    //                 required={props.required}
-    //                 sx={classes.asterisk}
-    //                 {...params}
-    //             />
-    //         )}
-    //         {...props}
-    //     />
-    // );
-    //
-    // const selectFormik = ({ id, options, ...props }) => (
-    //     <FormControl fullWidth size="small" required={props.required}>
-    //         <InputLabel>{props.label}</InputLabel>
-    //         <Select
-    //             label={props.label}
-    //             onChange={(e) => formik.setFieldValue(id, e.target.value)}
-    //             required={props.required}
-    //             value={formik.values[id]}
-    //         >
-    //             {options.map((option) => (
-    //                 <MenuItem key={option.value} value={option.value}>
-    //                     {option.description}
-    //                 </MenuItem>
-    //             ))}
-    //         </Select>
-    //     </FormControl>
-    // );
-
     return {
         textFieldFormik,
         inputMaskFormik,
-        // autocompleteFormik,
-        // selectFormik,
     };
 };
