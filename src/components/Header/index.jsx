@@ -47,20 +47,20 @@ function Header({ handleOpenNotificationCustom, handleCloseNotificationCustom })
 	return (
 		<header className='header-pages'>
 			<div>
-				<span className="name-user">Bem-vindo(a), <b>{userName}</b></span>
-				<span className="type-user">Perfil: <strong>{typeUser}</strong></span>
+				<span className="name-user">Bem-vindo(a), <b>{userName.toString()}</b></span>
+				<span className="type-user">Perfil: <strong>{typeUser.toString()}</strong></span>
 				<br></br>
 				{/* Irá exibir essa parte do código somente se o usuário for controlador ou executor */}
-				{userPermission === 'manager' || userPermission === 'executor' ?
-					<span className="type-user">
-						Categorias: {infoUser.map((res, i) => (
-							<strong key={res}>
-								{res}
-								{infoUser[i + 1] ? ', ' : ''}
-							</strong>
-						))}
-					</span>
-					: false}
+				{/*{userPermission === 'manager' || userPermission === 'executor' ?*/}
+				{/*	<span className="type-user">*/}
+				{/*		Categorias: {infoUser.map((res, i) => (*/}
+				{/*			<strong key={res}>*/}
+				{/*				{res}*/}
+				{/*				{infoUser[i + 1] ? ', ' : ''}*/}
+				{/*			</strong>*/}
+				{/*		))}*/}
+				{/*	</span>*/}
+				{/*	: false}*/}
 			</div>
 
 			{/*<Link className="button">
