@@ -77,7 +77,7 @@ export default function UserRegister() {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [email, setEmail] = useState("");
-	const [telefone, setTelefone] = useState("");
+	const [phone, setTelefone] = useState("");
 	const [role, setRole] = useState([]);
 	const [areasSelect, setAreasSelect] = useState([]);
 	const [areas, setAreas] = useState([]);
@@ -117,6 +117,10 @@ export default function UserRegister() {
 		setRole([]);
 	}
 
+	function rawValueTelephone(telephone) {
+		return telephone.replace(/\D/g, "");
+	}
+
 	//chama o alerta para cadastrar
 	function confirms(dados) {
 
@@ -131,13 +135,13 @@ export default function UserRegister() {
 					name,
 					email,
 					password,
-					telefone,
+					phone,
 					role,
-					managers: areasSelect.map(item => ({
-						id: item.value,
-						name: item.label
-					})
-					)
+					// managers: areasSelect.map(item => ({
+					// 	id: item.value,
+					// 	name: item.label
+					// })
+					// )
 				}
 				break;
 
@@ -146,7 +150,7 @@ export default function UserRegister() {
 					name,
 					email,
 					password,
-					telefone,
+					phone,
 					role
 				};
 				break;
@@ -212,7 +216,7 @@ export default function UserRegister() {
 			});
 		} else {
 			try {
-				await api.post(`/users`, data);
+				await api.post(`admin/users`, data);
 
 				//alert(`Usuário cadastrado com sucesso.`);
 
@@ -296,8 +300,8 @@ export default function UserRegister() {
 							mask="(99) 9 9999-9999"
 							maskChar=" "
 							type="tel"
-							value={telefone}
-							onChange={e => setTelefone(e.target.value)}
+							value={phone}
+							onChange={e => setTelefone(rawValueTelephone(e.target.value))}
 						>
 							{() => <TextField placeholder="Digite o telefone de usuário"
 								className={classes.textField}
