@@ -3,6 +3,7 @@ import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { Collapse, List, ListItemText, ListItem } from "@mui/material";
 import { useHistory } from "react-router-dom";
 
+
 const classes = {
   nested: {
     paddingLeft: 32,
@@ -20,6 +21,9 @@ export default function ListItems({ handleDrawerClose, isMobile }) {
   const [isOpenDoctor, setIsOpenDoctor] = useState(false);
   const [isOpenModule, setIsOpenModule] = useState(false);
   const [isOpenUser, setIsOpenUser] = useState(false);
+
+  //Informa as permissões que
+  const typeUser = localStorage.getItem('Permission');
 
   function ListItemLink({ href, ...props }) {
     return (
@@ -42,152 +46,138 @@ export default function ListItems({ handleDrawerClose, isMobile }) {
 
   return (
       <div>
-        <>
-          <ListItem button onClick={handleClickHospital}>
-            <ListItemText primary="Hospital" style={classes.cor} />
-            {isOpenHospital ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
+        {
+          typeUser === "Admin" ?
+              <>
+                <ListItem button onClick={handleClickHospital}>
+                  <ListItemText primary="Hospital" style={classes.cor} />
+                  {isOpenHospital ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
 
 
-          <Collapse in={isOpenHospital} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItemLink
-                  button
-                  href="/choice-hospital-edit"
-                  style={classes.nested}
-              >
-                <ListItemText primary="Editar" />
-              </ListItemLink>
+                <Collapse in={isOpenHospital} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <ListItemLink
+                        button href="/choice-hospital-edit" className={classes.nested}>
+                      <ListItemText primary="Editar" />
+                    </ListItemLink>
 
 
-              <ListItemLink button href="/registerhospital" style={classes.nested}>
-                <ListItemText primary="Cadastro" />
-              </ListItemLink>
+                    <ListItemLink button href="/registerhospital" className={classes.nested}>
+                      <ListItemText primary="Cadastro" />
+                    </ListItemLink>
 
-            </List>
-          </Collapse>
-        </>
+                  </List>
+                </Collapse>
+              </> :false
+        }
 
-        <>
-          <ListItem button onClick={handleClickDoctor}>
-            <ListItemText primary="Médico" style={classes.cor} />
-            {isOpenDoctor ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
+        {
+          typeUser === "Admin" || typeUser === "Controlador" ?
+              <>
+                <ListItem button onClick={handleClickDoctor}>
+                  <ListItemText primary="Médico" className={classes.cor} />
+                  {isOpenDoctor ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
 
-          <Collapse in={isOpenDoctor} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItemLink
-                  button
-                  href="/choice-doctor-edit"
-                  style={classes.nested}
-              >
-                <ListItemText primary="Editar" />
-              </ListItemLink>
+                <Collapse in={isOpenDoctor} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
 
-              <ListItemLink button href="/registerdoctor" style={classes.nested}>
-                <ListItemText primary="Cadastro" />
-              </ListItemLink>
+                    <ListItemLink button href="/choice-doctor-edit" className={classes.nested}>
+                      <ListItemText primary="Editar" />
+                    </ListItemLink>
 
-            </List>
-          </Collapse>
-        </>
+                    <ListItemLink button href="/registerdoctor" className={classes.nested}>
+                      <ListItemText primary="Cadastro" />
+                    </ListItemLink>
 
-        <>
-          <ListItem button onClick={handleClickModule}>
-            <ListItemText primary="Módulo" style={classes.cor} />
-            {isOpenModule ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-
-          <Collapse in={isOpenModule} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItemLink
-                  button
-                  href="/choice-raspberry-edit"
-                  style={classes.nested}
-              >
-                <ListItemText primary="Editar" />
-              </ListItemLink>
-
-              <ListItemLink button href="/registermodule" style={classes.nested}>
-                <ListItemText primary="Cadastro" />
-              </ListItemLink>
-
-              <ListItemLink
-                  button
-                  href="/choice-module-monitoring"
-                  style={classes.nested}
-              >
-                <ListItemText primary="Monitoramento" />
-              </ListItemLink>
-
-              <ListItemLink
-                  button
-                  href="/choice-raspberry-reports"
-                  style={classes.nested}
-              >
-                <ListItemText primary="Relatório" />
-              </ListItemLink>
-            </List>
-          </Collapse>
-        </>
+                  </List>
+                </Collapse>
+              </> :false
+        }
 
 
+        {
+          typeUser === "Admin" || typeUser === "Controlador" || typeUser === "Doutor" ?
+              <>
+                <ListItem button onClick={handleClickModule}>
+                  <ListItemText primary="Módulo" className={classes.cor} />
+                  {isOpenModule ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
 
-        <>
-          <ListItem button onClick={handleClickPatient}>
-            <ListItemText primary="Paciente" style={classes.cor} />
-            {isOpenPatient ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
+                <Collapse in={isOpenModule} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <ListItemLink button href="/choice-raspberry-edit" className={classes.nested}>
+                      <ListItemText primary="Editar" />
+                    </ListItemLink>
 
-          <Collapse in={isOpenPatient} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItemLink
-                  button
-                  href="/choice-patient-edit"
-                  style={classes.nested}
-              >
-                <ListItemText primary="Editar" />
-              </ListItemLink>
+                    <ListItemLink button href="/registermodule" className={classes.nested}>
+                      <ListItemText primary="Cadastro" />
+                    </ListItemLink>
 
-              <ListItemLink button href="/registerpatient" style={classes.nested}>
-                <ListItemText primary="Cadastro" />
-              </ListItemLink>
+                    <ListItemLink button href="/choice-module-monitoring" className={classes.nested}>
+                      <ListItemText primary="Monitoramento" />
+                    </ListItemLink>
 
-              <ListItemLink
-                  button
-                  href="/choice-patient-monitoring"
-                  style={classes.nested}
-              >
-                <ListItemText primary="Monitoramento" />
-              </ListItemLink>
+                    <ListItemLink button href="/choice-raspberry-reports" className={classes.nested}>
+                      <ListItemText primary="Relatório" />
+                    </ListItemLink>
 
-              <ListItemLink
-                  button
-                  href="/choice-patient-reports"
-                  style={classes.nested}
-              >
-                <ListItemText primary="Relatório" />
-              </ListItemLink>
-            </List>
-          </Collapse>
-        </>
+                  </List>
+                </Collapse>
+              </> : false
+        }
 
+        {
+          typeUser === "Admin" || typeUser === "Controlador" || typeUser === "Doutor" ?
+              <>
+                <ListItem button onClick={handleClickPatient}>
+                  <ListItemText primary="Paciente" className={classes.cor} />
+                  {isOpenPatient ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
 
+                <Collapse in={isOpenPatient} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <ListItemLink button href="/choice-patient-edit" className={classes.nested}>
+                      <ListItemText primary="Editar" />
+                    </ListItemLink>
 
-        <><ListItem button onClick={handleClickUser}>
-            <ListItemText primary="Usuários" style={classes.cor} />
-            {isOpenUser ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
+                    <ListItemLink button href="/registerpatient" className={classes.nested}>
+                      <ListItemText primary="Cadastro" />
+                    </ListItemLink>
 
-          <Collapse in={isOpenUser} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItemLink button href="/userRegister" style={classes.nested}>
-                <ListItemText primary="Gerenciamento" />
-              </ListItemLink>
+                    <ListItemLink button href="/choice-patient-monitoring" className={classes.nested}>
+                      <ListItemText primary="Monitoramento" />
+                    </ListItemLink>
 
-            </List>
-          </Collapse>
-        </>
+                    <ListItemLink button href="/choice-patient-reports" className={classes.nested}>
+                      <ListItemText primary="Relatório" />
+                    </ListItemLink>
+
+                  </List>
+                </Collapse>
+              </> : false
+        }
+
+        {
+          typeUser === "Admin" ?
+              <>
+                <ListItem button onClick={handleClickUser}>
+                  <ListItemText primary="Usuários" className={classes.cor} />
+                  {isOpenUser ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
+
+                <Collapse in={isOpenUser} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <ListItemLink button href="/userRegister" className={classes.nested}>
+                      <ListItemText primary="Gerenciamento" />
+                    </ListItemLink>
+
+                  </List>
+                </Collapse>
+              </> : false
+        }
+
       </div>
   );
 }
