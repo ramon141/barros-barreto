@@ -11,7 +11,4 @@ export const validationSchema = yup.object().shape({
       .string(),
   additionalDescription: yup
       .string(),
-  status: yup
-      .string()
-      .required('Diga o status do módulo de mensuração'),
 });
