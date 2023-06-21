@@ -9,7 +9,7 @@ export default function ChoiceRaspberryEdit() {
   };
 
   return (
-    <ChoiceRaspberryEdit
+    <ChoiceRaspberry
       title="Selecione o Módulo que deseja editar"
       onChoosing={onChoosing}
     />

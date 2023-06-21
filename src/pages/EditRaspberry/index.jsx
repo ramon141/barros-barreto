@@ -47,7 +47,7 @@ export default function EditRaspberry() {
 
   const [raspberry, setRaspberry] = useState([]);
   useEffect(() => {
-    api.get(`/raspberry/${raspberryId}`).then((response) => {
+    api.get(`/raspberries/${raspberryId}`).then((response) => {
       setRaspberry(response.data);
 
       const { data } = response;
@@ -98,14 +98,13 @@ export default function EditRaspberry() {
           "model",
           "serialNumber",
           "additionalDescription",
-          "createdAt",
-          "status",
+          "createdAt"
         ],
         data
     );
 
     api
-        .patch(`/raspberry/${raspberryId}`, newData)
+        .patch(`/raspberries/${raspberryId}`, newData)
         .then((response) => {
           setNotify({
             isOpen: true,
@@ -137,6 +136,7 @@ export default function EditRaspberry() {
 
   const {
     textFieldFormik,
+    autocompleteFormik,
   } = components(formik);
 
   return (
@@ -164,15 +164,6 @@ export default function EditRaspberry() {
                 {textFieldFormik({
                   id: "serialNumber",
                   label: "Número de série",
-                })}
-              </Grid>
-
-              <Grid item xs={12} sm={6} md={3} lg={3}>
-                {autocompleteFormik({
-                  id: "status",
-                  label: "Status",
-                  options: Object.values(statusOfModule),
-                  required: true,
                 })}
               </Grid>
 

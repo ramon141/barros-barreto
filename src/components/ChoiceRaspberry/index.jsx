@@ -38,7 +38,7 @@ export default function ChoiceRaspberry({ onChoosing, useFilter = true, title, o
       };
     }
 
-    api.get(`/raspberrys?filter=${JSON.stringify(filter)}`).then((response) => {
+    api.get(`/raspberries-report?filter=${JSON.stringify(filter)}`).then((response) => {
       setRaspberrys(response.data);
     })
   }, [onlyDischargedRaspberry]);
@@ -61,7 +61,7 @@ export default function ChoiceRaspberry({ onChoosing, useFilter = true, title, o
       };
     }
 
-    //Se for um cpf ou cns
+    //Se for um número de série ou de identificação
     if (searchValueOnlyNumbers) {
       filter.where = {
         ...filter.where,
@@ -78,7 +78,7 @@ export default function ChoiceRaspberry({ onChoosing, useFilter = true, title, o
       };
     }
 
-    api.get(`/raspberrys?filter=${JSON.stringify(filter)}`).then((response) => {
+    api.get(`/raspberries?filter=${JSON.stringify(filter)}`).then((response) => {
       setRaspberrys(response.data);
     })
   }
@@ -89,7 +89,7 @@ export default function ChoiceRaspberry({ onChoosing, useFilter = true, title, o
     setSearchValue(newValue);
 
     if (!newValue) {
-      api.get(`/raspberrys`).then((response) => {
+      api.get(`/raspberries`).then((response) => {
         setRaspberrys(response.data);
       })
     }
@@ -132,7 +132,7 @@ export default function ChoiceRaspberry({ onChoosing, useFilter = true, title, o
 
           {useFilter ? filter() : false}
 
-          <TableRaspberrys handleClickRow={onChoosing} raspberrys={raspberrys} />
+          <TableRaspberrys handleClickRow={onChoosing} raspberry={raspberrys} />
 
         </CardContent>
       </Card >
