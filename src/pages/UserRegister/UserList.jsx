@@ -19,10 +19,10 @@ export default function UserList() {
       userPermission = 'admin';
       break;
     case 'Técnico':
-      userPermission = 'manager';
+      userPermission = 'managers';
       break;
     case 'Médico':
-      userPermission = 'executor';
+      userPermission = 'doctors';
       break;
     default:
       break;
