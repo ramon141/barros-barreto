@@ -72,7 +72,7 @@ export default function SignIn() {
             console.log("roleUser");
             console.log(roleUser);
 
-            if (roleUser === 'Admin' || roleUser === 'Técnico' || roleUser === 'Médico') {
+            if (roleUser === 'Admin' || roleUser === 'Controlador' || roleUser === 'Doutor') {
                 // Salva informações no localstorage para ser usadas no restante do código
                 localStorage.setItem('NameUser', res.data.name);
                 localStorage.setItem('IdUser', res.data.id);
@@ -80,9 +80,9 @@ export default function SignIn() {
 
                 if (roleUser === 'Admin')
                     history.push("/registerhospital");
-                else if (roleUser === 'Técnico')
+                if (roleUser === 'Controlador')
                     history.push("/registerdoctor");
-                if (roleUser === 'Médico')
+                if (roleUser === 'Doutor')
                     history.push("/registerpatient");
 
             } else {

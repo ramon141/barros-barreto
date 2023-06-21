@@ -18,10 +18,10 @@ export default function UserList() {
     case 'Admin':
       userPermission = 'admin';
       break;
-    case 'Técnico':
+    case 'Controlador':
       userPermission = 'managers';
       break;
-    case 'Médico':
+    case 'Doutor':
       userPermission = 'doctors';
       break;
     default:
@@ -79,7 +79,7 @@ export default function UserList() {
   // useEffect
   useEffect(() => {
     if(refresh === true){
-      api.get(`${userPermission}/users?filter={"where":{"or":[{"role":"Técnico"}, {"role":"Doutor"}]}}`).then(response => {
+      api.get(`${userPermission}/users?filter={"where":{"or":[{"role":"Controlador"}, {"role":"Doutor"}]}}`).then(response => {
         setUsers(response.data);
       })
     }

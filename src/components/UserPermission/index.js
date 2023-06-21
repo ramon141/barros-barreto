@@ -5,10 +5,10 @@ export default function UserPermission() {
     case 'Admin':
       userPermission = 'admin';
       break;
-    case 'Técnico':
+    case 'Controlador':
       userPermission = 'managers';
       break;
-    case 'Médico':
+    case 'Doutor':
       userPermission = 'doctors';
       break;
     default:

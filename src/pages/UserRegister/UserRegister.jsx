@@ -60,10 +60,10 @@ export default function UserRegister() {
 		case 'Admin':
 			userPermission = 'admin';
 			break;
-		case 'Técnico':
+		case 'Controlador':
 			userPermission = 'managers';
 			break;
-		case 'Médico':
+		case 'Doutor':
 			userPermission = 'doctors';
 			break;
 		default:
@@ -97,7 +97,7 @@ export default function UserRegister() {
 	// Tipos de usuários
 	const typeUser = [
 		{ value: "1", label: "Administrador" },
-		{ value: "2", label: "Técnico"  }
+		{ value: "2", label: "Controlador"  }
 	];
 	/* ************************************************************************ */
 
@@ -126,14 +126,14 @@ export default function UserRegister() {
 		let user = '';
 
 		switch (role) {
-			case "Técnico":
+			case "Controlador":
 				data = {
 					name,
 					email,
 					password,
 					telefone,
 					role,
-					manager: areasSelect.map(item => ({
+					managers: areasSelect.map(item => ({
 						id: item.value,
 						name: item.label
 					})
@@ -212,7 +212,7 @@ export default function UserRegister() {
 			});
 		} else {
 			try {
-				await api.post(`${userPermission}/users`, data);
+				await api.post(`/users`, data);
 
 				//alert(`Usuário cadastrado com sucesso.`);
 
