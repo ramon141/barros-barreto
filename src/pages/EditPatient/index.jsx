@@ -373,7 +373,7 @@ export default function EditPatient() {
                   style={classes.btnSubmit}
                   type="submit"
                 >
-                  Salvar
+                  Editar
                 </Button>
               </Grid>
             </Grid>

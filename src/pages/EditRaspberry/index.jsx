@@ -152,20 +152,29 @@ export default function EditRaspberry() {
 
           <form onSubmit={formik.handleSubmit}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6} md={3} lg={3}>
+              <Grid item xs={12} sm={12} md={6} lg={6}>
                 {textFieldFormik({ id: "propertyIdentification", label: "Número de identificação", required: true, })}
               </Grid>
 
-              <Grid item xs={12} sm={6} md={3} lg={3}>
+              <Grid item xs={12} sm={12} md={4} lg={4}>
                 {textFieldFormik({ id: "model", label: "Modelo", required: true, })}
               </Grid>
 
-              <Grid item xs={12} sm={6} md={3} lg={3}>
+              <Grid item xs={12} sm={12} md={4} lg={4}>
                 {textFieldFormik({
                   id: "serialNumber",
                   label: "Número de série",
                 })}
               </Grid>
+
+              {/*<Grid item xs={12} sm={6} md={3} lg={3}>*/}
+              {/*  {autocompleteFormik({*/}
+              {/*    id: "status",*/}
+              {/*    label: "Status",*/}
+              {/*    options: Object.values(statusOfModule),*/}
+              {/*    required: true,*/}
+              {/*  })}*/}
+              {/*</Grid>*/}
 
               <Grid item xs={12} sm={12} md={12} lg={12}>
                 {textFieldFormik({
@@ -198,7 +207,7 @@ export default function EditRaspberry() {
                       style={classes.btnSubmit}
                       type="submit"
                   >
-                    Salvar
+                    Editar
                   </Button>
                 </Grid>
               </Grid>

@@ -79,7 +79,7 @@ export default function UserList() {
   // useEffect
   useEffect(() => {
     if(refresh === true){
-      api.get(`${userPermission}/users?filter={"where":{"or":[{"role":"Controlador"}, {"role":"Doutor"}]}}`).then(response => {
+      api.get(`${userPermission}/users`).then(response => {
         setUsers(response.data);
       })
     }

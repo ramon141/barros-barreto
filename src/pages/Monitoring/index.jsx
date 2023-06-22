@@ -252,7 +252,7 @@ export default function Monitoring() {
               label="Volume Total"
               style={classes.disabled}
               disabled
-              value={`${sumVolume()} mg/H`}
+              value={`${sumVolume()} ml/H`}
             />
           </Grid>
 

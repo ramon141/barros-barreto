@@ -161,14 +161,32 @@ export default function EditHospital() {
                   useRawValue: true,
                 })}
               </Grid>
-              <Grid item>
-                <Button
-                    variant="outlined"
-                    style={classes.btnSubmit}
-                    type="submit"
-                >
-                  Salvar
-                </Button>
+
+              <Grid
+                  container
+                  spacing={2}
+                  style={{ marginTop: 10 }}
+                  justifyContent="center"
+              >
+                <Grid item>
+                  <Button
+                      variant="outlined"
+                      style={classes.btnCancel}
+                      onClick={() => history.push("/choice-hospital-edit")}
+                  >
+                    Voltar
+                  </Button>
+                </Grid>
+
+                <Grid item>
+                  <Button
+                      variant="outlined"
+                      type="submit"
+                      style={classes.btnSubmit}
+                  >
+                    Editar
+                  </Button>
+                </Grid>
               </Grid>
             </Grid>
           </form>
