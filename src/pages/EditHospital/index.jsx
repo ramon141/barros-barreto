@@ -10,7 +10,7 @@ import { useHistory, useParams } from "react-router-dom";
 
 const classes = {
   btnSubmit: {
-    backgroundColor: "#1B98E0",
+    backgroundColor: "#075d85",
     color: "white",
     border: "1px solid rgba(0, 0, 0, 0.23)",
   },

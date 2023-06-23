@@ -23,12 +23,12 @@ const classes = {
         backgroundColor: "#DEDEDE",
     },
     btnDischarge: {
-        backgroundColor: "#1B98E0",
+        backgroundColor: "#075d85",
         color: "white",
         border: "1px solid rgba(0, 0, 0, 0.23)",
     },
     btnReport: {
-        backgroundColor: "#1B98E0",
+        backgroundColor: "#075d85",
         color: "white",
         border: "1px solid rgba(0, 0, 0, 0.23)",
     },
@@ -157,7 +157,6 @@ export default function RaspberryMonitoring() {
                         />
                     </Grid>
 
-                    {/*<Buttons />*/}
                 </Grid>
             </CardContent>
         </Card>
