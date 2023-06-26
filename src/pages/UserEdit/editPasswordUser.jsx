@@ -238,7 +238,7 @@ export default function EditInfoUser({userPermission}) {
             error={password !== confirmPassword}
             /*helperText={password !== confirmPassword ? "Senhas não coincidem" : ""}*/
             type="password"
-            label="Senha"
+            label="Confirme a senha"
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
