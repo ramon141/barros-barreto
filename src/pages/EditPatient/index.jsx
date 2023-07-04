@@ -277,7 +277,6 @@ export default function EditPatient() {
                 id: "mensureInterval",
                 label: "Intervalo de Mensuração",
                 options: [
-                  { value: 10, description: "10 minutos" },
                   { value: 30, description: "30 minutos" },
                   { value: 60, description: "60 minutos" },
                 ],

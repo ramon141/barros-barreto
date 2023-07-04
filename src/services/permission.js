@@ -11,11 +11,11 @@ export function userHasAccessPermission({ pathname, typeUser }) {
         },
         "Controlador": {
             restrict: undefined,
-            access: ['/choice-patient-edit', '/registerpatient', '/choice-patient-monitoring', '/choice-patient-reports', '/choice-raspberry-edit', '/registermodule', '/choice-module-monitoring', '/choice-raspberry-reports', '/choice-doctor-edit', '/registerdoctor']
+            access: ['/choice-patient-edit', '/registerpatient', '/editpatient', '/choice-patient-monitoring', '/choice-patient-reports', '/choice-raspberry-edit', '/editraspberry', '/registermodule', '/choice-module-monitoring', '/choice-raspberry-reports', '/choice-doctor-edit', '/registerdoctor']
         },
         "Doutor": {
             restrict: undefined,
-            access: ['/choice-patient-edit', '/registerpatient', '/choice-patient-monitoring', '/choice-patient-reports', '/choice-raspberry-edit', '/registermodule', '/choice-module-monitoring', '/choice-raspberry-reports']
+            access: ['/choice-patient-edit', '/registerpatient', '/editpatient', '/choice-patient-monitoring', '/choice-patient-reports', '/choice-raspberry-edit', '/editraspberry', '/registermodule', '/choice-module-monitoring', '/choice-raspberry-reports']
         }
     };
 
