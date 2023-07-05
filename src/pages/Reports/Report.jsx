@@ -68,7 +68,7 @@ export default function Monitoring() {
       .then((response) => {
         const data = {
           ...response.data,
-          notifications: fakeNotifications,
+          notifications: response.data.notifications,
           measures: response.data.measures.sort((a, b) => {
             const dateA = moment(a.time);
             const dateB = moment(b.time);
