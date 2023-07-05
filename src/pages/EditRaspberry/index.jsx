@@ -7,6 +7,7 @@ import { components } from "./components";
 import { validationSchema } from "./validationSchema";
 import { useHistory, useParams } from "react-router-dom";
 import moment from "moment/moment";
+import Notification from "../../components/Notification/Notification";
 
 const classes = {
   btnSubmit: {
@@ -106,14 +107,14 @@ export default function EditRaspberry() {
     api
         .patch(`/raspberries/${raspberryId}`, newData)
         .then((response) => {
-          setNotify({
-            isOpen: true,
-            message: "",
-            type: "success",
-            title: "Informações atualizadas com sucesso!",
-          });
+            setNotify({
+                 isOpen: true,
+                 message: "",
+                type: "success",
+              title: "Informações atualizadas com sucesso!",
+            });
 
-          // setTimeout(() => history.push("/choice-patient-monitoring"), 700);
+          setTimeout(() => history.push("/choice-module-monitoring"), 700);
         })
         .catch((err) => {
           const message = err.response?.data?.error?.message;
@@ -152,7 +153,7 @@ export default function EditRaspberry() {
 
           <form onSubmit={formik.handleSubmit}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={12} md={6} lg={6}>
+              <Grid item xs={12} sm={12} md={4} lg={4}>
                 {textFieldFormik({ id: "propertyIdentification", label: "Número de identificação", required: true, })}
               </Grid>
 
@@ -166,15 +167,6 @@ export default function EditRaspberry() {
                   label: "Número de série",
                 })}
               </Grid>
-
-              {/*<Grid item xs={12} sm={6} md={3} lg={3}>*/}
-              {/*  {autocompleteFormik({*/}
-              {/*    id: "status",*/}
-              {/*    label: "Status",*/}
-              {/*    options: Object.values(statusOfModule),*/}
-              {/*    required: true,*/}
-              {/*  })}*/}
-              {/*</Grid>*/}
 
               <Grid item xs={12} sm={12} md={12} lg={12}>
                 {textFieldFormik({
@@ -214,6 +206,7 @@ export default function EditRaspberry() {
             </Grid>
           </form>
         </CardContent>
+        <Notification notify={notify} setNotify={setNotify} />
       </Card>
   );
 }
