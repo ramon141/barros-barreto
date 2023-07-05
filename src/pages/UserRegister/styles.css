@@ -21,7 +21,7 @@
 .register-container .register-user .Button-clear {
     width: 218px;
     height: 45px;
-    background: #086494;
+    background: #075d85;
     color: #ffffff;
     margin-top: 17px;
     margin: 10px;
@@ -32,7 +32,7 @@
     .register-container .register-user .Button-clear {
         width: 110px;
         height: 45px;
-        background: #086494;
+        background: #075d85;
         color: #ffffff;
         margin-top: 17px;
         margin: 10px;
@@ -42,7 +42,7 @@
     }
 
     .form-register .register-user .Button {
-        background: #086494;
+        background: #075d85;
         color: #fff;
         height: 45px;
         margin-top: 17px;
@@ -58,7 +58,7 @@
 }
 
 .form-register .register-user .Button {
-    background: #086494;
+    background: #075d85;
     color: #fff;
     height: 45px;
     margin-top: 17px;
@@ -136,16 +136,16 @@
 }
 
 .register-container .list-table table th.sort-asc::before {
-    border-bottom: 5px solid #22543d;
+    border-bottom: 5px solid #000;
 }
 
 .register-container .list-table table th.sort-desc::before {
-    border-top: 5px solid #22543d;
+    border-top: 5px solid #000;
 }
   
 .register-container .list-table .badge {
     background-color: #9ae6b4;
-    color: #22543d;
+    color: #000
     margin-right: 4px;
     padding: 4px 8px;
     border-radius: 12px;
@@ -192,7 +192,7 @@
 
 .register-container .pagination-table button:hover {
     filter: brightness(90%);
-    background-color: #046494;
+    background-color: #075d85;
 }
 
 .register-container .pagination-table input {

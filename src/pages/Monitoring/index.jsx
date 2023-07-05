@@ -27,12 +27,12 @@ const classes = {
     backgroundColor: "#DEDEDE",
   },
   btnDischarge: {
-    backgroundColor: "#1B98E0",
+    backgroundColor: "#075d85",
     color: "white",
     border: "1px solid rgba(0, 0, 0, 0.23)",
   },
   btnReport: {
-    backgroundColor: "#1B98E0",
+    backgroundColor: "#075d85",
     color: "white",
     border: "1px solid rgba(0, 0, 0, 0.23)",
   },
@@ -252,7 +252,7 @@ export default function Monitoring() {
               label="Volume Total"
               style={classes.disabled}
               disabled
-              value={`${sumVolume()} mg/H`}
+              value={`${sumVolume()} ml/H`}
             />
           </Grid>
 
@@ -315,7 +315,7 @@ export default function Monitoring() {
                   width: "100%",
                   color:
                     mensureInterval === patient.mensureInterval
-                      ? "#1B98E0"
+                      ? "#075d85"
                       : "#ff8833",
                 }}
                 onClick={updateMensureInterval}

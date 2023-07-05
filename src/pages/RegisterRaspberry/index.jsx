@@ -20,7 +20,7 @@ const classes = {
     },
 
     btnSubmit: {
-        backgroundColor: "#1B98E0",
+        backgroundColor: "#075d85",
         color: "white",
         border: "1px solid rgba(0, 0, 0, 0.23)",
     },
@@ -51,13 +51,6 @@ export default function RegisterRaspberry() {
     const history = useHistory();
     const [notify, setNotify] = useState(INITIAL_VALUE_NOTIFY);
     const statusOfModule = {OPERANTE: "operante", INOPERANTE: "inoperante"};
-
-    // useEffect(() => {
-    //     api.get("raspberries").then((response) => {
-    //         console.log(response.data);
-    //         setStatus(response.data.status);
-    //     });
-    // });
 
     const post = (values) => {
         //Remove de "values" atributos que não possuem o mesmo nome na
@@ -209,27 +202,18 @@ export default function RegisterRaspberry() {
 
                 <form onSubmit={formik.handleSubmit}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6} md={3} lg={3}>
+                        <Grid item xs={12} sm={12} md={4} lg={4}>
                             {textFieldFormik({ id: "propertyIdentification", label: "Número de identificação", required: true, })}
                         </Grid>
 
-                        <Grid item xs={12} sm={6} md={3} lg={3}>
+                        <Grid item xs={12} sm={12} md={4} lg={4}>
                             {textFieldFormik({ id: "model", label: "Modelo", required: true, })}
                         </Grid>
 
-                        <Grid item xs={12} sm={6} md={3} lg={3}>
+                        <Grid item xs={12} sm={12} md={4} lg={4}>
                             {textFieldFormik({
                                 id: "serialNumber",
                                 label: "Número de série",
-                            })}
-                        </Grid>
-
-                        <Grid item xs={12} sm={6} md={3} lg={3}>
-                            {autocompleteFormik({
-                                id: "status",
-                                label: "Status",
-                                options: Object.values(statusOfModule),
-                                required: true,
                             })}
                         </Grid>
 

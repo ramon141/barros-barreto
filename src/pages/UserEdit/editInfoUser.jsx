@@ -147,7 +147,7 @@ export default function EditInfoUser({ userPermission }) {
 
     /* Muda o objeto caso seja selecionado que o usuário é Controlador ou Executor */
     switch (role) {
-      case "Técnico":
+      case "Controlador":
         data = {
           id,
           name,
@@ -163,7 +163,7 @@ export default function EditInfoUser({ userPermission }) {
         }
         break;
 
-      case "Médico":
+      case "Doutor":
         data = {
           name,
           id,
@@ -297,7 +297,7 @@ export default function EditInfoUser({ userPermission }) {
 
 
 
-          {/*<Select options={typeUser} 
+          {/*<Select options={typeUser}
             onChange={e => setRole(e.label)} 
             styles={styleMultiSelect}
             placeholder="Selecione o tipo de usuário" 
@@ -314,7 +314,7 @@ export default function EditInfoUser({ userPermission }) {
             >
               Atualizar Usuário
             </Button>
-            {/*<button onClick={() => clearForm()} type="button" className="button-clear">Limpar</button>*/}
+            <Button onClick={() => clearForm()} type="button" className="button-clear">Limpar</Button>
           </div>
         </form>
       </div>

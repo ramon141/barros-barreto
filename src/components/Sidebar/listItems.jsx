@@ -5,12 +5,15 @@ import { useHistory } from "react-router-dom";
 
 
 const classes = {
+
   nested: {
     paddingLeft: 32,
     color: "#000",
+
   },
   cor: {
-    color: "#000",
+    color: "#FAFAFA",
+
   },
 };
 
@@ -49,7 +52,7 @@ export default function ListItems({ handleDrawerClose, isMobile }) {
         {
           typeUser === "Admin" ?
               <>
-                <ListItem button onClick={handleClickHospital}>
+                <ListItem Button style={{backgroundColor: "#075d85"}} onClick={handleClickHospital}  >
                   <ListItemText primary="Hospital" style={classes.cor} />
                   {isOpenHospital ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
@@ -57,13 +60,12 @@ export default function ListItems({ handleDrawerClose, isMobile }) {
 
                 <Collapse in={isOpenHospital} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    <ListItemLink
-                        button href="/choice-hospital-edit" className={classes.nested}>
+                    <ListItemLink button href="/choice-hospital-edit" style={classes.nested}>
                       <ListItemText primary="Editar" />
                     </ListItemLink>
 
 
-                    <ListItemLink button href="/registerhospital" className={classes.nested}>
+                    <ListItemLink button href="/registerhospital" style={classes.nested}>
                       <ListItemText primary="Cadastro" />
                     </ListItemLink>
 
@@ -75,19 +77,19 @@ export default function ListItems({ handleDrawerClose, isMobile }) {
         {
           typeUser === "Admin" || typeUser === "Controlador" ?
               <>
-                <ListItem button onClick={handleClickDoctor}>
-                  <ListItemText primary="Médico" className={classes.cor} />
+                <ListItem Button style={{backgroundColor: "#075d85"}} onClick={handleClickDoctor}>
+                  <ListItemText primary="Médico" style={classes.cor} />
                   {isOpenDoctor ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
 
                 <Collapse in={isOpenDoctor} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
 
-                    <ListItemLink button href="/choice-doctor-edit" className={classes.nested}>
-                      <ListItemText primary="Editar" />
+                    <ListItemLink button href="/choice-doctor-edit" style={classes.nested}>
+                      <ListItemText primary="Editar"/>
                     </ListItemLink>
 
-                    <ListItemLink button href="/registerdoctor" className={classes.nested}>
+                    <ListItemLink button href="/registerdoctor" style={classes.nested}>
                       <ListItemText primary="Cadastro" />
                     </ListItemLink>
 
@@ -100,26 +102,26 @@ export default function ListItems({ handleDrawerClose, isMobile }) {
         {
           typeUser === "Admin" || typeUser === "Controlador" || typeUser === "Doutor" ?
               <>
-                <ListItem button onClick={handleClickModule}>
-                  <ListItemText primary="Módulo" className={classes.cor} />
+                <ListItem Button style={{backgroundColor: "#075d85"}} onClick={handleClickModule} >
+                  <ListItemText primary="Módulo" style={classes.cor} />
                   {isOpenModule ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
 
                 <Collapse in={isOpenModule} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    <ListItemLink button href="/choice-raspberry-edit" className={classes.nested}>
+                    <ListItemLink button href="/choice-raspberry-edit" style={classes.nested}>
                       <ListItemText primary="Editar" />
                     </ListItemLink>
 
-                    <ListItemLink button href="/registermodule" className={classes.nested}>
+                    <ListItemLink button href="/registermodule" style={classes.nested}>
                       <ListItemText primary="Cadastro" />
                     </ListItemLink>
 
-                    <ListItemLink button href="/choice-module-monitoring" className={classes.nested}>
+                    <ListItemLink button href="/choice-module-monitoring" style={classes.nested}>
                       <ListItemText primary="Monitoramento" />
                     </ListItemLink>
 
-                    <ListItemLink button href="/choice-raspberry-reports" className={classes.nested}>
+                    <ListItemLink button href="/choice-raspberry-reports" style={classes.nested}>
                       <ListItemText primary="Relatório" />
                     </ListItemLink>
 
@@ -131,26 +133,26 @@ export default function ListItems({ handleDrawerClose, isMobile }) {
         {
           typeUser === "Admin" || typeUser === "Controlador" || typeUser === "Doutor" ?
               <>
-                <ListItem button onClick={handleClickPatient}>
-                  <ListItemText primary="Paciente" className={classes.cor} />
-                  {isOpenPatient ? <ExpandLess /> : <ExpandMore />}
+                <ListItem Button style={{backgroundColor: "#075d85"}} onClick={handleClickPatient}>
+                  <ListItemText primary="Paciente" style={classes.cor} />
+                  {isOpenPatient ? <ExpandLess /> : <ExpandMore /> }
                 </ListItem>
 
-                <Collapse in={isOpenPatient} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    <ListItemLink button href="/choice-patient-edit" className={classes.nested}>
+                <Collapse in={isOpenPatient} timeout="auto" unmountOnExit >
+                  <List component="div" disablePadding >
+                    <ListItemLink button href="/choice-patient-edit" style={classes.nested}>
                       <ListItemText primary="Editar" />
                     </ListItemLink>
 
-                    <ListItemLink button href="/registerpatient" className={classes.nested}>
+                    <ListItemLink button href="/registerpatient" style={classes.nested}>
                       <ListItemText primary="Cadastro" />
                     </ListItemLink>
 
-                    <ListItemLink button href="/choice-patient-monitoring" className={classes.nested}>
+                    <ListItemLink button href="/choice-patient-monitoring" style={classes.nested}>
                       <ListItemText primary="Monitoramento" />
                     </ListItemLink>
 
-                    <ListItemLink button href="/choice-patient-reports" className={classes.nested}>
+                    <ListItemLink button href="/choice-patient-reports" style={classes.nested}>
                       <ListItemText primary="Relatório" />
                     </ListItemLink>
 
@@ -162,14 +164,14 @@ export default function ListItems({ handleDrawerClose, isMobile }) {
         {
           typeUser === "Admin" ?
               <>
-                <ListItem button onClick={handleClickUser}>
-                  <ListItemText primary="Usuários" className={classes.cor} />
+                <ListItem Button style={{backgroundColor: "#075d85"}} onClick={handleClickUser}>
+                  <ListItemText primary="Usuários" style={classes.cor} />
                   {isOpenUser ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
 
                 <Collapse in={isOpenUser} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    <ListItemLink button href="/userRegister" className={classes.nested}>
+                    <ListItemLink button href="/userRegister" style={classes.nested}>
                       <ListItemText primary="Gerenciamento" />
                     </ListItemLink>
 

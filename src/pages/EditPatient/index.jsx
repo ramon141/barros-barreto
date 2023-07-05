@@ -11,7 +11,7 @@ import { useHistory, useParams } from "react-router-dom";
 
 const classes = {
   btnSubmit: {
-    backgroundColor: "#1B98E0",
+    backgroundColor: "#075d85",
     color: "white",
     border: "1px solid rgba(0, 0, 0, 0.23)",
   },
@@ -277,7 +277,6 @@ export default function EditPatient() {
                 id: "mensureInterval",
                 label: "Intervalo de Mensuração",
                 options: [
-                  { value: 10, description: "10 minutos" },
                   { value: 30, description: "30 minutos" },
                   { value: 60, description: "60 minutos" },
                 ],
@@ -373,7 +372,7 @@ export default function EditPatient() {
                   style={classes.btnSubmit}
                   type="submit"
                 >
-                  Salvar
+                  Editar
                 </Button>
               </Grid>
             </Grid>

@@ -84,11 +84,13 @@ export default function EditInfoUser({userPermission}) {
       setConfirmPassword('');
       setRole(response.data.role);
       setAreasSelect(() => {
-        if (role === "Executor") {
-          return response.data.executor.map(item => ({value: item.id, label: item.name}));
+        if (role === "Administradorr") {
+          return "";
+
         } else if (role === "Controlador") {
-          return response.data.manager.map(item => ({value: item.id, label: item.name}));
-        } else if (role === "Cidadão") {
+          return "";
+
+        } else if (role === "Doutor") {
           return "";
         }
         });
@@ -118,40 +120,37 @@ export default function EditInfoUser({userPermission}) {
 		/* Muda o objeto caso seja selecionado que o usuário é Controlador ou Executor */
 		switch (role) {
 			case "Controlador":
-				data = { id,
+			  data = { id,
                  name, 
-								 email, 
-							   password, 
-							   telefone,
-								 role,
-							   manager:areasSelect.map(item => ({
-									 id: item.value, 
-									 name: item.label})
-								)}
-				break;
-				
-			case "Executor":
-				data = { name,
-                 id,
-								 email, 
-							   password, 
-							   telefone,
-								 role,
-							   executor:areasSelect.map(item => ({
-									 id: item.value, 
-									 name: item.label})
-								)}
-				break;
-
-			default:
-        data = { id,
-                 name, 
-                 email, 
-                 password, 
+                 email,
+                 password,
                  telefone,
                  role,
-               }
+                 manager:areasSelect.map(item => ({id: item.value,  name: item.label}))
+              }
 				break;
+				
+			case "Doutor":
+			 data = { name,
+                 id,
+				 email,
+				 password,
+				 telefone,
+				  role,
+				 executor:areasSelect.map(item => ({id: item.value, name: item.label}))
+             }
+
+             break;
+
+			default:
+             data = { id,
+               name,
+               email,
+               password,
+               telefone,
+               role,
+             }
+			 break;
 		}
     
 		if (password !== confirmPassword) {
@@ -239,7 +238,7 @@ export default function EditInfoUser({userPermission}) {
             error={password !== confirmPassword}
             /*helperText={password !== confirmPassword ? "Senhas não coincidem" : ""}*/
             type="password"
-            label="Senha"
+            label="Confirme a senha"
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -260,13 +259,11 @@ export default function EditInfoUser({userPermission}) {
           />
 
           <div className="register-user">
-            <Button
-							variant="outlined"
-							type='submit'
-						>
-							Atualizar Senha
-						</Button>
-            {/*<button onClick={() => clearForm()} type="button" className="button-clear">Limpar</button>*/}
+            <Button variant="outlined" type='submit'>
+                Atualizar Senha
+            </Button>
+
+            <Button onClick={() => clearForm()} type="button" className="button-clear">Limpar</Button>
           </div>
         </form>
       </div>

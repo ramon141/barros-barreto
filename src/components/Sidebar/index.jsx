@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme, lagura) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    backgroundColor: "#F5F5F5",
+    backgroundColor: "#FAFAFA",
     width: theme.spacing(32),
   },
 
