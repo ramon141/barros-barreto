@@ -47,7 +47,8 @@ export default function ChoiceDoctor({ onChoosing, useFilter = true, title }) {
             where: {role: "Doutor"}
         };
 
-        //Se for um cpf ou cns
+        const searchValueOnlyNumbers = getOnlyNumbers(searchValue);
+
         if (searchValueOnlyNumbers) {
             filter.where = {
                 ...filter.where,

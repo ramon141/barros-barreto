@@ -114,7 +114,7 @@ export default function EditRaspberry() {
               title: "Informações atualizadas com sucesso!",
             });
 
-          setTimeout(() => history.push("/choice-module-monitoring"), 700);
+          setTimeout(() => history.push("/choice-raspberry-edit"), 700);
         })
         .catch((err) => {
           const message = err.response?.data?.error?.message;
