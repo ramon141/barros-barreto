@@ -140,10 +140,10 @@ export default function RegisterHospital() {
 
         <form onSubmit={formik.handleSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} md={3} lg={3}>
+            <Grid item xs={4} sm={4} md={4} lg={4}>
               {textFieldFormik({ id: "name", label: "Nome" })}
             </Grid>
-            <Grid item xs={12} sm={6} md={3} lg={3}>
+            <Grid item xs={4} sm={4} md={4} lg={4}>
               {inputMaskFormik({
                 id: "ctiPhone",
                 label: "Telefone do CTI",
@@ -152,7 +152,7 @@ export default function RegisterHospital() {
               })}
             </Grid>
 
-            <Grid item xs={12} sm={6} md={6} lg={6}>
+            <Grid item xs={4} sm={4} md={4} lg={4}>
               {inputMaskFormik({
                 id: "onDutyPhone",
                 label: "Telefone do Plantão",

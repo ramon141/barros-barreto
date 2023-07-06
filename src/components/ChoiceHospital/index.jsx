@@ -100,7 +100,7 @@ export default function ChoiceHospital({ onChoosing, useFilter = true, title }) 
                     variant='outlined'
                     fullWidth
                     size='small'
-                    style={{ backgroundColor: '#1B98E0', color: 'white', height: 40 }}
+                    style={{ backgroundColor: '#075d85', color: 'white', height: 40 }}
                     onClick={() => loadHospitals()}
                 >
                     <Search />
