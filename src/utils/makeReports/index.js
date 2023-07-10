@@ -4,10 +4,14 @@ import { createCSV } from './createCSV';
 export const makeReports = ({ patient, format, fileName }) => {
     fileName = fileName || 'Relatório Barros Barreto';
 
-    const newPatient = {
-        ...patient,
-        notifications: organizeNotifications(patient.notifications, 'date')
-    };
+    let newPatient = {};
+
+    if (patient.measures !== undefined) {
+        newPatient = {
+            ...patient,
+            notifications: organizeNotifications(patient.measures, 'notificationTime')
+        };
+    }
 
     console.log(newPatient.notifications)
 
@@ -74,16 +78,16 @@ const exportPDF = async (patient, fileName) => {
 //Todas as vigens da escola XXX, ficarão no atributo XXX do objeto XXX
 //Cada um desses atributos é um vetor que possuirá as viagens
 function organizeNotifications(notifications, attributeForOrganize) {
-    let shipmentsOrganized = {};
+    let notificationsOrganized = {};
 
-    notifications.forEach((shipment) => {
-        if (!!shipmentsOrganized[shipment[attributeForOrganize]]) {
-            shipmentsOrganized[shipment[attributeForOrganize]].push(shipment);
+    notifications.forEach((notification) => {
+        if (!!notificationsOrganized[notification[attributeForOrganize]]) {
+            notificationsOrganized[notification[attributeForOrganize]].push(notification);
         } else {
-            shipmentsOrganized[shipment[attributeForOrganize]] = [shipment];
+            notificationsOrganized[notification[attributeForOrganize]] = [notification];
         }
     });
 
-    return shipmentsOrganized;
+    return notificationsOrganized;
 
 }

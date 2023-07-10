@@ -43,12 +43,6 @@ export default function ModalChoiceReportFormat({ open, setOpen, onChoice }) {
                     spacing={2}
                 >
 
-                    <Grid item xs={12} md={12}>
-                        <Typography style={{fontWeight: 'bold', textAlign: 'center'}}>
-                            Relatório das notificações
-                        </Typography>
-                    </Grid>
-
                     <Grid item>
                         <Button
                             color="primary"
@@ -67,12 +61,6 @@ export default function ModalChoiceReportFormat({ open, setOpen, onChoice }) {
                         >
                             HTML
                         </Button>
-                    </Grid>
-
-                    <Grid item xs={12} md={12}>
-                        <Typography style={{fontWeight: 'bold', textAlign: 'center'}}>
-                            Relatório das mensurações
-                        </Typography>
                     </Grid>
 
                     <Grid item>
