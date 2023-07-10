@@ -120,7 +120,7 @@ export default function ChoicePatient({ onChoosing, useFilter = true, title, onl
           variant='outlined'
           fullWidth
           size='small'
-          style={{ backgroundColor: '#1B98E0', color: 'white', height: 40 }}
+          style={{ backgroundColor: '#075d85', color: 'white', height: 40 }}
           onClick={() => loadPatients()}
         >
           <Search />

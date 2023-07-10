@@ -50,7 +50,7 @@ const INITIAL_VALUE_FORMIK = {
 export default function RegisterRaspberry() {
     const history = useHistory();
     const [notify, setNotify] = useState(INITIAL_VALUE_NOTIFY);
-    const statusOfModule = {OPERANTE: "operante", INOPERANTE: "inoperante"};
+    const statusOfModule = {OPERANTE: "está em uso", INOPERANTE: "Não está sendo usado"};
 
     const post = (values) => {
         //Remove de "values" atributos que não possuem o mesmo nome na
@@ -236,7 +236,7 @@ export default function RegisterRaspberry() {
                                 <Button
                                     variant="outlined"
                                     style={classes.btnCancel}
-                                    onClick={() => history.push("/choice-patient-monitoring")}  // TODO: Caminho para /choice-module-monitoring
+                                    onClick={() => history.push("/choice-patient-monitoring")}
                                 >
                                     Voltar
                                 </Button>
