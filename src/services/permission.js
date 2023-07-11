@@ -9,13 +9,13 @@ export function userHasAccessPermission({ pathname, typeUser }) {
             restrict: undefined,
             access: '*'
         },
-        "Técnico": {
+        "Controlador": {
             restrict: undefined,
-            access: ['/school-register', '/student-edit/', '/manager-student', '/student-register']
+            access: ['/choice-patient-edit', '/registerpatient', '/editpatient', '/choice-patient-monitoring', '/choice-patient-reports', '/choice-raspberry-edit', '/editraspberry', '/registermodule', '/choice-module-monitoring', '/choice-raspberry-reports', '/choice-doctor-edit', '/registerdoctor']
         },
-        "Monitor": {
+        "Doutor": {
             restrict: undefined,
-            access: ['/travel', '/confirm-boarding', '/choice-type-travel', '/unboarding']
+            access: ['/choice-patient-edit', '/registerpatient', '/editpatient', '/choice-patient-monitoring', '/choice-patient-reports', '/choice-raspberry-edit', '/editraspberry', '/registermodule', '/choice-module-monitoring', '/choice-raspberry-reports']
         }
     };
 

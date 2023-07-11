@@ -4,8 +4,7 @@ import {
   Grid,
   TextField,
   Button,
-  Typography,
-  CircularProgress
+  Typography
 } from "@mui/material";
 
 import {
@@ -14,7 +13,7 @@ import {
 
 import api from "../../services/api";
 import React, { useEffect, useState } from "react";
-import TableRaspberry from "./TableRaspberry";
+import TableRaspberrys from "./TableRaspberrys";
 
 const classes = {
   cardRoot: {
@@ -22,70 +21,120 @@ const classes = {
   }
 };
 
-export default function ChoiceRaspberry({ onChoosing, useFilter = true, title, printAll, loadRaspberry, raspberry, searching }) {
+export default function ChoiceRaspberry({ onChoosing, useFilter = true, title, onlyDischargedRaspberry, onlyActiveRaspberrys }) {
 
   const [searchValue, setSearchValue] = useState('');
+  const [raspberrys, setRaspberrys] = useState([]);
+
+  useEffect(() => {
+    let filter = {
+      order: 'propertyIdentification',
+      where: {}
+    };
+
+    if (onlyDischargedRaspberry) {
+      filter.where = {
+        dischargedFromRaspberry: { neq: null }
+      };
+    }
+
+    api.get(`/raspberries-report?filter=${JSON.stringify(filter)}`).then((response) => {
+      setRaspberrys(response.data);
+    })
+  }, [onlyDischargedRaspberry]);
+
+  const getOnlyNumbers = (value) => {
+    return value.replace(/[^\d,]/g, '');
+  }
+
+  function loadRaspberrys() {
+    let filter = {
+      order: 'propertyIdentification',
+      where: {}
+    };
+
+    const searchValueOnlyNumbers = getOnlyNumbers(searchValue);
+
+    if (onlyDischargedRaspberry) {
+      filter.where = {
+        dischargedFromRaspberry: { neq: null }
+      };
+    }
+
+    //Se for um número de série ou de identificação
+    if (searchValueOnlyNumbers) {
+      filter.where = {
+        ...filter.where,
+        or: [
+          { serialNumber: { like: `.*${searchValueOnlyNumbers}.*` } },
+          { propertyIdentification: { like: `.*${searchValue}.*`, options: 'i' } },
+        ]
+      };
+
+    } else {//Se for um nome
+      filter.where = {
+        ...filter.where,
+        propertyIdentification: { like: `.*${searchValue.trim()}.*`, options: 'i' }
+      };
+    }
+
+    api.get(`/raspberries?filter=${JSON.stringify(filter)}`).then((response) => {
+      setRaspberrys(response.data);
+    })
+  }
 
   const handleChangeSearch = (e) => {
     const newValue = e.target.value;
+
     setSearchValue(newValue);
+
+    if (!newValue) {
+      api.get(`/raspberries`).then((response) => {
+        setRaspberrys(response.data);
+      })
+    }
   }
 
   const filter = () => (
-    <Grid container justifyContent='center' spacing={2} style={{ marginBottom: 30 }}>
-      <Grid item xs={12} sm={10} md={10} lg={10}>
-        <TextField
-          size='small'
-          label='Módulo'
-          required
-          fullWidth
-          value={searchValue}
-          onChange={handleChangeSearch}
-        />
-      </Grid>
+      <Grid container justifyContent='center' spacing={2} style={{ marginBottom: 30 }}>
+        <Grid item xs={12} sm={10} md={10} lg={10}>
+          <TextField
+              size='small'
+              label='Módulo'
+              required
+              fullWidth
+              value={searchValue}
+              onChange={handleChangeSearch}
+          />
+        </Grid>
 
-      <Grid item xs={12} sm={2} md={2} lg={2}>
-        <Button
-          variant='outlined'
-          fullWidth
-          disabled={searching}
-          size='small'
-          style={{ backgroundColor: '#1B98E0', color: 'white', height: 40 }}
-          onClick={() => loadRaspberry(searchValue)}
-        >
-          {searching ?
-            <CircularProgress size={24} color={'secondary'} /> :
-            <Search />
-          }
-        </Button>
-        {raspberry && Array.isArray(raspberry) && raspberry.length > 0 &&
+        <Grid item xs={12} sm={2} md={2} lg={2}>
           <Button
-            variant='outlined'
-            fullWidth
-            size='small'
-            style={{ backgroundColor: '#1B98E0', color: 'white', height: 40, marginTop: 20 }}
-            onClick={() => printAll && typeof printAll == 'function' && printAll(raspberry)}
+              variant='outlined'
+              fullWidth
+              size='small'
+              style={{ backgroundColor: '#075d85', color: 'white', height: 40 }}
+              onClick={() => loadRaspberrys()}
           >
-            Imprimir todos
-          </Button>}
-
+            <Search />
+          </Button>
+        </Grid>
       </Grid>
-    </Grid>
   )
 
   return (
-    <Card style={classes.cardRoot}>
-      <CardContent style={{ margin: 20 }}>
+      <Card style={classes.cardRoot}>
+        <CardContent style={{ margin: 20 }}>
 
-        <Typography variant='h5' align='center' style={{ fontWeight: 'bold', marginBottom: 30 }}>
-          {title}
-        </Typography>
+          <Typography variant='h5' align='center' style={{ fontWeight: 'bold', marginBottom: 30 }}>
+            {title}
+          </Typography>
 
-        {useFilter ? filter() : false}
+          {useFilter ? filter() : false}
 
-        <TableRaspberry handleClickRow={onChoosing} raspberry={raspberry} />
+          <TableRaspberrys handleClickRow={onChoosing} raspberry={raspberrys} />
 
-      </CardContent>
-    </Card >
+        </CardContent>
+      </Card >
   );
 }

@@ -1,5 +1,6 @@
 import moment from 'moment';
 import ReactApexChart from 'react-apexcharts'
+import {Typography} from "@material-ui/core";
 export default function GraphMonitoring({ measures, date, idGraph }) {
 
   //O array "mesures" vem na forma:
@@ -71,15 +72,20 @@ export default function GraphMonitoring({ measures, date, idGraph }) {
     <>
       <div id='other-graph'>
       </div>
-
-      <ReactApexChart
-        id={idGraph || 'id-graph'}
-        options={options}
-        series={series}
-        type='area'
-        width='100%'
-        height={320}
-      />
+      {
+        measures === undefined ?
+            <Typography align='center' variant='h6'>
+              O paciente não possui mensurações
+            </Typography> :
+            <ReactApexChart
+                id={idGraph || 'id-graph'}
+                options={options}
+                series={series}
+                type='area'
+                width='100%'
+                height={320}
+            />
+      }
     </>
   )
 }

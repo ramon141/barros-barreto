@@ -11,7 +11,7 @@ import { useHistory } from "react-router-dom";
 
 const classes = {
   btnSubmit: {
-    backgroundColor: "#1B98E0",
+    backgroundColor: "#075d85",
     color: "white",
     border: "1px solid rgba(0, 0, 0, 0.23)",
   },
@@ -238,7 +238,6 @@ export default function RegisterPatient() {
                 id: "doctorResponsible",
                 label: "Médico Responsável",
                 options: doctors,
-                required: true,
                 getOptionLabel: (option) =>
                   option.name
                     ? `${option.CRM} - ${option.name}`
@@ -260,7 +259,6 @@ export default function RegisterPatient() {
                 label: "Intervalo de Mensuração",
                 required: true,
                 options: [
-                  { value: 10, description: "10 minutos" },
                   { value: 30, description: "30 minutos" },
                   { value: 60, description: "60 minutos" },
                 ],

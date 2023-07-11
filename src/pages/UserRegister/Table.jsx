@@ -125,7 +125,7 @@ const handleFilterChange = e => {
               value={pageSize}
               style={{'background':'#fff'}}
             >
-              {[10, 20, 30, 40, 50].map(pageSize => (
+              {[10, 15, 20, 25, 30].map(pageSize => (
                 <MenuItem key={pageSize} value={pageSize}>
                   {pageSize}
                 </MenuItem>
@@ -155,21 +155,6 @@ const handleFilterChange = e => {
             </strong>{' '}
           </span>
         </div>
-
-        
-        {/*<div className="pagination-go-page">
-          <span>
-            Ir para a página: {' '}
-            <input
-              type="number"
-              defaultValue={1}
-              onChange={e => {
-                const page = e.target.value ? Number(e.target.value) - 1 : 0
-                gotoPage(page)
-              }}
-            />
-          </span>{' '}
-        </div>*/}
       </div>
     </div>
   );

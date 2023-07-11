@@ -27,12 +27,12 @@ const classes = {
     backgroundColor: "#DEDEDE",
   },
   btnDischarge: {
-    backgroundColor: "#1B98E0",
+    backgroundColor: "#075d85",
     color: "white",
     border: "1px solid rgba(0, 0, 0, 0.23)",
   },
   btnReport: {
-    backgroundColor: "#1B98E0",
+    backgroundColor: "#075d85",
     color: "white",
     border: "1px solid rgba(0, 0, 0, 0.23)",
   },
@@ -132,7 +132,6 @@ export default function Monitoring() {
         onChange={(e) => setMensureInterval(e.target.value)}
         value={mensureInterval}
       >
-        <MenuItem value={10}>10 minutos</MenuItem>
         <MenuItem value={30}>30 minutos</MenuItem>
         <MenuItem value={60}>60 minutos</MenuItem>
       </Select>
@@ -161,9 +160,16 @@ export default function Monitoring() {
   };
 
   const onDischarge = (dischargedFromHospital) => {
+    const raspId = patient.raspberryId;
+
     const data = {
       dischargedFromHospital,
     };
+
+    const modifyRaspStatus = {
+      status: "inoperante",
+    };
+
 
     api
       .patch(`patients/${patientId}`, data)
@@ -177,6 +183,12 @@ export default function Monitoring() {
       .catch((err) => {
         alert("Erro ao dar alta para o paciente");
       });
+
+    api
+        .patch(`raspberries/${raspId}`, modifyRaspStatus)
+        .catch((err) => {
+      alert("Erro ao modificar o status do módulo");
+    });
   };
 
   const Buttons = () => (
@@ -240,7 +252,7 @@ export default function Monitoring() {
               label="Volume Total"
               style={classes.disabled}
               disabled
-              value={`${sumVolume()} mg/H`}
+              value={`${sumVolume()} ml/H`}
             />
           </Grid>
 
@@ -249,7 +261,7 @@ export default function Monitoring() {
               fullWidth
               size="small"
               required
-              label="Iníco"
+              label="Início"
               disabled
               style={classes.disabled}
               value={moment(patient.date).format("DD/MM/YYYY")}
@@ -303,7 +315,7 @@ export default function Monitoring() {
                   width: "100%",
                   color:
                     mensureInterval === patient.mensureInterval
-                      ? "#1B98E0"
+                      ? "#075d85"
                       : "#ff8833",
                 }}
                 onClick={updateMensureInterval}

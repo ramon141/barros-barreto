@@ -27,8 +27,10 @@ import './styles.css';
 
 const useStyles = makeStyles((theme) => ({
 	textField: {
+		position: 'relative',
 		width: '100%',
 		backgroundColor: '#fff',
+		zIndex: 0,
 	},
 	buttonSubmit: {
 		marginRight: 30,
@@ -45,6 +47,7 @@ const styleMultiSelect = {
 		width: '100%',
 		minWidth: 35,
 		marginTop: 15,
+		zIndex: 2,
 	})
 };
 
@@ -58,10 +61,10 @@ export default function UserRegister() {
 			userPermission = 'admin';
 			break;
 		case 'Controlador':
-			userPermission = 'manager';
+			userPermission = 'managers';
 			break;
-		case 'Executor':
-			userPermission = 'executor';
+		case 'Doutor':
+			userPermission = 'doctors';
 			break;
 		default:
 			break;
@@ -74,7 +77,7 @@ export default function UserRegister() {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [email, setEmail] = useState("");
-	const [telefone, setTelefone] = useState("");
+	const [phone, setTelefone] = useState("");
 	const [role, setRole] = useState([]);
 	const [areasSelect, setAreasSelect] = useState([]);
 	const [areas, setAreas] = useState([]);
@@ -93,9 +96,8 @@ export default function UserRegister() {
 
 	// Tipos de usuários
 	const typeUser = [
-		{ value: "1", label: "Executor" },
-		{ value: "2", label: "Controlador" },
-		{ value: "3", label: "Administrador" }
+		{ value: "1", label: "Administrador" },
+		{ value: "2", label: "Controlador"  }
 	];
 	/* ************************************************************************ */
 
@@ -115,6 +117,10 @@ export default function UserRegister() {
 		setRole([]);
 	}
 
+	function rawValueTelephone(telephone) {
+		return telephone.replace(/\D/g, "");
+	}
+
 	//chama o alerta para cadastrar
 	function confirms(dados) {
 
@@ -129,28 +135,13 @@ export default function UserRegister() {
 					name,
 					email,
 					password,
-					telefone,
+					phone,
 					role,
-					manager: areasSelect.map(item => ({
-						id: item.value,
-						name: item.label
-					})
-					)
-				}
-				break;
-
-			case "Executor":
-				data = {
-					name,
-					email,
-					password,
-					telefone,
-					role,
-					executor: areasSelect.map(item => ({
-						id: item.value,
-						name: item.label
-					})
-					)
+					// managers: areasSelect.map(item => ({
+					// 	id: item.value,
+					// 	name: item.label
+					// })
+					// )
 				}
 				break;
 
@@ -159,7 +150,7 @@ export default function UserRegister() {
 					name,
 					email,
 					password,
-					telefone,
+					phone,
 					role
 				};
 				break;
@@ -225,7 +216,7 @@ export default function UserRegister() {
 			});
 		} else {
 			try {
-				await api.post(`${userPermission}/users`, data);
+				await api.post(`admin/users`, data);
 
 				//alert(`Usuário cadastrado com sucesso.`);
 
@@ -257,6 +248,14 @@ export default function UserRegister() {
 
 	return (
 		<>
+			<div className="two-fields">
+				<Select options={typeUser}
+						onChange={e => e.label === 'Administrador' ? setRole('Admin') : setRole(e.label)}
+						styles={styleMultiSelect}
+						placeholder="Selecione o tipo de usuário"
+						/>
+			</div>
+
 			<div className={classes.root}>
 				<form onSubmit={confirms} className="form-register">
 					<div className="two-fields">
@@ -301,8 +300,8 @@ export default function UserRegister() {
 							mask="(99) 9 9999-9999"
 							maskChar=" "
 							type="tel"
-							value={telefone}
-							onChange={e => setTelefone(e.target.value)}
+							value={phone}
+							onChange={e => setTelefone(rawValueTelephone(e.target.value))}
 						>
 							{() => <TextField placeholder="Digite o telefone de usuário"
 								className={classes.textField}
@@ -316,7 +315,7 @@ export default function UserRegister() {
 											<LocalPhoneIcon />
 										</InputAdornment>
 									),
-								}} />}
+								}}/>}
 						</InputMask>
 
 						<TextField placeholder="Digite a senha do usuário"
@@ -358,23 +357,6 @@ export default function UserRegister() {
 						/>
 					</div>
 
-					<div className="two-fields">
-						<Select options={typeUser}
-							onChange={e => e.label === 'Administrador' ? setRole('Admin') : setRole(e.label)}
-							styles={styleMultiSelect}
-							placeholder="Selecione o tipo de usuário"
-						/>
-
-						{role !== 'Admin' ?
-							<Select isMulti
-								options={areasAtuacao}
-								placeholder="Selecione um ou mais tipos vinculados ao usuário"
-								styles={styleMultiSelect}
-								value={areasSelect}
-								onChange={e => setAreasSelect(e)}
-							/> : false}
-					</div>
-
 					<Notification
 						notify={notify}
 						setNotify={setNotify}
@@ -388,7 +370,7 @@ export default function UserRegister() {
 						<Button
 							className="Button"
 							variant="outlined"
-							startIcon={<SaveIcon style={{ 'color': '#41414d' }} />}
+							startIcon={<SaveIcon style={{ 'color': '#FAFAFA' }} />}
 							type='submit'
 						>
 							Cadastrar Usuário
@@ -397,7 +379,7 @@ export default function UserRegister() {
 						<Button
 							className="Button-clear"
 							variant="outlined"
-							startIcon={<ClearIcon style={{ 'color': '#41414d' }} />}
+							startIcon={<ClearIcon style={{ 'color': '#FAFAFA' }} />}
 							type='button'
 							onClick={() => clearForm()}
 						>

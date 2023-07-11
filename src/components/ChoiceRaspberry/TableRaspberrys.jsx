@@ -11,7 +11,7 @@ const classes = {
     }
 }
 
-export default function TableRaspberry({ raspberry, handleClickRow }) {
+export default function TableRaspberrys({ raspberry, handleClickRow }) {
 
     const columns = [
         {
@@ -21,10 +21,10 @@ export default function TableRaspberry({ raspberry, handleClickRow }) {
         },
         {
             field: 'measuredPatients',
-            headerName: 'Numero de pacientes atendidos',
+            headerName: 'Número de pacientes atendidos',
             width: 350,
             valueFormatter: (row) => {
-                if(row.value && Array.isArray(row.value) ){
+                if(row.value){
                     return row.value.length
                 }
                 return 0
@@ -35,7 +35,7 @@ export default function TableRaspberry({ raspberry, handleClickRow }) {
     return (
         <>
             {
-                raspberry && Array.isArray(raspberry) && raspberry.length === 0 ?
+                raspberry.length === 0 ?
                     <Typography align='center' variant='h6'>
                         Não há módulos que atendam os filtros aplicados
                     </Typography> :

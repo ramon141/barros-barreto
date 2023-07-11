@@ -12,6 +12,7 @@ export default function ListPatient() {
     <ChoicePatient
       title="Acessar Monitoramento do Paciente"
       onChoosing={onChoosing}
+      noDischargedPatient={true}
     />
   );
 }

@@ -21,7 +21,7 @@ const classes = {
   },
 
   btnSubmit: {
-    backgroundColor: "#1B98E0",
+    backgroundColor: "#075d85",
     color: "white",
     border: "1px solid rgba(0, 0, 0, 0.23)",
   },
@@ -191,7 +191,7 @@ export default function RegisterDoctor() {
                 <Button
                   variant="outlined"
                   style={classes.btnCancel}
-                  onClick={() => history.push("/choice-patient-monitoring")}
+                  onClick={() => history.push("/choice-patient-monitoring")} // TODO: Modificar
                 >
                   Voltar
                 </Button>

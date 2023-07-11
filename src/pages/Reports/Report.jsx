@@ -13,40 +13,16 @@ const classes = {
     backgroundColor: '#DEDEDE'
   },
   btnDischarge: {
-    backgroundColor: '#1B98E0',
+    backgroundColor: '#075d85',
     color: 'white',
     border: '1px solid rgba(0, 0, 0, 0.23)'
   },
   btnReport: {
-    backgroundColor: '#1B98E0',
+    backgroundColor: '#075d85',
     color: 'white',
     border: '1px solid rgba(0, 0, 0, 0.23)'
   }
 }
-
-const fakeNotifications = [
-  {
-    "reason": "Urinou muito",
-    "date": new Date(2022, 11, 24),
-    "hour": '10:30',
-    "volume": 200
-  }, {
-    "reason": "Urinou pouco",
-    "date": new Date(2022, 11, 24),
-    "hour": '11:30',
-    "volume": 20
-  }, {
-    "reason": "Urinou muito",
-    "date": new Date(2022, 11, 22),
-    "hour": '12:30',
-    "volume": 300
-  }, {
-    "reason": "Urinou pouco",
-    "date": new Date(2022, 11, 23),
-    "hour": '13:30',
-    "volume": 30
-  }
-];
 
 const PATIENT_INITIAL_VALUES = {
   name: '',
@@ -66,17 +42,21 @@ export default function Monitoring() {
   useEffect(() => {
     api.get(`patients/${patientId}`)
       .then((response) => {
-        const data = {
+        let data = {
           ...response.data,
-          notifications: fakeNotifications,
-          measures: response.data.measures.sort((a, b) => {
-            const dateA = moment(a.time);
-            const dateB = moment(b.time);
+        }
+        if (response.data.measures !== undefined) {
+          data = {
+            ...data,
+            notifications: response.data.notifications,
+            measures: response.data.measures.sort((a, b) => {
+              const dateA = moment(a.time);
+              const dateB = moment(b.time);
 
-            return dateA.isAfter(dateB) ? 1 : -1;
-          })
-        };
-
+              return dateA.isAfter(dateB) ? 1 : -1;
+            })
+          };
+        }
         setPatient(data);
       })
       .catch((error) => {
@@ -151,7 +131,6 @@ export default function Monitoring() {
             <TextField
               fullWidth
               size='small'
-              required
               label='CPF'
               style={classes.disabled}
               disabled
@@ -163,7 +142,6 @@ export default function Monitoring() {
             <TextField
               fullWidth
               size='small'
-              required
               label='RG'
               style={classes.disabled}
               disabled
@@ -175,7 +153,6 @@ export default function Monitoring() {
             <TextField
               fullWidth
               size='small'
-              required
               label='Data de Nascimento'
               style={classes.disabled}
               disabled
@@ -188,7 +165,6 @@ export default function Monitoring() {
             <TextField
               fullWidth
               size='small'
-              required
               label='Volume Total'
               style={classes.disabled}
               disabled
@@ -200,7 +176,6 @@ export default function Monitoring() {
             <TextField
               fullWidth
               size='small'
-              required
               label='Iníco'
               disabled
               style={classes.disabled}
@@ -212,7 +187,6 @@ export default function Monitoring() {
             <TextField
               fullWidth
               size='small'
-              required
               label='Tempo Internado'
               disabled
               style={classes.disabled}
@@ -224,7 +198,6 @@ export default function Monitoring() {
             <TextField
               fullWidth
               size='small'
-              required
               label='Dia da Entrada'
               disabled
               style={classes.disabled}
@@ -236,7 +209,6 @@ export default function Monitoring() {
             <TextField
               fullWidth
               size='small'
-              required
               label='Hora da Entrada'
               disabled
               style={classes.disabled}
@@ -248,7 +220,6 @@ export default function Monitoring() {
             <TextField
               fullWidth
               size='small'
-              required
               label='Intervalo de Mensuração'
               disabled
               style={classes.disabled}
@@ -260,7 +231,6 @@ export default function Monitoring() {
             <TextField
               fullWidth
               size='small'
-              required
               label='Data e Hora de Saída do Hospital'
               disabled
               style={classes.disabled}
@@ -272,7 +242,6 @@ export default function Monitoring() {
             <TextField
               fullWidth
               size='small'
-              required
               label='Médico Responsável'
               disabled
               style={classes.disabled}
@@ -284,11 +253,10 @@ export default function Monitoring() {
             <TextField
               fullWidth
               size='small'
-              required
               label='Peso'
               disabled
               style={classes.disabled}
-              value={`${patient.weightInKg} Kg`}
+              value={patient.weightInKg ? `${patient.weightInKg} Kg` : ''}
             />
           </Grid>
 
@@ -296,11 +264,10 @@ export default function Monitoring() {
             <TextField
               fullWidth
               size='small'
-              required
               label='Altura'
               disabled
               style={classes.disabled}
-              value={`${patient.heightInCm / 100} m`}
+              value={patient.heightInCm ? `${patient.heightInCm / 100} m` : ''}
             />
           </Grid>
 
@@ -308,7 +275,6 @@ export default function Monitoring() {
             <TextField
               fullWidth
               size='small'
-              required
               multiline={true}
               rows={4}
               label='Diagnóstico'

@@ -21,7 +21,7 @@ const classes = {
   }
 };
 
-export default function ChoicePatient({ onChoosing, useFilter = true, title, onlyDischargedPatient, onlyActivePatients }) {
+export default function ChoicePatient({ onChoosing, useFilter = true, title, onlyDischargedPatient, noDischargedPatient }) {
 
   const [searchValue, setSearchValue] = useState('');
   const [patients, setPatients] = useState([]);
@@ -38,10 +38,16 @@ export default function ChoicePatient({ onChoosing, useFilter = true, title, onl
       };
     }
 
+    if (noDischargedPatient) {
+        filter.where = {
+            dischargedFromHospital: null
+        };
+    }
+
     api.get(`/patients?filter=${JSON.stringify(filter)}`).then((response) => {
       setPatients(response.data);
     })
-  }, [onlyDischargedPatient]);
+  }, [onlyDischargedPatient], [noDischargedPatient]);
 
   const getOnlyNumbers = (value) => {
     return value.replace(/[^\d,]/g, '');
@@ -114,7 +120,7 @@ export default function ChoicePatient({ onChoosing, useFilter = true, title, onl
           variant='outlined'
           fullWidth
           size='small'
-          style={{ backgroundColor: '#1B98E0', color: 'white', height: 40 }}
+          style={{ backgroundColor: '#075d85', color: 'white', height: 40 }}
           onClick={() => loadPatients()}
         >
           <Search />

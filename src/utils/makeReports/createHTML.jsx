@@ -83,6 +83,7 @@ async function tableNotifications(patient) {
     }
 
     const organizedNotifications = patient.notifications;
+
     const graphs = await createDailyCharts(patient);
 
     return (
@@ -124,11 +125,11 @@ async function tableNotifications(patient) {
                             {organizedNotifications[valueAttribute].map((item, key) => (
                                 <tr key={key}>
                                     <td style={classes.tableLine}>
-                                        &nbsp;&nbsp; {moment(item.time).format("HH:ss")}h
+                                        &nbsp;&nbsp; {moment(item.time).format("HH:mm")}h
                                     </td>
 
                                     <td style={classes.tableLine}>
-                                        &nbsp;&nbsp; {item.message}
+                                        &nbsp;&nbsp; {item.notification.subject}
                                     </td>
 
                                     <td style={classes.tableLine}>
@@ -139,12 +140,12 @@ async function tableNotifications(patient) {
                         </tbody>
                     </table >
 
-<div style={classes.centerImg}>
-                    <img
-                        alt={`Gráfico do dia ${moment(valueAttribute).format('DD/MM/YYYY')}`}
-                        src={graphs[valueAttribute]}
-                    />
-                    </div>
+                {/*<div style={classes.centerImg}>*/}
+                {/*    <img*/}
+                {/*        alt={`Gráfico do dia ${moment(valueAttribute).format('DD/MM/YYYY')}`}*/}
+                {/*        src={graphs[valueAttribute]}*/}
+                {/*    />*/}
+                {/*    </div>*/}
                 </div >
             ))}
         </>
