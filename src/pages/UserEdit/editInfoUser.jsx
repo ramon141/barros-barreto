@@ -22,6 +22,7 @@ import Button from '@material-ui/core/Button';
 import InputMask from "react-input-mask";
 
 import './styles.css';
+import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -80,7 +81,7 @@ export default function EditInfoUser({ userPermission }) {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [telefone, setTelefone] = useState("");
+  const [phone, setTelefone] = useState("");
   const [role, setRole] = useState([]);
   const [areasSelect, setAreasSelect] = useState([]);
   const [areas, setAreas] = useState([]);
@@ -88,7 +89,7 @@ export default function EditInfoUser({ userPermission }) {
   // const [users, setUsers] = useState("");
 
   const [editName, setEditName] = useState(true);
-  const [editTelefone, setEditTelefone] = useState(true);
+  const [editPhone, setEditTelefone] = useState(true);
   const [editEmail, setEditEmail] = useState(true);
 
   //alerta
@@ -114,13 +115,13 @@ export default function EditInfoUser({ userPermission }) {
       setId(response.data.id);
       setName(response.data.name);
       setEmail(response.data.email);
-      setTelefone(response.data.telefone);
+      setTelefone(response.data.phone);
       setPassword('');
       setRole(response.data.role);
       setAreasSelect(() => {
-        if (role === "Médico") {
+        if (role === "Doutor") {
           return response.data.executor.map(item => ({ value: item.id, label: item.name }));
-        } else if (role === "Técnico") {
+        } else if (role === "Controlador") {
           return "";
         }
       });
@@ -134,6 +135,10 @@ export default function EditInfoUser({ userPermission }) {
     setTelefone('');
     setAreasSelect([]);
     setRole([]);
+  }
+
+  function rawValueTelephone(telephone) {
+    return telephone.replace(/\D/g, "");
   }
 
   async function handleUpdate(e) {
@@ -169,9 +174,9 @@ export default function EditInfoUser({ userPermission }) {
           id,
           email,
           password,
-          telefone,
+          phone,
           role,
-          executor: areasSelect.map(item => ({
+          doctor: areasSelect.map(item => ({
             id: item.value,
             name: item.label
           })
@@ -185,7 +190,7 @@ export default function EditInfoUser({ userPermission }) {
           name,
           email,
           password,
-          telefone,
+          phone,
           role,
         }
         break;
@@ -235,6 +240,11 @@ export default function EditInfoUser({ userPermission }) {
             required
             label="Nome completo"
             InputProps={{
+              startAdornment: (
+                  <InputAdornment position="start">
+                    <AccountCircle />
+                  </InputAdornment>
+              ),
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton onClick={() => setEditName(editName === true ? false : true)}>
@@ -256,6 +266,11 @@ export default function EditInfoUser({ userPermission }) {
                        required
                        label="Email"
                        InputProps={{
+                         startAdornment: (
+                             <InputAdornment position="start">
+                               <AlternateEmailIcon />
+                             </InputAdornment>
+                         ),
                          endAdornment: (
                              <InputAdornment position="end">
                                <IconButton onClick={() => setEditEmail(editEmail === true ? false : true)}>
@@ -270,11 +285,11 @@ export default function EditInfoUser({ userPermission }) {
             />
 
           <InputMask
-            mask="(99) 9 9999-9999"
-            maskChar=" "
-            type="tel"
-            value={telefone}
-            onChange={e => setTelefone(e.target.value)}
+              mask="(99) 9 9999-9999"
+              maskChar=" "
+              type="tel"
+              value={phone}
+              onChange={e => setTelefone(rawValueTelephone(e.target.value))}
           >
             {() => <TextField placeholder="Digite o telefone de usuário"
               className={classes.textField}
@@ -283,25 +298,23 @@ export default function EditInfoUser({ userPermission }) {
               fullWidth
               label="Telefone"
               InputProps={{
+                startAdornment: (
+                <InputAdornment position="start">
+                <LocalPhoneIcon />
+                </InputAdornment>
+                ),
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton onClick={() => setEditTelefone(editTelefone === true ? false : true)}>
+                    <IconButton onClick={() => setEditTelefone(editPhone === true ? false : true)}>
                       <EditIcon />
                     </IconButton>
                   </InputAdornment>
                 ),
-                disabled: editTelefone,
+                disabled: editPhone,
               }}
             />}
           </InputMask>
 
-
-
-          {/*<Select options={typeUser}
-            onChange={e => setRole(e.label)} 
-            styles={styleMultiSelect}
-            placeholder="Selecione o tipo de usuário" 
-          />*/}
           <Notification
             notify={notify}
             setNotify={setNotify}

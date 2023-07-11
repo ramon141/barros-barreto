@@ -214,8 +214,13 @@ export default function EditInfoUser({userPermission}) {
             margin="normal"
             required
             type="password"
-            label="Senha"
+            label="Nova Senha"
             InputProps={{
+                startAdornment: (
+                <InputAdornment position="start">
+                <LockIcon />
+                </InputAdornment>
+                ),
               endAdornment: (
                 <InputAdornment position="end">
                 <IconButton onClick={() => setEditPassWord(editPassword === true ? false : true)}>
@@ -240,6 +245,11 @@ export default function EditInfoUser({userPermission}) {
             type="password"
             label="Confirme a senha"
             InputProps={{
+                startAdornment: (
+                    <InputAdornment position="start">
+                    <LockIcon />
+                    </InputAdornment>
+                    ),
               endAdornment: (
                 <InputAdornment position="end">
                 <IconButton onClick={() => setEditConfirmPassWord(editConfirmPassword === true ? false : true)}>
