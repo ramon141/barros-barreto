@@ -134,8 +134,7 @@ export default function EditRaspberry() {
 
   const {
     textFieldFormik,
-    autocompleteFormik,
-      checkBoxForMaintain,
+    selectFormik,
   } = components(formik);
 
   return (
@@ -167,14 +166,14 @@ export default function EditRaspberry() {
               </Grid>
 
               <Grid item xs={12} sm={12} md={4} lg={4}>
-                {/*{checkBoxForMaintain({*/}
-                {/*  id: "isMaintain",*/}
-                {/*  checked: valuesFormik.isMaintain,*/}
-                {/*  label: "Em manutenção?",*/}
-                {/*  defaultChecked: false,*/}
-                {/*  onChange: () => valuesFormik.isMaintain = !valuesFormik.isMaintain*/}
-                {/*})*/}
-                {/*}*/}
+                {selectFormik({
+                  id: "isMaintain",
+                  label: "Em manutenção?",
+                  options: [
+                    { value: false, description: "Não" },
+                    { value: true, description: "Sim" },
+                  ],
+                })}
               </Grid>
 
               <Grid item xs={12} sm={12} md={12} lg={12}>
