@@ -80,7 +80,7 @@ export default function EditInfoUser({ userPermission }) {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [telefone, setTelefone] = useState("");
+  const [phone, setPhone] = useState("");
   const [role, setRole] = useState([]);
   const [areasSelect, setAreasSelect] = useState([]);
   const [areas, setAreas] = useState([]);
@@ -114,7 +114,7 @@ export default function EditInfoUser({ userPermission }) {
       setId(response.data.id);
       setName(response.data.name);
       setEmail(response.data.email);
-      setTelefone(response.data.telefone);
+      setPhone(response.data.phone);
       setPassword('');
       setRole(response.data.role);
       setAreasSelect(() => {
@@ -131,7 +131,7 @@ export default function EditInfoUser({ userPermission }) {
     setId('');
     setName('');
     setEmail('');
-    setTelefone('');
+    setPhone('');
     setAreasSelect([]);
     setRole([]);
   }
@@ -153,7 +153,7 @@ export default function EditInfoUser({ userPermission }) {
           name,
           email,
           password,
-          telefone,
+          phone,
           role,
           manager: areasSelect.map(item => ({
             id: item.value,
@@ -169,7 +169,7 @@ export default function EditInfoUser({ userPermission }) {
           id,
           email,
           password,
-          telefone,
+          phone,
           role,
           executor: areasSelect.map(item => ({
             id: item.value,
@@ -185,7 +185,7 @@ export default function EditInfoUser({ userPermission }) {
           name,
           email,
           password,
-          telefone,
+          phone,
           role,
         }
         break;
@@ -273,8 +273,8 @@ export default function EditInfoUser({ userPermission }) {
             mask="(99) 9 9999-9999"
             maskChar=" "
             type="tel"
-            value={telefone}
-            onChange={e => setTelefone(e.target.value)}
+            value={phone}
+            onChange={e => setPhone(e.target.value)}
           >
             {() => <TextField placeholder="Digite o telefone de usuário"
               className={classes.textField}

@@ -135,7 +135,7 @@ export const components = (formik) => {
     </FormControl>
   );
 
-  const checkBoxForDefaulVolume = ({
+  const checkBoxForMaintain = ({
     id,
     defaultChecked,
     onChange,
@@ -163,6 +163,6 @@ export const components = (formik) => {
     dateTimePickerFormik,
     autocompleteFormik,
     selectFormik,
-    checkBoxForDefaulVolume,
+    checkBoxForMaintain,
   };
 };

@@ -39,7 +39,7 @@ export default function RaspberryMonitoring() {
 
     const { moduleId } = useParams();
     const [module, setModule] = useState({ propertyIdentification: "", model: "",
-        serialNumber: "", status: "", additionalDescription: "" });
+        serialNumber: "", status: "", additionalDescription: "", isMaintain: false });
 
     useEffect(() => {
         api
@@ -140,7 +140,7 @@ export default function RaspberryMonitoring() {
                             label="Status"
                             disabled
                             style={classes.disabled}
-                            value= {module.status === "operante" ? "Em utilização" : "Não utilizado"}
+                            value= {module.isMaintain ? "Em manutenção" : "Em operação"}
                         />
                     </Grid>
 

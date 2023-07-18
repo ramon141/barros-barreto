@@ -15,15 +15,23 @@ function Header({ handleOpenNotificationCustom, handleCloseNotificationCustom })
 		case 'Controlador':
 			userPermission = 'manager';
 			break;
-		case 'Executor':
-			userPermission = 'executor';
+		case 'Doctor':
+			userPermission = 'doctor';
 			break;
 		default:
 			break;
 	}
 
 	const userName = localStorage.getItem('NameUser');
-	const typeUser = localStorage.getItem('Permission');
+	let typeUser = localStorage.getItem('Permission');
+
+	if (typeUser.toString() === 'Doutor') {
+		typeUser = 'Médico';
+	}
+
+	if (typeUser.toString() === 'Controlador') {
+		typeUser = 'Técnico';
+	}
 	const [infoUser, setInfoUser] = useState([]);
 
 	useEffect(() => {

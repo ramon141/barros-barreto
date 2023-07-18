@@ -8,7 +8,7 @@ export const validationSchema = yup.object().shape({
       .string('')
       .required('O modelo é necessário'),
   serialNumber: yup
-      .string(),
+      .string().nullable(),
   additionalDescription: yup
-      .string(),
+      .string().nullable(),
 });

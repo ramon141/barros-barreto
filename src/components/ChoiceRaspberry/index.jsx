@@ -21,7 +21,7 @@ const classes = {
   }
 };
 
-export default function ChoiceRaspberry({ onChoosing, useFilter = true, title, onlyDischargedRaspberry, onlyActiveRaspberrys }) {
+export default function ChoiceRaspberry({ onChoosing, useFilter = true, title, onlyDischargedRaspberry }) {
 
   const [searchValue, setSearchValue] = useState('');
   const [raspberrys, setRaspberrys] = useState([]);

@@ -94,7 +94,8 @@ export default function RegisterPatient() {
         "minVolumeInMl",
         "diagnostic",
         "birthdate",
-        "entranceDate"
+        "entranceDate",
+          "doctorId",
       ],
       data
     );

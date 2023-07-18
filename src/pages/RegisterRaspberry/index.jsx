@@ -69,13 +69,14 @@ export default function RegisterRaspberry() {
         const newData = removeOptionalValues(
             [
                 "serialNumber",
-                "additionalDescription"
+                "additionalDescription",
+                "status"
             ],
             data
         );
 
         api
-            .post("raspberries", newData)
+            .post("/raspberries", newData)
             .then((response) => {
                 setNotify({
                     isOpen: true,
@@ -84,7 +85,7 @@ export default function RegisterRaspberry() {
                     title: "Módulo de mensuração cadastrado com sucesso!",
                 });
 
-                setTimeout(() => history.push("/choice-patient-monitoring"), 700); //TODO: Mudar o caminho para /choice-module-monitoring
+                setTimeout(() => history.push("/choice-module-monitoring"), 700);
             })
             .catch((err) => {
                 const message = err.response?.data?.error?.message;
@@ -236,7 +237,7 @@ export default function RegisterRaspberry() {
                                 <Button
                                     variant="outlined"
                                     style={classes.btnCancel}
-                                    onClick={() => history.push("/choice-patient-monitoring")}
+                                    onClick={() => history.push("/choice-module-monitoring")}
                                 >
                                     Voltar
                                 </Button>

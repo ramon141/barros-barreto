@@ -97,7 +97,7 @@ export default function UserRegister() {
 	// Tipos de usuários
 	const typeUser = [
 		{ value: "1", label: "Administrador" },
-		{ value: "2", label: "Controlador"  }
+		{ value: "2", label: "Técnico"  }
 	];
 	/* ************************************************************************ */
 
@@ -137,11 +137,6 @@ export default function UserRegister() {
 					password,
 					phone,
 					role,
-					// managers: areasSelect.map(item => ({
-					// 	id: item.value,
-					// 	name: item.label
-					// })
-					// )
 				}
 				break;
 
@@ -160,6 +155,8 @@ export default function UserRegister() {
 		}
 		if (role === 'Admin') {
 			user = 'Administrador';
+		} else if (role === 'Controlador') {
+			user = 'Técnico';
 		} else {
 			user = role;
 		}
@@ -169,6 +166,15 @@ export default function UserRegister() {
 			subTitle: '',
 			onConfirm: () => { handleRegistrer(data) }
 		})
+	}
+
+	function handleRole(e) {
+		if (e === 'Administrador') {
+			setRole('Admin')
+		}
+		if (e === 'Técnico') {
+			setRole('Controlador')
+		}
 	}
 
 	async function handleRegistrer(data) {
@@ -250,7 +256,8 @@ export default function UserRegister() {
 		<>
 			<div className="two-fields">
 				<Select options={typeUser}
-						onChange={e => e.label === 'Administrador' ? setRole('Admin') : setRole(e.label)}
+						onChange={e => handleRole(e.label)}
+						// onChange={e => e.label === 'Administrador' ? setRole('Admin') : setRole(e.label)}
 						styles={styleMultiSelect}
 						placeholder="Selecione o tipo de usuário"
 						/>

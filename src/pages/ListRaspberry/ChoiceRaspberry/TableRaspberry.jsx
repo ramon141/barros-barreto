@@ -40,6 +40,17 @@ export default function TableRaspberry({ raspberry, handleClickRow }) {
                return "Não utilizado"
             }
         },
+        {
+            field: 'isMaintain',
+            headerName: 'Status de manutenção',
+            width: 200,
+            valueFormatter: (row) => {
+                if (row.value) {
+                    return "Em manutenção"
+                }
+                return "Em operação"
+            }
+        }
     ];
 
     return (

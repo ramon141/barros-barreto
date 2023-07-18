@@ -80,13 +80,30 @@ export default function UserList() {
   useEffect(() => {
     if(refresh === true){
       api.get(`${userPermission}/users`).then(response => {
-        setUsers(response.data);
+        const users = response.data;
+        users.map(user => {
+          user.role = handleRole(user.role);
+        })
+        setUsers(users);
       })
     }
     setRefresh(false);
     // pega todos os usuários cadastrados
     
-  }, [userPermission, refresh]); 
+  }, [userPermission, refresh]);
+
+  function handleRole(role) {
+    if (role === 'Admin') {
+      return 'Administrador';
+    }
+    if (role === 'Controlador') {
+      return 'Técnico';
+    }
+    if (role === 'Doutor') {
+      return 'Médico';
+    }
+    return role;
+  }
 
   /* Colunas da tabela */
   const columns = useMemo (

@@ -1,4 +1,4 @@
-import { Grid, Typography, Card, CardContent, Button } from "@mui/material";
+import {Grid, Typography, Card, CardContent, Button, Checkbox, FormControlLabel} from "@mui/material";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -36,6 +36,7 @@ const INITIAL_VALUES_FORMIK = {
   additionalDescription: "",
   createdAt: moment(),
   status: "",
+  isMaintain: false,
 };
 
 export default function EditRaspberry() {
@@ -58,8 +59,7 @@ export default function EditRaspberry() {
         model: data.model,
         serialNumber: data.serialNumber,
         additionalDescription: data.additionalDescription,
-        createdAt: data.createdAt,
-        status: data.status,
+        isMaintain: data.isMaintain,
       });
     });
   }, []);
@@ -81,8 +81,7 @@ export default function EditRaspberry() {
       model,
       serialNumber,
       additionalDescription,
-      createdAt,
-      status,
+        isMaintain,
       ...data
     } = values;
 
@@ -90,16 +89,14 @@ export default function EditRaspberry() {
     data.model = model;
     data.serialNumber = serialNumber;
     data.additionalDescription = additionalDescription;
-    data.createdAt = createdAt;
-    data.status = status;
+    data.isMaintain = isMaintain;
 
     const newData = removeOptionalValues(
         [
           "propertyIdentification",
           "model",
           "serialNumber",
-          "additionalDescription",
-          "createdAt"
+          "additionalDescription"
         ],
         data
     );
@@ -138,6 +135,7 @@ export default function EditRaspberry() {
   const {
     textFieldFormik,
     autocompleteFormik,
+      checkBoxForMaintain,
   } = components(formik);
 
   return (
@@ -166,6 +164,17 @@ export default function EditRaspberry() {
                   id: "serialNumber",
                   label: "Número de série",
                 })}
+              </Grid>
+
+              <Grid item xs={12} sm={12} md={4} lg={4}>
+                {/*{checkBoxForMaintain({*/}
+                {/*  id: "isMaintain",*/}
+                {/*  checked: valuesFormik.isMaintain,*/}
+                {/*  label: "Em manutenção?",*/}
+                {/*  defaultChecked: false,*/}
+                {/*  onChange: () => valuesFormik.isMaintain = !valuesFormik.isMaintain*/}
+                {/*})*/}
+                {/*}*/}
               </Grid>
 
               <Grid item xs={12} sm={12} md={12} lg={12}>
