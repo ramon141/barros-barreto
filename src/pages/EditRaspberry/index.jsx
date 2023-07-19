@@ -150,22 +150,22 @@ export default function EditRaspberry() {
 
           <form onSubmit={formik.handleSubmit}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={12} md={4} lg={4}>
+              <Grid item xs={12} sm={12} md={3} lg={3}>
                 {textFieldFormik({ id: "propertyIdentification", label: "Número de identificação", required: true, })}
               </Grid>
 
-              <Grid item xs={12} sm={12} md={4} lg={4}>
+              <Grid item xs={12} sm={12} md={3} lg={3}>
                 {textFieldFormik({ id: "model", label: "Modelo", required: true, })}
               </Grid>
 
-              <Grid item xs={12} sm={12} md={4} lg={4}>
+              <Grid item xs={12} sm={12} md={3} lg={3}>
                 {textFieldFormik({
                   id: "serialNumber",
                   label: "Número de série",
                 })}
               </Grid>
 
-              <Grid item xs={12} sm={12} md={4} lg={4}>
+              <Grid item xs={12} sm={12} md={3} lg={3}>
                 {selectFormik({
                   id: "isMaintain",
                   label: "Em manutenção?",
